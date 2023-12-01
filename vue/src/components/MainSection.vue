@@ -1,22 +1,26 @@
 <template>
     <div>
-        <featured-article />
-        <small-article />
-        <side-bar />
+        <featured-post />
+        <small-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
     </div>
 </template>
 
 <script>
-import FeaturedArticle from '../components/FeaturedArticle.vue'
-import SmallArticle from '../components/SmallArticle.vue'
-import SideBar from '../components/SideBar.vue'
+import { storeKey } from 'vuex';
+import FeaturedPost from '../components/FeaturedPost.vue'
+import SmallPost from '../components/SmallPost.vue'
+
 export default {
     components: {
-        FeaturedArticle,
-        SmallArticle,
-        SideBar,
+        FeaturedPost,
+        SmallPost,
+    },
+    computed: {
+        filteredPosts() {
+            const postFilter = this.$store.state.posts;
+            return postFilter;
+        }
     }
-
 }
 
 </script>

@@ -1,13 +1,12 @@
 <template>
-    <div>
+    <div class="well">
         <div>
-            <img src="" alt="">
+            <img v-bind:src="post.image" >
         </div>
         <div>
-            <h3>Headline</h3>
-            <p>content</p>
+            <h3>{{post.title}}</h3>
+            <p>{{post.body}}</p>
             <div>
-                <date></date>
                 <div class="vote">
                     <a href=""><i>upvote</i></a>
                     <p class="upvote">number</p>
@@ -23,8 +22,20 @@
 </template>
 
 <script>
+
 export default {
-  
+  props: ['post'],
+  methods: {
+
+  },
+    computed: {
+    upvoteCount() {
+        return -1;
+    },
+    commentVote() {
+        return -1;
+    }
+  }
 }
 
 </script>
