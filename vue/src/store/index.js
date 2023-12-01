@@ -5,7 +5,20 @@ export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+      forums:[{
+        id: 1,
+        title: "Tech Elevator",
+        description: "",
+        image:'',
+      },
+      {
+        id: 2,
+        title: "Tech Elevator2",
+        description: "",
+        image:'',
+      }
+    ]
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
