@@ -1,6 +1,7 @@
 <template>
     <div>
-        <img src="" alt="">
+        <!--TOOD: fix alt text for images -->
+        <img src="">
         <div>
             <date></date>
             <div class="vote">
