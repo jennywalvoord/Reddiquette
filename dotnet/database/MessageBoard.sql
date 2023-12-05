@@ -1,7 +1,8 @@
 CREATE TABLE replys(
 reply_id int IDENTITY(100001,1)NOT NULL,
 reply_content varchar(1000),
-votes INT NULL,
+up_votes INT NULL,
+down_votes INT NULL,
 date_created DATE NOT NULL
 CONSTRAINT PK_replys PRIMARY KEY(reply_id)
 )
@@ -50,7 +51,8 @@ FOREIGN KEY(forum_id) REFERENCES [forum] (forum_id)
 
 CREATE TABLE user_forum(
 user_id INT NOT NULL,
-forum_id INT NOT NULL
+forum_id INT NOT NULL,
+is_moderator BIT NOT NULL
 CONSTRAINT [PK_user_forum] PRIMARY KEY (user_id, forum_id)
 FOREIGN KEY(user_id) REFERENCES [users] (user_id),
 FOREIGN KEY(forum_id) REFERENCES [forum] (forum_id)
