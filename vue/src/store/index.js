@@ -145,8 +145,30 @@ export function createStore(currentToken, currentUser) {
         state.token = '';
         state.user = {};
         axios.defaults.headers.common = {};
+      },
+      UPVOTE_POST(state, postId) {
+        const post = state.posts.find(p => p.id === postId);
+        if (post) {
+          post.upVote += 1;
+          post.clout = post.upVote - post.downVote;
+        }
+      },
+      DOWNVOTE_POST(state, postId) {
+        const post = state.posts.find(p => p.id === postId);
+        if (post) {
+          post.downVote += 1;
+          post.clout = post.upVote - post.downVote;
+        }
       }
     },
+    actions: {
+      upVotePost({ commit }, postId) {
+        commit('UPVOTE_POST', postId);
+      },
+      downVotePost({ commit }, postId) {
+        commit('DOWNVOTE_POST', postId);
+      }
+    }
   });
   return store;
 }
