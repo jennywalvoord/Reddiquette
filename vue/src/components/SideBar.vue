@@ -12,13 +12,6 @@
 
 export default {
     props: ['forums'],
-    computed: {
-        activeForums() {
-            const forumsFilter = this.$store.state.filter;
-            
-        }
-    }
-
 
 }
 

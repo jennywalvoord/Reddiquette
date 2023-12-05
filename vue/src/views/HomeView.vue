@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-  <main-section />
-  <side-bar />
+    <main-section />
+    <side-bar />
   </div>
 </template>
 
@@ -16,3 +16,10 @@ export default {
   }
 };
 </script>
+
+<style>
+div.home {
+  flex-flow: row;
+}
+
+</style>
