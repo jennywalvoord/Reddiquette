@@ -40,7 +40,10 @@ CREATE TABLE replys(
 	up_votes INT NOT NULL,
 	down_votes INT NOT NULL,
 	date_created DATETIME NOT NULL,
-	CONSTRAINT PK_replys PRIMARY KEY(reply_id)
+	forum_id INT NOT NULL,
+	CONSTRAINT PK_replys PRIMARY KEY(reply_id),
+	FOREIGN KEY(forum_id) REFERENCES [forum] (forum_id)
+	
 );
 
 --CREATE TABLE thread(
@@ -58,15 +61,6 @@ CREATE TABLE user_reply(
 	FOREIGN KEY(user_id) REFERENCES [users] (user_id),
 	FOREIGN KEY(reply_id) REFERENCES [replys] (reply_id)
 );
-
-CREATE TABLE reply_forum(
-	reply_id INT NOT NULL,
-	forum_id INT NOT NULL,
-	CONSTRAINT [PK_reply_thread] PRIMARY KEY(reply_id, forum_id),
-	FOREIGN KEY(reply_id) REFERENCES [replys] (reply_id),
-	FOREIGN KEY(forum_id) REFERENCES [forum] (forum_id)
-);
-
 
 --CREATE TABLE thread_forum(
 --thread_id INT NOT NULL,
@@ -111,48 +105,132 @@ VALUES
   ('Artistic Minds', 'Discuss and showcase your artistic creations', '/images/art_forum.jpg', '2023-01-07T11:45:00'),
   ('Finance Wizards', 'Master the art of personal finance', '/images/finance_forum.jpg', '2023-01-08T14:20:00');
 
-  INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP -1));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP +1));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP -2));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP-3));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP -4));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP -5));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, (CURRENT_TIMESTAMP -6));
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
-INSERT INTO replys (reply_content, up_votes, down_votes, date_created) 
-VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 0, 0, CURRENT_TIMESTAMP);
+  INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' ,
+			23, 
+			532, 
+			(CURRENT_TIMESTAMP -1),
+			1);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' ,
+			345, 
+			23, 
+			(CURRENT_TIMESTAMP +1),
+			2);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			432, 
+			231, 
+			(CURRENT_TIMESTAMP -2),
+			3);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			84320, 
+			2313, 
+			(CURRENT_TIMESTAMP-3),
+			4);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			3422, 
+			123, 
+			(CURRENT_TIMESTAMP -4),
+			5);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			7432, 
+			323, 
+			(CURRENT_TIMESTAMP -5),
+			6);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			92932, 
+			3271, 
+			(CURRENT_TIMESTAMP -6),
+			7);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			232, 
+			23421, 
+			CURRENT_TIMESTAMP,
+			8);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			32348, 
+			321932, 
+			CURRENT_TIMESTAMP,
+			1);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			32428, 
+			5692, 
+			CURRENT_TIMESTAMP,
+			2);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			929282, 
+			1, 
+			CURRENT_TIMESTAMP,
+			3);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			53921, 
+			9328, 
+			CURRENT_TIMESTAMP,
+			4);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			28201, 
+			52921, 
+			CURRENT_TIMESTAMP,
+			5);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			83291, 
+			3421, 
+			CURRENT_TIMESTAMP, 
+			6);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			7238, 
+			3291, 
+			CURRENT_TIMESTAMP,
+			7);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			32821, 
+			992, 
+			CURRENT_TIMESTAMP,
+			8);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			82921, 
+			3292, 
+			CURRENT_TIMESTAMP,
+			1);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			9281, 
+			3214, 
+			CURRENT_TIMESTAMP,
+			2);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			8291, 
+			321, 
+			CURRENT_TIMESTAMP,
+			3);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			3282, 
+			482, 
+			CURRENT_TIMESTAMP,
+			4);
+INSERT INTO replys (reply_content, up_votes, down_votes, date_created, forum_id) 
+VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Molestie at elementum eu facilisis. Pulvinar sapien et ligula ullamcorper malesuada proin libero nunc. Ac tortor vitae purus faucibus ornare suspendisse. Lectus nulla at volutpat diam. Dui accumsan sit amet nulla facilisi morbi tempus iaculis. Ultricies lacus sed turpis tincidunt id aliquet. Cursus euismod quis viverra nibh cras pulvinar mattis. Nec dui nunc mattis enim ut tellus elementum sagittis vitae. Aliquam faucibus purus in massa tempor nec feugiat. Commodo nulla facilisi nullam vehicula ipsum. Feugiat vivamus at augue eget arcu dictum varius. Nisl condimentum id venenatis a condimentum.' , 
+			92821, 
+			32991, 
+			CURRENT_TIMESTAMP,
+			5);
 
 
 -- Inserting
