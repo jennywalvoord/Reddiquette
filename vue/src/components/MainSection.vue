@@ -1,7 +1,20 @@
 <template>
     <div>
-        <featured-post />
-        <small-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
+        <v-container class="my-5">
+        <v-layout row>
+          <v-flex xs12 md6>
+            <featured-post />
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <v-container class="my-5">
+        <v-layout row>
+          <v-flex xs12 md>
+            <small-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
+
+          </v-flex>
+        </v-layout>
+      </v-container>
     </div>
 </template>
 
