@@ -7,7 +7,7 @@
           </v-flex>
         </v-layout>
       </v-container>
-      
+
       <v-container class="my-5">
         <v-layout row>
           <v-flex xs12 md>
@@ -21,12 +21,12 @@
 
 <script>
 import { storeKey } from 'vuex';
-import FeaturedPost from '../components/FeaturedPost.vue'
+// import FeaturedPost from '../components/FeaturedPost.vue'
 import SmallPost from '../components/SmallPost.vue'
 
 export default {
     components: {
-        FeaturedPost,
+        // FeaturedPost,
         SmallPost,
     },
     computed: {
