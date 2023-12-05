@@ -12,6 +12,8 @@
 import Forum from '../components/Forum.vue';
 export default {
     props: ['forums'],
+<<<<<<< HEAD
+=======
     components: {
         Forum
     },
@@ -23,6 +25,7 @@ export default {
     }
    
 
+>>>>>>> 81e5bdf55aa80bb56bd1f9d5366e1308e2c8e3fa
 
 }
 

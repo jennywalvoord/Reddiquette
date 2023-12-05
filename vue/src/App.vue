@@ -11,3 +11,9 @@
 <script>
 
 </script>
+
+<style>
+div.nav{
+  flex-flow: row;
+}
+</style>
