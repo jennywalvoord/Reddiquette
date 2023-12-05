@@ -1,15 +1,26 @@
 <template>
     <div>
-        <forums/>
+        <forum-section v-bind:forum="findForum"/>
+        <side-bar v-bind:forums="forums"/>
     </div>
 </template>
 
 <script>
-import Forums from '../components/Forums.vue'
+import ForumSection from '../components/ForumSection.vue';
+import SideBar from '../components/SideBar.vue';
+
 export default {
-components: {
-    Forums
-}
+    components: {
+        SideBar,
+        ForumSection,
+    },
+    computed: {
+        findForum() {
+            let forumId = this.$route.params.id;  
+            let forum = this.$store.state.forums.find((p) => p.id == forumId);
+            return forum;
+        }
+    },
 }
 
 
