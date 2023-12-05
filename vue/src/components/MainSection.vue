@@ -11,7 +11,7 @@
       <v-container class="my-5">
         <v-layout row>
           <v-flex xs12 md>
-            <small-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
+            <small-post v-for="post in filteredPosts" :key="post.id" :post="post" />
 
           </v-flex>
         </v-layout>
@@ -31,8 +31,7 @@ export default {
     },
     computed: {
         filteredPosts() {
-            const postFilter = this.$store.state.posts;
-            return postFilter;
+            return this.$store.state.posts.slice().sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
         }
     }
 }
