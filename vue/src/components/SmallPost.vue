@@ -5,12 +5,14 @@
         </div>
         <div>
             <h3>{{post.title}}</h3>
-            <p>{{post.body}}</p>
+            <p>{{post.body.substring(0,250)}}...</p>
+            <p>DATE POSTED: {{post.dateCreated}}</p>
+            <p>CLOUT: {{ post.clout }}</p>
             <div>
                 <div class="vote">
-                    <a href=""><i>upvote</i></a>
-                    <p class="upvote">number</p>
-                    <a href=""><i>downvote</i></a>
+                    <a v-on:click="upVote">Upvote</a>
+                    <p class="clout">{{ post.clout }}</p>
+                    <a href=""><i>downvote{{  }}</i></a>
                 </div>
                 <div class="comment">
                     <a href=""><i>comment</i></a>
@@ -26,16 +28,47 @@
 export default {
   props: ['post'],
   methods: {
+    
+    upVote() {
+      this.$store.upvoted = !this.$store.upvoted;
+      this.$store.downvoted = false;
+    },
+    downVote() {
+      this.$store.downvoted = !this.$store.downvoted;
+      this.$store.upvoted = false;
+    },
 
   },
-    computed: {
-    upvoteCount() {
-        return -1;
+  computed: {
+    upVotes() {
+
+      if (this.$store.upvoted) {
+        return this.$store.post.clout + 1;
+      }
+      else {
+        return this.$store.post.clout;
+      }
+
     },
-    commentVote() {
-        return -1;
+    downVotes(){
+      if(this.$store.downvoted){
+        return this.$store.post.clout -1;
+      }
+      else{
+        return this.$store.post.clout;
+      }
     }
-  }
+
+  },
+    // computed: {
+    // upvoteCount() {
+    //     return -1;
+    // },
+    // commentVote() {
+    //     return -1;
+    // }
+   
+ 
 }
 
 </script>
