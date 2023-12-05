@@ -21,20 +21,12 @@
         <v-icon icon="$vuetify"></v-icon >
       </v-btn>
   </v-app-bar>
-
-   
  
-    <v-main >
-      <v-row>
-        <v-column></v-column>
-      </v-row>
-     
-            <featured-post />
-     
- 
+    <v-main class="main">
+      <main-section />
         <side-bar v-bind:forums="forums"/>
       <!-- <forum v-for="forum in activeForums" v-bind:key="forum.id" /> -->
-        <main-section />
+       
     </v-main>
   
 </template>
@@ -64,6 +56,10 @@ export default {
 <style>
 div.home {
   flex-flow: row;
+}
+
+.main {
+  display: flex;
 }
 
 </style>

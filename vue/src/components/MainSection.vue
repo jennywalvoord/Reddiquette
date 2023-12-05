@@ -7,6 +7,7 @@
           </v-flex>
         </v-layout>
       </v-container>
+      
       <v-container class="my-5">
         <v-layout row>
           <v-flex xs12 md>
