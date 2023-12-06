@@ -41,12 +41,12 @@
 
 <script>
 import MainSection from '../components/MainSection.vue'
-import SideBar from '../components/SideBar.vue';
+// import SideBar from '../components/SideBar.vue';
 
 export default {
   components: {
     MainSection,
-    SideBar,
+    // SideBar,
   },
   data: () => ({ drawer: null }),
 };
