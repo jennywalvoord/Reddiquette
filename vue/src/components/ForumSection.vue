@@ -17,20 +17,22 @@
 
 <script>
 import { storeKey } from 'vuex';
-import SmallPost from './SmallPost.vue';
+import SmallPost from '../components/SmallPost.vue';
 
 export default {
     props: ["forum"],
     components: {
         SmallPost,
     },
-    computed: {
+    
+      computed: {
         filteredPosts() {
-            let forumId = this.forum.id;  
-            let posts = this.$store.state.forums.filter((p) => { p.id == forumId});
-            return posts;
+            let forumId = this.forum.id;
+            let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
+          return posts;
         }
     }
+    
 }
 
 </script>
