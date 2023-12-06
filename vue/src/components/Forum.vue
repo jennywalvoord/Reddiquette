@@ -1,4 +1,5 @@
 <template>
+<v-content>
     <div class="well">
         <div>
             
@@ -11,6 +12,10 @@
         
         </div>
     </div>
+
+</v-content>
+
+    
 </template>
 <script>
 
