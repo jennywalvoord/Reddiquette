@@ -2,10 +2,11 @@
   <div class="card pb-6">
     <div class="well">
     <div>
+      <h2>Forum: {{ getForumTitle(post.forumId) }}</h2>
       <img v-bind:src="post.image">
     </div>
     <div>
-      <h2>Forum: {{ getForumTitle(post.forumId) }}</h2>
+      
       <h3>{{ post.title }}</h3>
       <p>{{ post.body.substring(0, 250) }}...</p>
       <p>{{ post.dateCreated }}</p>
