@@ -14,9 +14,11 @@
 
   <div class="social">
     <div class="vote">
-        <a @click="upVote">Upvote <i class="fa-solid fa-arrow-up"></i></a>
+      <a @click="upVote" v-if="!isUpvoted">Upvote <i class="fa-solid fa-arrow-up"></i></a>
+      <span v-else>Upvoted <i class="fa-solid fa-arrow-up"></i></span>
         <!-- <p class="upvote">Upvote / Downvote</p> -->
-        <a @click="downVote">Downvote <i class="fa-solid fa-arrow-down"></i></a>
+        <a @click="downVote" v-if="!isDownvoted">Downvote <i class="fa-solid fa-arrow-down"></i></a>
+    <span v-else>Downvoted <i class="fa-solid fa-arrow-down"></i></span>
     </div>
     <div class="comment">
         <a href=""><i class="fa-regular fa-comment"></i></a>
@@ -35,13 +37,28 @@
 <script>
 export default {
   props: ['post'],
+  data() {
+    //Upvote and Downvote work but they do not actually affect the clout in the store.  Logic needs to be fixed.
+    return {
+      isUpvoted: false,
+      isDownvoted: false
+    };
+  },
   methods: {
     upVote() {
-    this.$store.dispatch('upVotePost', this.post.id);
-  },
-  downVote() {
-    this.$store.dispatch('downVotePost', this.post.id);
-  },
+      if (!this.isUpvoted) {
+        this.$store.dispatch('upVotePost', this.post.id);
+
+        this.isUpvoted = true;
+      }
+    },
+    downVote() {
+      if (!this.isDownvoted) {
+        this.$store.dispatch('downVotePost', this.post.id);
+
+        this.isDownvoted = true;
+      }
+    },
     updateClout() {
       this.$store.clout = this.$store.upVote - this.$store.downVote;
     },
