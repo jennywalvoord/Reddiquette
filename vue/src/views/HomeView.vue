@@ -42,21 +42,13 @@
 <script>
 import MainSection from '../components/MainSection.vue'
 import SideBar from '../components/SideBar.vue';
-// import Forum from '../components/Forum.vue';
+
 export default {
   components: {
     MainSection,
-    SideBar
-    // Forum
+    SideBar,
   },
   data: () => ({ drawer: null }),
-  
-  // computed: {
-  //       activeForums() {
-  //           const forumsFilter = this.$store.state.forums;
-  //           return forumsFilter;
-  //       }
-  //   }
 };
 </script>
 

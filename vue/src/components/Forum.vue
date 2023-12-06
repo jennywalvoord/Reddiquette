@@ -4,7 +4,9 @@
             
         </div>
         <div>
-            <h3>{{forums.title}}</h3>
+            <h3>
+                <router-link  v-bind:to="{ name: 'forum-view', params: {id: forums.id}}">{{forums.title}}</router-link>
+            </h3>
             
         
         </div>
@@ -15,8 +17,6 @@
 export default {
     props: ['forums']
    
-
-
 }
 
 </script>
