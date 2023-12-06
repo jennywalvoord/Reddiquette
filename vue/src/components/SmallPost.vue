@@ -1,35 +1,41 @@
 <template>
-  <div class="card pb-6">
-    <div class="well">
-    <div>
-      <img v-bind:src="post.image">
-    </div>
-    <div>
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.body.substring(0, 250) }}...</p>
-      <p>DATE POSTED: {{ post.dateCreated }}</p>
-      <p>CLOUT: {{ post.clout }}</p>
-    </div>
-  </div>
+  <v-content>
+    <v-card width="300" class="overflow-hidden">
+      <v-img :width="300" :height="200" aspect-ratio="16/9" cover v-bind:src="post.image"></v-img>
 
-  <div class="social">
-    <div class="vote">
-        <a @click="upVote">Upvote <i class="fa-solid fa-arrow-up"></i></a>
-        <!-- <p class="upvote">Upvote / Downvote</p> -->
-        <a @click="downVote">Downvote <i class="fa-solid fa-arrow-down"></i></a>
-    </div>
-    <div class="comment">
-        <a href=""><i class="fa-regular fa-comment"></i></a>
-        <p class="upvote">comment</p>
-    </div>
-    <div class="reply">
-        <a href=""><i class="fa-regular fa-comments"></i></a>
-        <p class="upvote">reply</p>
-    </div>
-</div>
+      <v-card-title primary-title>
+        <div>
+          <div class="headline text-center">{{ post.title }}</div>
+          <p class="text-subtitle-2">Date posted: {{ post.dateCreated }}</p>
+          <p class="text-subtitle-2">Clout: {{ post.clout }}</p>
+          <v-chip class="ma-2" color="orange" label size="small">
+            <i class="fa-solid fa-tag pr-2"></i>Forum Name
+          </v-chip>
+        </div>
+      </v-card-title>
+      <v-card flat height="150" class="overflow-hidden">
+        <v-card-text>
+          <span style="text-wrap: wrap">{{ post.body.substring(0, 250) }}...</span>
 
-  </div>
-  
+        </v-card-text>
+      </v-card>
+      
+
+      <v-chip-group class="ma-2">
+        <v-chip class="green" label size="small" @click="upVote">
+          <i class="fa-solid fa-up-long pr-2"></i>Upvote
+        </v-chip>
+
+        <v-chip class="red" label size="small" @click="downVote">
+          <i class="fa-solid fa-down-long pr-2"></i>Downvote
+        </v-chip>
+
+        <v-chip class="grey" label size="small" @click=null>
+          <i class="fa-regular fa-comment pr-2"></i>Comment
+        </v-chip>
+      </v-chip-group>
+    </v-card>
+  </v-content>
 </template>
 
 <script>
@@ -49,7 +55,7 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 .card {
   max-width: 600px;
  
@@ -95,4 +101,4 @@ img {
     margin: 0;
     padding: 0;
 }
-</style>
+</style> -->
