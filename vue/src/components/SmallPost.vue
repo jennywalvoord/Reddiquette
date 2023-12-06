@@ -5,9 +5,10 @@
       <img v-bind:src="post.image">
     </div>
     <div>
+      <h2>Forum: {{ getForumTitle(post.forumId) }}</h2>
       <h3>{{ post.title }}</h3>
       <p>{{ post.body.substring(0, 250) }}...</p>
-      <p>DATE POSTED: {{ post.dateCreated }}</p>
+      <p>{{ post.dateCreated }}</p>
       <p>CLOUT: {{ post.clout }}</p>
     </div>
   </div>
@@ -35,36 +36,44 @@
 </template>
 
 <script>
+import { storeKey } from 'vuex';
 export default {
-  props: ['post'],
+  props: ['post', 'forum'], 
   data() {
-    //Upvote and Downvote work but they do not actually affect the clout in the store.  Logic needs to be fixed.
     return {
       isUpvoted: false,
-      isDownvoted: false
+      isDownvoted: false,
     };
   },
   methods: {
     upVote() {
       if (!this.isUpvoted) {
         this.$store.dispatch('upVotePost', this.post.id);
-
         this.isUpvoted = true;
+        this.updateClout(); 
       }
     },
     downVote() {
       if (!this.isDownvoted) {
         this.$store.dispatch('downVotePost', this.post.id);
-
         this.isDownvoted = true;
+        this.updateClout(); 
       }
     },
     updateClout() {
-      this.$store.clout = this.$store.upVote - this.$store.downVote;
+      const upVoteCount = this.$store.getters.getUpVoteCount; 
+      const downVoteCount = this.$store.getters.getDownVoteCount; 
+      this.$store.commit('updateClout', upVoteCount - downVoteCount);
     },
-  },
+    getForumTitle(forumId) {
+      const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
+      return forum ? forum.title : 'Forum Not Found';
+    }
+  }
 };
 </script>
+
+
 
 <style>
 .card {
