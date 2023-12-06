@@ -3,19 +3,21 @@ using Capstone.DAO;
 using Capstone.Exceptions;
 using Capstone.Models;
 using Capstone.Security;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Capstone.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/forum")]
     [ApiController]
-    public class ForumsController : ControllerBase
+    public class ForumController : ControllerBase
     {
         private readonly IForumDao forumDao;
 
-        public ForumsController(IForumDao forumDao)
+        public ForumController(IForumDao forumDao)
         {
             this.forumDao = forumDao;
         }
+
         [HttpGet]
         public IActionResult GetAllForums()
         {
@@ -30,6 +32,7 @@ namespace Capstone.Controllers
             }
 
         }
+
         [HttpGet("{id}")]
         public IActionResult GetForumById(int id)
         {
@@ -47,7 +50,9 @@ namespace Capstone.Controllers
                 return StatusCode(500, $"Failed to find forum by ID {id}: {e.Message}");
             }
         }
+
         [HttpPost]
+        [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult CreateForum(Forum forum)
         {
             try
@@ -60,7 +65,9 @@ namespace Capstone.Controllers
                 return StatusCode(500, $"Failed to create forum: {e.Message}");
             }
         }
+
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult UpdateForum(int id, Forum forum)
         {
             if (id != forum.ForumId)
@@ -81,7 +88,9 @@ namespace Capstone.Controllers
                 return StatusCode(500, $"Failed to update forum: {e.Message}");
             }
         }
+
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, Moderator")]
         public IActionResult DeleteForum(int id)
         {
             try
