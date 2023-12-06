@@ -22,7 +22,7 @@ export default {
     computed: {
         filteredPosts() {
             let forumId = this.forum.id;  
-            let posts = this.$store.state.forums.filter((p) => p.id == forumId);
+            let posts = this.$store.state.forums.filter((p) => { p.id == forumId});
             return posts;
         }
     }
