@@ -1,12 +1,16 @@
 <template>
-    <nav>
-        <v-toolbar app>
-            <v-toolbar-title class="text-uppercase grey--text">
-                <span class="">Rediquette</span>
-                <span class="font-weight-light">Keeping the trolls out</span>
-            </v-toolbar-title>
-        </v-toolbar>
-    </nav>
+ <v-app-bar id="inspire">
+    <v-app-bar-nav-icon>
+      <v-icon @click="drawer = !drawer" icon="$vuetify"></v-icon>
+    </v-app-bar-nav-icon>
+    <v-app-bar-title class="text-uppercase">Rediquette</v-app-bar-title>
+    <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
+    <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+    <v-btn flat color="grey">
+      <span>Sign Out</span>
+      <v-icon icon="$vuetify"></v-icon>
+    </v-btn>
+  </v-app-bar>
 </template>
 
 <script>

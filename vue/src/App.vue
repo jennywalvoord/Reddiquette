@@ -2,6 +2,7 @@
   <v-app class="grey lighten-4">
    
     <v-content>
+      <navbar></navbar>
       <router-view />
     </v-content>
   
@@ -10,10 +11,11 @@
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue'
 
 export default {
   name: 'App',
-  components: {
+  components: {Navbar
   },
   data () {
     return {

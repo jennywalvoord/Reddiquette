@@ -1,5 +1,6 @@
 <template>
-    <div>
+  <v-content>
+ <div>
         <v-container class="my-5">
         <v-layout row>
           <v-flex xs12 md6>
@@ -17,6 +18,9 @@
         </v-layout>
       </v-container>
     </div>
+
+  </v-content>
+   
 </template>
 
 <script>
