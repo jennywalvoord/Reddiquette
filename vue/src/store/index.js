@@ -57,8 +57,8 @@ export function createStore(currentToken, currentUser) {
         image: "https://picsum.photos/300/400",
         dateCreated: '07/14/2023',
         clout: 0,
-        upVote: 0,
-        downVote: 0
+        upVote: 7,
+        downVote:8
       },
       {
         id: 2,
