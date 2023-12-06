@@ -27,12 +27,11 @@ const routes = [
   },
   {
     path: '/forum/:id',
-    name: `ForumView`,
+    name: `forum-view`,
     component: ForumView,
     meta: {
       requiresAuth: false
     }
-
   },
   {
     path: "/login",

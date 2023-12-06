@@ -3,7 +3,7 @@
         <v-container class="my-5">
         <v-layout row>
           <v-flex xs12 md6 lg1>
-            <featured-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
+            <small-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
           </v-flex>
         </v-layout>
       </v-container>
@@ -12,12 +12,12 @@
 
 <script>
 import { storeKey } from 'vuex';
-import FeaturedPost from '../components/FeaturedPost.vue'
+import SmallPost from './SmallPost.vue';
 
 export default {
     props: ["forum"],
     components: {
-        FeaturedPost,
+        SmallPost,
     },
     computed: {
         filteredPosts() {
