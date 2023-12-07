@@ -2,7 +2,7 @@
   <v-content>
     <v-container class="my-5">
       <v-layout row wrap>
-        <v-flex xs12 md6 lg4 v-for="post in filteredPosts" :key="post.id">
+        <v-flex xs12 md6 lg4 v-for="post in filteredByClout" :key="post.id">
           <small-post :post="post" />
         </v-flex>
       </v-layout>
@@ -18,11 +18,17 @@ export default {
     SmallPost,
   },
   computed: {
-    filteredPosts() {
+    filteredByDate() {
       let forumId = this.forum.id;
     let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
     posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
     return posts;
+    },
+    filteredByClout() {
+      let forumId = this.forum.id;
+      let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
+      posts.sort((a, b) => b.clout - a.clout );
+      return posts;
     }
   }
 }
