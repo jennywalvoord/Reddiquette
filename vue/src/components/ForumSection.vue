@@ -11,24 +11,30 @@
 </template>
 
 <script>
-import { storeKey } from 'vuex';
 import SmallPost from '../components/SmallPost.vue';
 
 export default {
-  props: ["forum"],
+  props: ["forum","sortBy"],
   components: {
     SmallPost,
   },
   computed: {
-    filteredPosts() {
+    sortedPosts() {
+      if (!this.forum || !this.forum.id) {
+        return [];
+      }
+
       let forumId = this.forum.id;
-    let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
+      let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
 
-    posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
-
-    return posts;
-    }
-  }
-}
-
+      if (this.sortBy === 'date') {
+        posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
+      } else if (this.sortBy === 'clout') {
+        posts.sort((a, b) => b.clout - a.clout);
+      } 
+      return posts;
+    },
+  },
+  
+};
 </script>
