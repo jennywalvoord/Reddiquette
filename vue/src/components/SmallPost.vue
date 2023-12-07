@@ -1,5 +1,6 @@
 <template>
   <v-content>
+        <router-link  v-bind:to="{ name: 'post-view', params: { id: post.id } }">
     <v-card width="300" class="overflow-hidden">
     
       <v-img :width="300" :height="200" aspect-ratio="16/9" cover v-bind:src="post.image"></v-img>
@@ -27,6 +28,8 @@
 
         </v-card-text>
       </v-card>
+      </v-card>
+    </router-link>
       
 
       <v-chip-group class="ma-2">
@@ -42,7 +45,6 @@
           <i class="fa-regular fa-comment pr-2"></i>Comment
         </v-chip>
       </v-chip-group>
-    </v-card>
   </v-content>
 </template>
 
