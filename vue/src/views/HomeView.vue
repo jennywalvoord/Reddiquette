@@ -1,4 +1,5 @@
 <template>
+  
   <div class="d-flex flex-wrap grey-lighten pa-24">
     <div class="ma-24 pa-24">
       <div class="filter-bar-wrapper">
@@ -30,15 +31,3 @@ export default {
   data: () => ({ drawer: null }),
 };
 </script>
-
-<!-- <style>
-
-div.home {
-  flex-flow: row;
-}
-
-.main {
-  display: flex;
-}
-
-</style> -->

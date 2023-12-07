@@ -5,12 +5,17 @@
           <v-list-item
           lines="two"
           prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-          title="Anonymous"
+          
         >
-        <router-link to="/login" class="text-subtitle-2">Logged in</router-link>
+        <v-list-item-content>
+          <v-list-item-title>{{ displayedUsername }}</v-list-item-title>
+          <v-list-item-subtitle>
+            <router-link to="/login" class="text-subtitle-2">Logged in</router-link>
+          </v-list-item-subtitle>
+        </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-
+    
         <v-list-item>
           <h3 class="content-title">Active Forums</h3>
 
@@ -55,6 +60,18 @@ export default {
                 })
                 .slice(0, 5);
             return activeForums;
+        },
+        user() {
+
+          return this.$store.state.user;
+        },
+        displayedUsername() {
+
+          if (this.user && this.user.username) {
+            return this.user.username;
+          } else {
+            return 'Anonymous';
+          }
         }
     }
 }
