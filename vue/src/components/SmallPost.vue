@@ -39,19 +39,40 @@
 </template>
 
 <script>
+import { storeKey } from 'vuex';
 export default {
-  props: ['post'],
+  props: ['post', 'forum'], 
+  data() {
+    return {
+      isUpvoted: false,
+      isDownvoted: false,
+    };
+  },
   methods: {
     upVote() {
-    this.$store.dispatch('upVotePost', this.post.id);
-  },
-  downVote() {
-    this.$store.dispatch('downVotePost', this.post.id);
-  },
-    updateClout() {
-      this.$store.clout = this.$store.upVote - this.$store.downVote;
+      if (!this.isUpvoted) {
+        this.$store.dispatch('upVotePost', this.post.id);
+        this.isUpvoted = true;
+        this.updateClout(); 
+      }
     },
-  },
+    downVote() {
+      if (!this.isDownvoted) {
+        this.$store.dispatch('downVotePost', this.post.id);
+       this.isDownvoted = true;
+        this.updateClout(); 
+      }
+    },
+    updateClout() {
+      const upVoteCount = this.$store.getters.getUpVoteCount; 
+      const downVoteCount = this.$store.getters.getDownVoteCount; 
+      this.$store.commit('updateClout', upVoteCount - downVoteCount);
+    },
+    getForumTitle(forumId) {
+      const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
+      return forum ? forum.title : 'Forum Not Found';
+    }
+  }
 };
 </script>
 

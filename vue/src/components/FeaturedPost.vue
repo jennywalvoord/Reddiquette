@@ -15,7 +15,6 @@
   <div class="social">
     <div class="vote">
         <a @click="upVote">Upvote <i class="fa-solid fa-arrow-up"></i></a>
-        <!-- <p class="upvote">Upvote / Downvote</p> -->
         <a @click="downVote">Downvote <i class="fa-solid fa-arrow-down"></i></a>
     </div>
     <div class="comment">

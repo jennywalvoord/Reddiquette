@@ -33,6 +33,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@Id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
+                    {
                         forum = new Forum
                         {
                             ForumId = Convert.ToInt32(reader["forum_id"]),
@@ -41,6 +42,7 @@ namespace Capstone.DAO
                             ImagePath = reader["image_path"].ToString(),
                             DateCreated = Convert.ToDateTime(reader["date_created"])
                         };
+                    }
                 }
             }
             catch (SqlException e)

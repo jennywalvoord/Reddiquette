@@ -4,7 +4,7 @@
           <v-list-item
           lines="two"
           prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-          title="Jane Smith"
+          title="Anonymous"
           subtitle="Logged in"
         ></v-list-item>
       <v-divider></v-divider>
