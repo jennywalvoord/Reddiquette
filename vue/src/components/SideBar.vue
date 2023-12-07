@@ -1,12 +1,14 @@
 <template>
   <v-content >
       <div >
+        <login-bar />
           <v-list-item
           lines="two"
           prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
           title="Anonymous"
-          subtitle="Logged in"
-        ></v-list-item>
+        >
+        <router-link to="/login" class="text-subtitle-2">Logged in</router-link>
+      </v-list-item>
       <v-divider></v-divider>
 
         <v-list-item>
@@ -25,10 +27,11 @@
 </template>
 <script>
 import Forum from '../components/Forum.vue';
+
 export default {
   props: ['forums'],
   components: {
-      Forum
+      Forum,
   },
   computed:{
   activeForums() {
