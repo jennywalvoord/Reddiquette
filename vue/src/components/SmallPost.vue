@@ -1,6 +1,7 @@
 <template>
   <v-content>
     <v-card width="300" class="overflow-hidden">
+    
       <v-img :width="300" :height="200" aspect-ratio="16/9" cover v-bind:src="post.image"></v-img>
 
       <v-card-title primary-title>
@@ -8,9 +9,16 @@
           <div class="headline text-center">{{ post.title }}</div>
           <p class="text-subtitle-2">Date posted: {{ post.dateCreated }}</p>
           <p class="text-subtitle-2">Clout: {{ post.clout }}</p>
-          <v-chip class="ma-2" color="orange" label size="small">
-            <i class="fa-solid fa-tag pr-2"></i>Forum Name
-          </v-chip>
+          
+          <v-flex xs6 sm4 md2>
+            <div>
+              <v-chip small class="ma-2" color="orange" label size="small">
+                {{ getForumTitle(post.forumId) }}
+              </v-chip>
+            </div>
+          </v-flex>
+          
+        
         </div>
       </v-card-title>
       <v-card flat height="150" class="overflow-hidden">

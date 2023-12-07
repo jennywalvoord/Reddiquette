@@ -1,26 +1,32 @@
 <template>
-  <div id="register" class="text-center">
-    <form v-on:submit.prevent="register">
-      <h1>Create Account</h1>
-      <div role="alert" v-if="registrationErrors">
-        {{ registrationErrorMsg }}
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <div class="form-input-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
-      </div>
-      <button type="submit">Create Account</button>
-      <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
-    </form>
-  </div>
+  <v-content>
+    <v-card>
+      <v-card id="register" class="text-center bg-pink-lighten-5 text-black elevation-15">
+        <form v-on:submit.prevent="register">
+          <v-card-title>Create Account</v-card-title>
+          <div role="alert" v-if="registrationErrors">
+            {{ registrationErrorMsg }}
+          </div>
+          <div class="form-input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" v-model="user.username" required autofocus />
+          </div>
+          <div class="form-input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" v-model="user.password" required />
+          </div>
+          <div class="form-input-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
+          </div>
+          <button type="submit">Create Account</button>
+          <p><router-link class="text-subtitle-2" v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+        </form>
+      </v-card>
+    </v-card>
+    
+  </v-content>
+  
 </template>
 
 <script>
@@ -78,5 +84,13 @@ export default {
 }
 label {
   margin-right: 0.5rem;
+}
+#register {
+  max-width: 33%;
+  min-width: 300px;
+  position: fixed;
+  top: 100px; /* Adjust the distance from the top as needed */
+  left: 50%; /* Center the card horizontally if needed */
+  transform: translateX(-50%); /* Center the card horizontally */
 }
 </style>

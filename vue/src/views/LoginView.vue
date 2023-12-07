@@ -1,26 +1,29 @@
 <template>
-  <div id="login">
-    <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
-      <div role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <button type="submit">Sign in</button>
-      <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
-    </form>
-  </div>
+  <v-content>
+    <v-card id="login" class="text-center bg-pink-lighten-5 text-black elevation-15">
+      <form id="login-form" v-on:submit.prevent="login">
+        <v-card-title>Please Sign In</v-card-title>
+        <div role="alert" v-if="invalidCredentials">
+          Invalid username and password!
+        </div>
+        <div role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
+        <div class="form-input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" v-model="user.username" required autofocus />
+        </div>
+        <div class="form-input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="user.password" required />
+        </div>
+        <button type="submit">Sign in</button>
+        <p>
+          <router-link class="text-subtitle-2" v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
+        </p>
+      </form>
+    </v-card>
+  </v-content>
 </template>
 
 <script>
@@ -68,6 +71,15 @@ label {
   margin-right: 0.5rem;
 }
 #login {
-  margin-top: 100px;
+  /* margin: 10% auto auto auto; */
+  max-width: 33%;
+  min-width: 300px;
+  position: fixed;
+  top: 100px; /* Adjust the distance from the top as needed */
+  left: 50%; /* Center the card horizontally if needed */
+  transform: translateX(-50%); /* Center the card horizontally */
+}
+#login-form {
+  padding: 5%;
 }
 </style>
