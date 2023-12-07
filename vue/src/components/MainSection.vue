@@ -31,12 +31,12 @@ import FilterBar from '../components/FilterBar.vue';
 
 
 export default {
-    components: {
-        // FeaturedPost,
-        SmallPost,
+  components: {
+    // FeaturedPost,
+    SmallPost,
     FilterBar,
 
-    },
+  },
     computed: {
         filteredPosts() {
             return this.$store.state.posts.slice().sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
