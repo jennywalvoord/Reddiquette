@@ -27,8 +27,11 @@ export default {
   computed: {
     filteredPosts() {
       let forumId = this.forum.id;
-      let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
-      return posts;
+    let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
+
+    posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
+
+    return posts;
     }
   }
 }
