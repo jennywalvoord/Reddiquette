@@ -2,7 +2,7 @@
     
     <v-sheet class="d-flex flex-wrap bg-surface-variant">
         <v-sheet class="flex-1-0 ma-24 pa-24">
-            <post-section v-bind:post="findPost" />
+            <post-section :post="findPost" />
         </v-sheet>
         <v-sheet class="ma-2 pa-2">
             <side-bar v-bind:forums="forums" />
