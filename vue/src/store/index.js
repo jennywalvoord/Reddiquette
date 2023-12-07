@@ -65,7 +65,7 @@ export function createStore(currentToken, currentUser) {
       
       {
         id: 2,
-        forumId: 1,
+        forumId: 5,
         userId: 1,
         title: 'Title2',
         body: "Non quam lacus suspendisse faucibus. Eget magna fermentum iaculis eu. Orci ac auctor augue mauris augue neque gravida in fermentum. Id diam maecenas ultricies mi eget mauris. Mattis enim ut tellus elementum sagittis vitae et leo duis.",
@@ -113,7 +113,7 @@ export function createStore(currentToken, currentUser) {
       },
       {
         id: 6,
-        forumId: 4,
+        forumId: 7,
         userId: 5,
         title: 'Title6',
         body: "Netus et malesuada fames ac turpis egestas integer. Volutpat lacus laoreet non curabitur gravida arcu ac. ",
