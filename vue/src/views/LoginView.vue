@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-card id="login" class="bg-pink-lighten-5 text-black elevation-15">
+    <v-card id="login" class="text-center bg-pink-lighten-5 text-black elevation-15">
       <form id="login-form" v-on:submit.prevent="login">
         <v-card-title>Please Sign In</v-card-title>
         <div role="alert" v-if="invalidCredentials">
@@ -19,7 +19,7 @@
         </div>
         <button type="submit">Sign in</button>
         <p>
-          <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
+          <router-link class="text-subtitle-2" v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
         </p>
       </form>
     </v-card>
@@ -71,8 +71,13 @@ label {
   margin-right: 0.5rem;
 }
 #login {
-  margin: 10% auto auto auto;
+  /* margin: 10% auto auto auto; */
   max-width: 33%;
+  min-width: 300px;
+  position: fixed;
+  top: 100px; /* Adjust the distance from the top as needed */
+  left: 50%; /* Center the card horizontally if needed */
+  transform: translateX(-50%); /* Center the card horizontally */
 }
 #login-form {
   padding: 5%;
