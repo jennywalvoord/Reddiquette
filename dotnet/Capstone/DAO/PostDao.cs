@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Exceptions;
 
-namespace Capstone.DAO
+namespace Capstone.DAO 
 {
     public class PostDao : IPostDao
     {
@@ -94,6 +94,11 @@ namespace Capstone.DAO
             }
 
             return postList;
+        }
+        
+        public List<Post> GetPostsByForumId(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public Post CreatePost(Post post)
@@ -189,11 +194,6 @@ namespace Capstone.DAO
             }
 
             return deletedPost;
-        }
-
-        public List<Post> GetPostsByForumId(int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
