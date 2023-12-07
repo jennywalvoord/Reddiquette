@@ -1,18 +1,13 @@
 <template>
-<v-content>
-  <div>
-        <v-container class="my-5">
-        <v-layout row>
-          <v-flex xs12 md6 lg1>
-            <small-post v-for="post in filteredPosts" v-bind:key="post.id" v-bind:post="post" />
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </div>
-
-</v-content>
-
-    
+  <v-content>
+    <v-container class="my-5">
+      <v-layout row wrap>
+        <v-flex xs12 md6 lg4 v-for="post in filteredPosts" :key="post.id">
+          <small-post :post="post" />
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-content>
 </template>
 
 <script>

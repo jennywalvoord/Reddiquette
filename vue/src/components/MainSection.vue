@@ -5,19 +5,21 @@
       <v-container>
         <div class="d-flex justify-center">
           <v-card-title class="text-h6 text-md-h5 text-lg-h4">My Posts</v-card-title>
-      
-      
-  </div>
-      <filter-bar />
-      <v-row class="justify-center">
-        <v-col cols="12" md="12">
-          <v-row>
-        <small-post class="ma-2" v-for="post in filteredPosts" :key="post.id" :post="post" />
-       </v-row>
-        </v-col>
-      </v-row>
+        </div>
+
+        <filter-bar />
+
+        <v-row class="justify-center">
+          <v-col cols="12" md="12">
+            <v-row>
+              <small-post class="ma-2" v-for="post in filteredPosts" :key="post.id" :post="post" />
+           </v-row>
+          </v-col>
+        </v-row>
       </v-container>
+
     </div>
+    
   </v-content>
 </template>
 
