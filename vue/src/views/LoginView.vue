@@ -1,5 +1,67 @@
 <template>
   <v-content>
+    <v-container>
+      <v-card id="login" class="text-center ">
+        <form id="login-form" @submit.prevent="login">
+          <v-card-title>Please Sign In</v-card-title>
+          <v-alert v-if="invalidCredentials" type="error">Invalid username and password!</v-alert>
+          <v-alert v-if="$route.query.registration" type="success">Thank you for registering, please sign in.</v-alert>
+          <v-text-field v-model="user.username" label="Username" required autofocus></v-text-field>
+          <v-text-field v-model="user.password" label="Password" type="password" required></v-text-field>
+          <v-btn type="submit" class="me-4 mb-4">Sign in</v-btn>
+          <p>
+            <router-link class="text-subtitle-2" :to="{ name: 'register' }">Need an account? Sign up.</router-link>
+          </p>
+        </form>
+      </v-card>
+    </v-container>
+  </v-content>
+</template>
+
+<!-- <template>
+<form @submit.prevent="submit">
+    <v-text-field
+      v-model="name.value.value"
+      :counter="10"
+      :error-messages="name.errorMessage.value"
+      label="Name"
+    ></v-text-field>
+
+    <v-text-field
+      v-model="email.value.value"
+      :error-messages="email.errorMessage.value"
+      label="E-mail"
+    ></v-text-field>
+
+    <v-select
+      v-model="select.value.value"
+      :items="items"
+      :error-messages="select.errorMessage.value"
+      label="Select"
+    ></v-select>
+
+    <v-checkbox
+      v-model="checkbox.value.value"
+      :error-messages="checkbox.errorMessage.value"
+      value="1"
+      label="Option"
+      type="checkbox"
+    ></v-checkbox>
+
+    <v-btn
+      class="me-4"
+      type="submit"
+    >
+      submit
+    </v-btn>
+
+    <v-btn @click="handleReset">
+      clear
+    </v-btn>
+  </form>
+
+
+  <v-content>
     <v-card id="login" class="text-center bg-pink-lighten-5 text-black elevation-15">
       <form id="login-form" v-on:submit.prevent="login">
         <v-card-title>Please Sign In</v-card-title>
@@ -24,7 +86,7 @@
       </form>
     </v-card>
   </v-content>
-</template>
+</template> -->
 
 <script>
 import authService from "../services/AuthService";
@@ -72,7 +134,8 @@ label {
 }
 #login {
   /* margin: 10% auto auto auto; */
-  max-width: 33%;
+  width: 400px;
+
   min-width: 300px;
   position: fixed;
   top: 100px; /* Adjust the distance from the top as needed */
