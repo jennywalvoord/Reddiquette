@@ -4,6 +4,9 @@ using Capstone.Exceptions;
 using Capstone.Models;
 using Capstone.Security;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using AutoMapper;
+using Capstone.DTO;
 
 
 namespace Capstone.Controllers
@@ -14,10 +17,12 @@ namespace Capstone.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostDao postDao;
+        private readonly IMapper mapper;
 
-        public PostController(IPostDao postDao)
+        public PostController(IPostDao postDao, IMapper mapper)
         {
             this.postDao = postDao;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -26,7 +31,9 @@ namespace Capstone.Controllers
             try
             {
                 var posts = postDao.GetAllPosts();
-                return Ok(posts);
+                var postDtos = mapper.Map<List<PostDto>>(posts);
+
+                return Ok(postDtos);
             }
             catch (DaoException e)
             {
@@ -44,7 +51,9 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No post found with ID {id}.");
                 }
-                return Ok(post);
+                var postDto = mapper.Map<PostDto>(post);
+
+                return Ok(postDto);
             }
             catch (DaoException e)
             {
@@ -62,7 +71,9 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No posts found with Forum ID {id}.");
                 }
-                return Ok(posts);
+                var postDtos = mapper.Map<List<PostDto>>(posts);
+
+                return Ok(postDtos);
             }
             catch (DaoException e)
             {

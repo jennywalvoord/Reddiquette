@@ -4,6 +4,9 @@ using Capstone.Exceptions;
 using Capstone.Models;
 using Capstone.Security;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using AutoMapper;
+using Capstone.DTO;
 
 namespace Capstone.Controllers
 {
@@ -12,10 +15,13 @@ namespace Capstone.Controllers
     public class ForumController : ControllerBase
     {
         private readonly IForumDao forumDao;
+        private readonly IMapper mapper;
 
-        public ForumController(IForumDao forumDao)
+
+        public ForumController(IForumDao forumDao, IMapper mapper)
         {
             this.forumDao = forumDao;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -24,7 +30,9 @@ namespace Capstone.Controllers
             try
             {
                 var forums = forumDao.GetAllForums();
-                return Ok(forums);
+                var forumDtos = mapper.Map<List<ForumDto>>(forums);
+
+                return Ok(forumDtos);
             }
             catch (DaoException e)
             {
@@ -43,7 +51,9 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No forum found with ID {id}.");
                 }
-                return Ok(forum);
+                var forumDto = mapper.Map<ForumDto>(forum);
+                
+                return Ok(forumDto);
             }
             catch (DaoException e)
             {
