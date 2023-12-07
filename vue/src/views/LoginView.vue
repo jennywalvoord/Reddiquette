@@ -67,4 +67,7 @@ export default {
 label {
   margin-right: 0.5rem;
 }
+#login {
+  margin-top: 100px;
+}
 </style>

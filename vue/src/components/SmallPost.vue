@@ -1,24 +1,26 @@
 <template>
   <v-content>
-    <v-card width="300" class="overflow-hidden">
-      <v-img :width="300" :height="200" aspect-ratio="16/9" cover v-bind:src="post.image"></v-img>
+    <router-link  v-bind:to="{ name: 'post-view', params: { id: post.id } }">
+        <v-card width="300" class="overflow-hidden">
+          <v-img :width="300" :height="200" aspect-ratio="16/9" cover v-bind:src="post.image"></v-img>
+          <v-card-title primary-title>
+            <div>
+              <div class="headline text-center">{{ post.title }}</div>
+              <p class="text-subtitle-2">Date posted: {{ post.dateCreated }}</p>
+              <p class="text-subtitle-2">Clout: {{ post.clout }}</p>
+              <v-chip class="ma-2" color="orange" label size="small">
+                <i class="fa-solid fa-tag pr-2"></i>Forum Name
+              </v-chip>
+            </div>
+          </v-card-title>
+          <v-card flat height="150" class="overflow-hidden">
+            <v-card-text>
+              <span style="text-wrap: wrap">{{ post.body.substring(0, 250) }}...</span>
 
-      <v-card-title primary-title>
-        <div>
-          <div class="headline text-center">{{ post.title }}</div>
-          <p class="text-subtitle-2">Date posted: {{ post.dateCreated }}</p>
-          <p class="text-subtitle-2">Clout: {{ post.clout }}</p>
-          <v-chip class="ma-2" color="orange" label size="small">
-            <i class="fa-solid fa-tag pr-2"></i>Forum Name
-          </v-chip>
-        </div>
-      </v-card-title>
-      <v-card flat height="150" class="overflow-hidden">
-        <v-card-text>
-          <span style="text-wrap: wrap">{{ post.body.substring(0, 250) }}...</span>
-
-        </v-card-text>
-      </v-card>
+            </v-card-text>
+            </v-card>
+          </v-card>
+        </router-link>
       
 
       <v-chip-group class="ma-2">
@@ -34,7 +36,6 @@
           <i class="fa-regular fa-comment pr-2"></i>Comment
         </v-chip>
       </v-chip-group>
-    </v-card>
   </v-content>
 </template>
 
