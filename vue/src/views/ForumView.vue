@@ -1,15 +1,10 @@
 <template>
-    <div class="d-flex flex-wrap grey-lighten pa-24">
+  <main class="d-flex flex-wrap grey-lighten pa-24">
     <div class="ma-24 pa-24">
-      <div class="filter-bar-wrapper">
-        <filter-bar />
-      </div>
-      <v-container>
+      <v-container class="d-flex">
         <v-row>
           <v-col cols="12" md="12">
-            <v-row>
-              <forum-section v-bind:forum="findForum" />
-            </v-row>
+            <forum-section v-bind:forum="findForum" />
           </v-col>
         </v-row>
       </v-container>
@@ -20,8 +15,7 @@
         <side-bar v-bind:forums="forums" />
       </div>
     </v-navigation-drawer>
-  </div>
-  
+  </main>
 </template>
 
 
@@ -44,3 +38,9 @@ export default {
     },
 }
 </script>
+
+<style>
+main {
+  margin-top: 2.5%;
+}
+</style>
