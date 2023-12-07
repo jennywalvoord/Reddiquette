@@ -190,5 +190,10 @@ namespace Capstone.DAO
 
             return deletedPost;
         }
+
+        public List<Post> GetPostsByForumId(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
