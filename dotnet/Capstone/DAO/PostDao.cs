@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Exceptions;
 
-namespace Capstone.DAO 
+namespace Capstone.DAO
 {
     public class PostDao : IPostDao
     {
@@ -51,7 +51,7 @@ namespace Capstone.DAO
                             Content = reader["content"].ToString(),
                             UpVotes = Convert.ToInt32(reader["upvotes"]),
                             DownVotes = Convert.ToInt32(reader["downvotes"]),
-                            DatePosted = Convert.ToDateTime(reader["date_posted"]),
+                            DateCreated = Convert.ToDateTime(reader["date_posted"]),
                             ImagePath = reader["image_path"].ToString()
                         };
                     }
@@ -94,7 +94,7 @@ namespace Capstone.DAO
                             Content = reader["content"].ToString(),
                             UpVotes = Convert.ToInt32(reader["upvotes"]),
                             DownVotes = Convert.ToInt32(reader["downvotes"]),
-                            DatePosted = Convert.ToDateTime(reader["date_posted"]),
+                            DateCreated = Convert.ToDateTime(reader["date_posted"]),
                             ImagePath = reader["image_path"].ToString(),
                             ForumTitle = reader["forum_title"].ToString()
                         };
@@ -145,7 +145,7 @@ namespace Capstone.DAO
                             Content = reader["content"].ToString(),
                             UpVotes = Convert.ToInt32(reader["upvotes"]),
                             DownVotes = Convert.ToInt32(reader["downvotes"]),
-                            DatePosted = Convert.ToDateTime(reader["date_posted"]),
+                            DateCreated = Convert.ToDateTime(reader["date_posted"]),
                             ImagePath = reader["image_path"].ToString(),
                             ForumTitle = reader["forum_title"].ToString()
                         };
@@ -183,7 +183,7 @@ namespace Capstone.DAO
                     var cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Title", post.Title);
                     cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@DatePosted", post.DatePosted);
+                    cmd.Parameters.AddWithValue("@DatePosted", post.DateCreated);
                     cmd.Parameters.AddWithValue("@ImagePath", post.ImagePath);
 
                     int newPostId = Convert.ToInt32(cmd.ExecuteScalar());

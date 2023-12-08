@@ -24,7 +24,7 @@ namespace Capstone.Models
 
         // Required date posted
         [Required(ErrorMessage = "Date created is required.")]
-        public DateTime DatePosted { get; set; }
+        public DateTime DateCreated { get; set; }
 
         // Path to image related to post
         public string ImagePath { get; set; }

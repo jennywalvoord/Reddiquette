@@ -120,7 +120,7 @@ namespace Capstone.Controllers
                 var updatedForum = forumDao.UpdateForum(forum);
                 if (updatedForum == null)
                 {
-                    return NotFound();
+                    return NotFound($"No forum found");
                 }
                 return Ok(updatedForum);
             }
@@ -146,7 +146,7 @@ namespace Capstone.Controllers
                 var deletedForum = forumDao.DeleteForum(id);
                 if (deletedForum == null)
                 {
-                    return NotFound();
+                    return NotFound($"No forum found.");
                 }
                 return Ok(deletedForum);
             }
