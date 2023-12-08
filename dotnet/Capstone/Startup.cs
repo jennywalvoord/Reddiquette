@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Capstone.DAO;
 using Capstone.Security;
+using Capstone.Profiles;
 
 namespace Capstone
 {
@@ -63,7 +64,7 @@ namespace Capstone
             services.AddSingleton<ITokenGenerator>(tk => new JwtGenerator(Configuration["JwtSecret"]));
             services.AddSingleton<IPasswordHasher>(ph => new PasswordHasher());
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup), typeof(PostProfile), typeof(ForumProfile), typeof(CommentProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

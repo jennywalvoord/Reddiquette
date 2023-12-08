@@ -64,9 +64,10 @@ namespace Capstone.Controllers
             IActionResult result = BadRequest(new { message = ErrorMessage });
 
             // is username already taken?
+
             try
             {
-                User existingUser = userDao.GetUserByUsername(userParam.Username);
+                User existingUser = userDao.GetUserByUsername(userParam.Username, userParam.Email);
                 if (existingUser != null)
                 {
                     return Conflict(new { message = "Username already taken. Please choose a different username." });
