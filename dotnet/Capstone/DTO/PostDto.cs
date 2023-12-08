@@ -23,13 +23,13 @@ namespace Capstone.DTO
         public int DownVotes { get; set; }
 
         // Date when the post was created
-        public DateTime DatePosted { get; set; }
+        public DateTime DateCreated { get; set; }
 
         // Path to the image related to the post
         public string ImagePath { get; set; }
 
         // Unique identifier for the forum
-        public int ForumId { get; set; }
+        public int ForumID { get; set; }
 
         // Title of the forum
         public string ForumTitle { get; set; }

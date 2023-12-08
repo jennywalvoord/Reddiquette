@@ -107,7 +107,7 @@ namespace Capstone.Controllers
         //   post: The post object containing the details of the post to be created.
         //
         // Returns:
-        //     An IActionResult representing the HTTP response for the create forum operation.
+        //     An IActionResult representing the HTTP response for the create post operation.
         //   If the post is created successfully, it returns a CreatedAtAction result with the created post object.
         //   If an error occurs during the creation of the post, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
@@ -146,7 +146,7 @@ namespace Capstone.Controllers
                 var updatedPost = postDao.UpdatePost(post);
                 if (updatedPost == null)
                 {
-                    return NotFound();
+                    return NotFound($"No post found.");
                 }
                 return Ok(updatedPost);
             }
@@ -172,7 +172,7 @@ namespace Capstone.Controllers
                 var deletedPost = postDao.DeletePost(id);
                 if (deletedPost == null)
                 {
-                    return NotFound();
+                    return NotFound($"No post found.");
                 }
                 return Ok(deletedPost);
             }
