@@ -111,7 +111,7 @@ namespace Capstone.Controllers
         //   If the post is created successfully, it returns a CreatedAtAction result with the created post object.
         //   If an error occurs during the creation of the post, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
-        [HttpPost]
+        [HttpPost("/createpost")]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult CreatePost(Post post)
         {
