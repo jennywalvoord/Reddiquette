@@ -4,6 +4,9 @@ using Capstone.Exceptions;
 using Capstone.Models;
 using Capstone.Security;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using AutoMapper;
+using Capstone.DTO;
 
 
 namespace Capstone.Controllers
@@ -14,19 +17,29 @@ namespace Capstone.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostDao postDao;
+        private readonly IMapper mapper;
 
-        public PostController(IPostDao postDao)
+        // Initializes a new instance of the PostController class.
+        // 
+        // Parameters:
+        //   postDao: The IPostDao object used to interact with the post data.
+        //   mapper: The IMapper object used for object mapping.
+        public PostController(IPostDao postDao, IMapper mapper)
         {
             this.postDao = postDao;
+            this.mapper = mapper;
         }
 
+        // Retrieves all posts and returns them as a list of PostDto objects.
         [HttpGet]
         public IActionResult GetAllPosts()
         {
             try
             {
                 var posts = postDao.GetAllPosts();
-                return Ok(posts);
+                var postDtos = mapper.Map<List<PostDto>>(posts);
+
+                return Ok(postDtos);
             }
             catch (DaoException e)
             {
@@ -34,6 +47,12 @@ namespace Capstone.Controllers
             }
         }
 
+        // Retrieves a post by its unique identifier.
+        //
+        // Parameters:
+        //   id: The ID of the post to retrieve.
+        //
+        // Returns: An IActionResult containing the post with the specified ID, if found.
         [HttpGet("{id}")]
         public IActionResult GetPostById(int id)
         {
@@ -44,7 +63,9 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No post found with ID {id}.");
                 }
-                return Ok(post);
+                var postDto = mapper.Map<PostDto>(post);
+
+                return Ok(postDto);
             }
             catch (DaoException e)
             {
@@ -52,6 +73,13 @@ namespace Capstone.Controllers
             }
         }
 
+        // Retrieves posts by forum ID.
+        //
+        // Parameters:
+        //   id:
+        //     The ID of the forum.
+        //
+        // Returns: An IActionResult object representing the HTTP response.
         [HttpGet("forum/{id}")]
         public IActionResult GetPostsByForumId(int id)
         {
@@ -62,7 +90,9 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No posts found with Forum ID {id}.");
                 }
-                return Ok(posts);
+                var postDtos = mapper.Map<List<PostDto>>(posts);
+
+                return Ok(postDtos);
             }
             catch (DaoException e)
             {
@@ -70,6 +100,17 @@ namespace Capstone.Controllers
             }
         }
 
+        
+        // Creates a new post.
+        //
+        // Parameters:
+        //   post: The post object containing the details of the post to be created.
+        //
+        // Returns:
+        //     An IActionResult representing the HTTP response for the create forum operation.
+        //   If the post is created successfully, it returns a CreatedAtAction result with the created post object.
+        //   If an error occurs during the creation of the post, it returns a StatusCode result with a 500 status code
+        //   and an error message indicating the failure.
         [HttpPost]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult CreatePost(Post post)
@@ -85,6 +126,13 @@ namespace Capstone.Controllers
             }
         }
 
+        // Updates a post with the specified ID.
+        //
+        // Parameters:
+        //   id: The ID of the post to update.
+        //   post: The updated post object.
+        //
+        // Returns: An IActionResult representing the result of the update operation.
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult UpdatePost(int id, Post post)
@@ -108,6 +156,13 @@ namespace Capstone.Controllers
             }
         }
 
+        // Deletes a post with the specified ID.
+        //
+        // Parameters:
+        //   id: The ID of the post to delete.
+        //
+        // Returns:
+        //   An IActionResult representing the result of the deletion operation.
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult DeletePost(int id)

@@ -8,44 +8,44 @@ export function createStore(currentToken, currentUser) {
       user: currentUser || {},
       forums:[{
         id: 1,
-        title: "Tech Elevator",
-        description: "",
+        title: "Tech Enthusiasts Unite",
+        description: "Discuss the latest gadgets and innovations!",
         image:'',
         numberOfReplys:0
       },
       {
         id: 3,
-        title: "Tech Elevator2",
-        description: "",
+        title: "Creative Minds Hub",
+        description: "Share your art, writing, and other passions",
         image:'',
         numberOfReplys:0
 
       },
       {
         id: 4,
-        title: "Tech Elevator3",
-        description: "",
+        title: "Fitness Fanatics Forum",
+        description: "Achieve your health and wellness goals together.",
         image:'',
         numberOfReplys:0
       },
       {
         id: 5,
-        title: "Tech Elevator4",
+        title: "Travel Tales Exchange",
         description: "",
         image:'',
         numberOfReplys:0
       },
       {
         id: 6,
-        title: "Tech Elevator5",
-        description: "",
+        title: "Global Conflicts Dialogue",
+        description: "Navigate discussions on the Israeli-Palestinian conflict and its parallels with the war in Ukraine. Foster understanding and explore potential connections for a world in search of peace.",
         image:'',
         numberOfReplys:0
       },
       {
         id: 7,
-        title: "Tech Elevator6",
-        description: "",
+        title: "Cleveland Sports Fever",
+        description: "Cheer for your favorite teams in the heart of the action!",
         image:'',
         numberOfReplys:0
       },
@@ -174,9 +174,9 @@ export function createStore(currentToken, currentUser) {
       },
         {
           id: 11,
-        forumId: 4,
+        forumId: 7,
         userId: 5,
-        title: 'Why Deshaun Watson was a mistake',
+        title: 'Deshaun Watson mistake',
         body: 'Deshaun Watson was a mistake because we took a cost controlled quarterback that we could have signed to a reasonable contract and built the team around and tossed him.  Deshaun came with too much baggage, cost too much and had not played in 2 years.  This is worse than Jimmy drafting JFF',
         image:'https://www.cleveland.com/resizer/d7KTtoo3GLYDfFI4I0LyqTnVu7A=/800x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/PSHW3MVM2NESBA6AUSE2ODE32A.jpg',
         dateCreated: '12/7/2023',
