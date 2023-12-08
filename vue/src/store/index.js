@@ -4,6 +4,8 @@ import axios from 'axios';
 export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
+      // comment: [],
+      // forums: [],
       token: currentToken || '',
       user: currentUser || {},
       forums:[{
@@ -235,15 +237,26 @@ export function createStore(currentToken, currentUser) {
           post.downVote += 1;
           post.clout = post.upVote - post.downVote;
         }
-      }
-    },
+      },
+      
+      // SET_FORUMS(state, forums){
+      //     state.forums = forums;
+      //   },
+        
+      },
+    
     actions: {
       upVotePost({ commit }, postId) {
         commit('UPVOTE_POST', postId);
       },
       downVotePost({ commit }, postId) {
         commit('DOWNVOTE_POST', postId);
-      }
+      },
+      // fetchForums({ commit }){
+      //   axios.get('/forums').then(response => {
+      //     commit('SET_FORUMS', response.data);
+      //   })
+      // }
     }
   });
   return store;

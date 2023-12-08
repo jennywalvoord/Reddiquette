@@ -10,7 +10,7 @@ using Capstone.DTO;
 
 namespace Capstone.Controllers
 {
-    [Route("api/forum")]
+    [Route("[controller]")]
     [ApiController]
     public class ForumController : ControllerBase
     {
@@ -30,7 +30,7 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all forums and returns them as a list of ForumDto objects.
-        [HttpGet]
+        [HttpGet("/forums")]
         public IActionResult GetAllForums()
         {
             try
