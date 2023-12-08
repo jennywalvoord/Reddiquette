@@ -7,7 +7,7 @@
           <h6>Posted by: {{ getUserName(post.userId) }}</h6>
         </v-col>
         <v-col>
-          <h6>Posted about  {{ post.dateCreated }}</h6>
+          <h6>Posted about  {{ timePassed }}</h6>
         </v-col>
       </v-row>
     </v-sheet>
@@ -79,8 +79,8 @@ export default {
     },
   },
   computed: {
-    timePassed(datePosted) {
-      const postedTime = new Date(datePosted);
+    timePassed() {
+      const postedTime = new Date(this.post.dateCreated);
       let currentTime = new Date();
       let differenceInTime = (currentTime - postedTime)/1000;
       if (Math.round(differenceInTime) === 1) {return "1 second ago"}
