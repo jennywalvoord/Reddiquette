@@ -10,11 +10,21 @@ namespace Capstone.DAO
     {
         private readonly string connectionString;
 
+        // Initializes a new instance of the ForumDao class.
+        //
+        // Parameters:
+        //   dbConnectionString: The connection string for the database.
         public ForumDao(string dbConnectionString)
         {
             connectionString = dbConnectionString;
         }
 
+        // Finds a forum in the database based on its ID.
+        //
+        // Parameters:
+        //   id: The ID of the forum to find.
+        //
+        // Returns: The forum with the specified ID, or null if no forum is found.
         public Forum FindForumByID(int id)
         {
             Forum forum = new();
@@ -52,6 +62,9 @@ namespace Capstone.DAO
             return forum;
         }
 
+        // Retrieves all forums from the database.
+        //
+        // Returns: A list of Forum objects representing all the forums retrieved.
         public List<Forum> GetAllForums()
         {
             List<Forum> forumList = new List<Forum>();
@@ -89,6 +102,12 @@ namespace Capstone.DAO
             return forumList;
         }
 
+        // Creates a new forum in the database.
+        //
+        // Parameters:
+        //   forum: The forum object containing the details of the forum to be created.
+        //
+        // Returns: The updated forum object with the assigned forum ID.
         public Forum CreateForum(Forum forum)
         {
             string query = "INSERT INTO Forums (forum_title, forum_description, image_path, date_created) " +
@@ -120,6 +139,12 @@ namespace Capstone.DAO
             return forum;
         }
 
+        // Updates a forum in the database.
+        //
+        // Parameters:
+        //   forum: The forum object to be updated.
+        //
+        // Returns:  updated forum object.
         public Forum UpdateForum(Forum forum)
         {
             string query = "UPDATE Forums " +
@@ -153,6 +178,12 @@ namespace Capstone.DAO
             return forum;
         }
 
+        // Deletes a forum from the database with the specified ID.
+        // 
+        // Parameters:
+        //   id: The ID of the forum to be deleted.
+        //
+        // Returns: The deleted forum if it exists, otherwise null.
         public Forum DeleteForum(int id)
         {
             string query = "DELETE FROM Forums WHERE forum_id = @Id";

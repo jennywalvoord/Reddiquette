@@ -21,6 +21,7 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL,
+	user_email varchar(250)NOT NULL
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -76,8 +77,8 @@ CREATE TABLE user_forum(
 
 --populate default data
 --Inserting Users --
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user');
-INSERT INTO users (username, password_hash, salt, user_role) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin');
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'student@techelevator.com');
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@rediquette.com');
 
 
 INSERT INTO forum (forum_title, forum_description, image_path, date_created)
