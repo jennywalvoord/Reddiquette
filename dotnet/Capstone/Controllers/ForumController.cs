@@ -18,12 +18,18 @@ namespace Capstone.Controllers
         private readonly IMapper mapper;
 
 
+        // Initializes a new instance of the ForumController class.
+        //
+        // Parameters:
+        //   forumDao: The IForumDao instance used to access forum data.
+        //   mapper: The IMapper instance used for object mapping.
         public ForumController(IForumDao forumDao, IMapper mapper)
         {
             this.forumDao = forumDao;
             this.mapper = mapper;
         }
 
+        // Retrieves all forums and returns them as a list of ForumDto objects.
         [HttpGet]
         public IActionResult GetAllForums()
         {
@@ -41,6 +47,13 @@ namespace Capstone.Controllers
 
         }
 
+        // Retrieves a forum by its ID.
+
+        // Parameters:
+        //   id: The ID of the forum to retrieve.
+
+        // Returns:
+        //   An IActionResult containing the forum with the specified ID, if found.
         [HttpGet("{id}")]
         public IActionResult GetForumById(int id)
         {
@@ -61,6 +74,16 @@ namespace Capstone.Controllers
             }
         }
 
+        // Creates a new forum.
+        // 
+        // Parameters:
+        //   forum: The forum object containing the details of the forum to be created.
+        //
+        // Returns:
+        //   An IActionResult object representing the HTTP response for the create forum operation.
+        //   If the forum is created successfully, it returns a CreatedAtAction result with the created forum object.
+        //   If an error occurs during the creation of the forum, it returns a StatusCode result with a 500 status code
+        //   and an error message indicating the failure.
         [HttpPost]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult CreateForum(Forum forum)
@@ -76,6 +99,14 @@ namespace Capstone.Controllers
             }
         }
 
+        // Updates a forum with the specified ID.
+        //
+        // Parameters:
+        //   id: The ID of the forum to update.
+        //   forum: The updated forum object.
+        //
+        // Returns: 
+        //   An IActionResult representing the result of the update operation.
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult UpdateForum(int id, Forum forum)
@@ -99,6 +130,13 @@ namespace Capstone.Controllers
             }
         }
 
+        // Deletes a forum with the specified ID.
+        // 
+        // Parameters:
+        //   id: The ID of the forum to delete.
+        //
+        // Returns:
+        //   An IActionResult representing the result of the deletion operation.
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin, Moderator")]
         public IActionResult DeleteForum(int id)
