@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import ForumView from '../views/ForumView.vue';
 import PostView from '../views/PostView.vue'
+import CreatePostView from '../views/CreatePostView.vue'
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -62,6 +63,14 @@ const routes = [
     path: '/post/:id',
     name: `post-view`,
     component: PostView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/create-post",
+    name: "create-post",
+    component: CreatePostView,
     meta: {
       requiresAuth: false
     }
