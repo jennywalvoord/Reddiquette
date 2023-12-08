@@ -78,11 +78,41 @@ namespace Capstone.DAO
             return user;
         }
 
+        public User GetUserByUsername(string username, string userEmail)
+        {
+            User user = null;
+
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users WHERE username = @username OR user_email = @user_email";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@user_email", userEmail);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        user = MapRowToUser(reader);
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DaoException("SQL exception occurred", ex);
+            }
+
+            return user;
+        }
         public User GetUserByUsername(string username)
         {
             User user = null;
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users WHERE username = @username";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users WHERE username = @username ";
 
             try
             {
