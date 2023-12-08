@@ -7,7 +7,7 @@
           <h6>Posted by: {{ getUserName(post.userId) }}</h6>
         </v-col>
         <v-col>
-          <h6>Posted: {{ post.dateCreated }}</h6>
+          <h6>Posted about  {{ post.dateCreated }}</h6>
         </v-col>
       </v-row>
     </v-sheet>
@@ -78,11 +78,23 @@ export default {
       }
     },
   },
-  calculated: {
-    timePassed() {
-      const postedTime = Date(this.post.dateCreated);
+  computed: {
+    timePassed(datePosted) {
+      const postedTime = new Date(datePosted);
       let currentTime = new Date();
       let differenceInTime = (currentTime - postedTime)/1000;
+      if (Math.round(differenceInTime) === 1) {return "1 second ago"}
+      else if (Math.round(differenceInTime/60) < 1) {return `${differenceInTime} seconds ago`}
+      else if (Math.round(differenceInTime/60) == 1) {return "1 minute ago"}
+      else if (Math.round(differenceInTime/60) < 60) {return `${Math.round(differenceInTime/60)} minutes ago`}
+      else if (Math.round(differenceInTime/(60*60)) == 1) {return "1 hour ago"}
+      else if (Math.round(differenceInTime/(60*60)) < 24) {return `${Math.round(differenceInTime/(3600))} hours ago`}
+      else if (Math.round(differenceInTime/(60*60*24)) == 1) {return "1 day ago"}
+      else if (Math.round(differenceInTime/(60*60*24) < 30)) {return `${Math.round(differenceInTime/(60*60*24))} days ago`}
+      else if (Math.round(differenceInTime/(60*60*24*30) == 1)) {return "1 month ago"}
+      else if (Math.round(differenceInTime/(60*60*24*30) < 12)) {return `${Math.round(differenceInTime/(60*60*24*30))} months ago`}
+      else if (Math.round(differenceInTime/(60*60*365) == 1)) {return "1 year ago"}
+      else  return `${Math.round(differenceInTime/(60*60*365))} years ago`
 
     },
   }
