@@ -11,7 +11,7 @@ using Capstone.DTO;
 
 namespace Capstone.Controllers
 {
-    [Route("api/comment")]
+    [Route("[controller]")]
     [ApiController]
 
     public class CommentController : ControllerBase

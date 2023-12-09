@@ -11,7 +11,7 @@ using Capstone.DTO;
 
 namespace Capstone.Controllers
 {
-    [Route("api/post")]
+    [Route("[controller]")]
     [ApiController]
 
     public class PostController : ControllerBase
@@ -31,7 +31,7 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all posts and returns them as a list of PostDto objects.
-        [HttpGet]
+        [HttpGet("/posts")]
         public IActionResult GetAllPosts()
         {
             try
@@ -111,7 +111,7 @@ namespace Capstone.Controllers
         //   If the post is created successfully, it returns a CreatedAtAction result with the created post object.
         //   If an error occurs during the creation of the post, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
-        [HttpPost("/createpost")]
+        [HttpPost]
         [Authorize(Roles = "Admin, Moderator, User")]
         public IActionResult CreatePost(Post post)
         {
