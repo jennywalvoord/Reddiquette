@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-content class="small-post">
         <router-link  v-bind:to="{ name: 'post-view', params: { id: post.id } }">
     <v-card width="300" class="overflow-hidden">
     
@@ -28,10 +28,6 @@
 
         </v-card-text>
       </v-card>
-      </v-card>
-    </router-link>
-      
-
       <v-chip-group class="ma-2">
         <v-chip class="green" label size="small" @click="upVote">
           <i class="fa-solid fa-up-long pr-2"></i>Upvote
@@ -45,6 +41,11 @@
           <i class="fa-regular fa-comment pr-2"></i>Comment
         </v-chip>
       </v-chip-group>
+      </v-card>
+    </router-link>
+      
+
+      
   </v-content>
 </template>
 
@@ -103,6 +104,12 @@ export default {
 }
 };
 </script>
+
+<style>
+.small-post a {
+  text-decoration: none;
+}
+</style>
 
 <!-- <style>
 .card {
