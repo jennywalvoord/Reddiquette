@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: '/forum/:id',
-    name: `forum-view`,
+    name: 'forum-view',
     component: ForumView,
     meta: {
       requiresAuth: false

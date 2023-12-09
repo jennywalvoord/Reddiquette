@@ -1,13 +1,16 @@
 import { createStore as _createStore } from 'vuex';
 import axios from 'axios';
+import AuthService from '../services/AuthService';
 
 export function createStore(currentToken, currentUser) {
   let store = _createStore({
+  
     state: {
       // comment: [],
       // forums: [],
       token: currentToken || '',
       user: currentUser || {},
+      isAuthenticated: !!currentToken,
       forums:[{
         id: 1,
         title: "Tech Enthusiasts Unite",
@@ -210,6 +213,7 @@ export function createStore(currentToken, currentUser) {
     mutations: {
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
+        state.isAuthenticated = !!token;
         localStorage.setItem('token', token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       },
@@ -222,6 +226,7 @@ export function createStore(currentToken, currentUser) {
         localStorage.removeItem('user');
         state.token = '';
         state.user = {};
+        state.isAuthenticated = false;
         axios.defaults.headers.common = {};
       },
       UPVOTE_POST(state, postId) {
@@ -252,11 +257,17 @@ export function createStore(currentToken, currentUser) {
       downVotePost({ commit }, postId) {
         commit('DOWNVOTE_POST', postId);
       },
-      // fetchForums({ commit }){
-      //   axios.get('/forums').then(response => {
-      //     commit('SET_FORUMS', response.data);
-      //   })
-      // }
+      async login({ commit }, user) {
+        try {
+          const response = await AuthService.login(user);
+          // Handle successful login (commit mutations, set state, etc.)
+          commit('SET_AUTH_TOKEN', response.token);
+          commit('SET_USER', response.user);
+        } catch (error) {
+          // Handle login failure
+          throw new Error('Login failed');
+        }
+      },
     }
   });
   return store;
