@@ -1,14 +1,14 @@
 // // Styles
-import 'font-awesome/css/font-awesome.min.css'
+
 import { createVuetify } from 'vuetify'
-import { aliases, fa } from 'vuetify/iconsets/fa4'
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 export default createVuetify({
   icons: {
-    defaultSet: 'fa',
+    defaultSet: 'mdi',
     aliases,
     sets: {
-      fa,
+      mdi,
     },
   },
 })

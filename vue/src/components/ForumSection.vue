@@ -1,5 +1,25 @@
 <template>
-  <v-content>
+  
+  <filter-bar />
+
+  <v-main>
+  <v-slide-group show-arrows>
+    <v-slide-group-item
+      v-for="post in filteredByDate"
+      :key="post.id"
+      >
+        <small-post 
+          :post="post" 
+          class="ma-3"
+          rounded
+          width="250"/>
+    </v-slide-group-item>
+  </v-slide-group>
+  
+</v-main>
+
+  
+  <!-- <v-content>
     <v-container>
         <filter-bar />
         <v-row class="justify-center">
@@ -10,7 +30,7 @@
           </v-col>
         </v-row>
       </v-container>
-  </v-content>
+  </v-content> -->
 </template>
 
 <script>
