@@ -30,7 +30,7 @@ namespace Capstone.DAO
             Forum forum = new();
 
             string query = "SELECT forum_id, forum_title, forum_description, image_path, date_created " +
-            "FROM Forums " +
+            "FROM forum " +
             "WHERE forum_id = @Id";
 
             try
@@ -70,7 +70,7 @@ namespace Capstone.DAO
             List<Forum> forumList = new List<Forum>();
 
             string query = "SELECT forum_id, forum_title, forum_description, image_path, date_created " +
-            "FROM Forums";
+            "FROM forum";
             try
             {
                 using (var conn = new SqlConnection(connectionString))
@@ -110,7 +110,7 @@ namespace Capstone.DAO
         // Returns: The updated forum object with the assigned forum ID.
         public Forum CreateForum(Forum forum)
         {
-            string query = "INSERT INTO Forums (forum_title, forum_description, image_path, date_created) " +
+            string query = "INSERT INTO forum (forum_title, forum_description, image_path, date_created) " +
                    "VALUES (@Title, @Description, @ImagePath, @DateCreated); " +
                    "SELECT SCOPE_IDENTITY();";
 
@@ -147,7 +147,7 @@ namespace Capstone.DAO
         // Returns:  updated forum object.
         public Forum UpdateForum(Forum forum)
         {
-            string query = "UPDATE Forums " +
+            string query = "UPDATE forum " +
                            "SET forum_title = @Title, forum_description = @Description, image_path = @ImagePath " +
                            "WHERE forum_id = @Id";
 

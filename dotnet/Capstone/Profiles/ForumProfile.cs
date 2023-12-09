@@ -15,7 +15,7 @@ namespace Capstone.Profiles
         public ForumProfile()
         {
             // Maps Post to PostDto and vice versa
-            CreateMap<Post, PostDto>().ReverseMap();
+            CreateMap<Forum, ForumDto>().ReverseMap();
         }
     }
 }

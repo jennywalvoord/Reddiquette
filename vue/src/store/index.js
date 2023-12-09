@@ -6,6 +6,8 @@ export function createStore(currentToken, currentUser) {
   let store = _createStore({
   
     state: {
+      // comment: [],
+      // forums: [],
       token: currentToken || '',
       user: currentUser || {},
       isAuthenticated: !!currentToken,
@@ -240,8 +242,14 @@ export function createStore(currentToken, currentUser) {
           post.downVote += 1;
           post.clout = post.upVote - post.downVote;
         }
-      }
-    },
+      },
+      
+      // SET_FORUMS(state, forums){
+      //     state.forums = forums;
+      //   },
+        
+      },
+    
     actions: {
       upVotePost({ commit }, postId) {
         commit('UPVOTE_POST', postId);
