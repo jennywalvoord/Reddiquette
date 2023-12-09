@@ -5,13 +5,13 @@
     <div style="height: 72px;"></div>
    
       <v-app-bar app
-      class="px-3"
+      class="px-3 elevation-10"
       color="grey-lighten-4"
-      flat
+      
       height="72"
       >
         <v-app-bar-nav-icon>
-          <v-icon @click="drawer = !drawer" icon="$vuetify"></v-icon>
+          
           </v-app-bar-nav-icon>
           <v-app-bar-title class="text-uppercase">Rediquette</v-app-bar-title>
           <router-link v-bind:to="{ name: 'home' }">Home</router-link>
@@ -47,9 +47,8 @@ export default {
 div.nav{
   flex-flow: row;
 }
-
-#inspire {
-  padding: 80px
-}
+/* .global-padding {
+  padding: 80px;
+} */
 </style>
 

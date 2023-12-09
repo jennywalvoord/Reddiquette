@@ -1,19 +1,24 @@
 <template>
 
 <v-main>
-  <v-text class="text-h2">Forum Posts</v-text>
+  <v-container class="bg-grey-lighten-4">
+    <v-row>
+      <v-col>
+        <v-sheet
+        min-height="70vh"
+        rounded="lg"
+        class="ma-4 pa-4"
+        >
+        <v-text class="text-h2">Forum posts</v-text> 
+        <v-text-field class="flex-1-0 ma-2 pa-2" id="postInput" v-model="inputValue" @click="navigateToFormPage" label="Create Post"></v-text-field>
 
-  <v-sheet
-              class="d-flex align-center justify-center flex-wrap text-center mx-auto"
-              elevation="4"
-              fluid
-              rounded
-              max-width="600"
-              width="100%"
-            >
-              <v-text-field class="flex-1-0 ma-2 pa-2" id="postInput" v-model="inputValue" @click="navigateToFormPage" label="Create Post"></v-text-field>
-            </v-sheet>
-  <forum-section v-bind:forum="findForum" />
+        <forum-section v-bind:forum="findForum" />
+        
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
+
 
 </v-main>
 

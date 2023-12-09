@@ -1,8 +1,7 @@
 <template>
   
   <filter-bar />
-
-  <v-main>
+  
   <v-slide-group show-arrows>
     <v-slide-group-item
       v-for="post in filteredByDate"
@@ -16,21 +15,7 @@
     </v-slide-group-item>
   </v-slide-group>
   
-</v-main>
 
-  
-  <!-- <v-content>
-    <v-container>
-        <filter-bar />
-        <v-row class="justify-center">
-          <v-col cols="12" md="12">
-            <v-row>
-              <small-post class="ma-2" v-for="post in filteredByDate" :key="post.id" :post="post" />
-           </v-row>
-          </v-col>
-        </v-row>
-      </v-container>
-  </v-content> -->
 </template>
 
 <script>
