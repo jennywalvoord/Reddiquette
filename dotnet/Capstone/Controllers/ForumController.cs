@@ -30,7 +30,11 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all forums and returns them as a list of ForumDto objects.
+<<<<<<< HEAD
         [HttpGet("/forum")]
+=======
+        [HttpGet("/forums")]
+>>>>>>> 8285a7d67309e01614915a8642ea851354e05fd5
         public IActionResult GetAllForums()
         {
             try

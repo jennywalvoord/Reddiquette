@@ -73,8 +73,8 @@ namespace Capstone.DAO
             List<Post> postList = new List<Post>();
 
             string query = "SELECT p.post_id, p.title, p.content, p.upvotes, p.downvotes, p.date_posted, p.image_path, f.forum_title " +
-                    "FROM post AS p " +
-                    "JOIN forum AS f ON p.forum_id = f.forum_id";
+                    "FROM posts AS p ";
+                    //"JOIN Forum f ON p.forum_id = f.forum_id";
 
             try
             {
@@ -122,8 +122,8 @@ namespace Capstone.DAO
             List<Post> postList = new List<Post>();
 
             string query = "SELECT p.post_id, p.title, p.content, p.upvotes, p.downvotes, p.date_posted, p.image_path, f.forum_title " +
-                            "FROM post AS p " +
-                            "JOIN forum AS f ON p.forum_id = f.forum_id " +
+                            "FROM posts AS p " +
+                            "JOIN Forum AS f ON p.forum_id = f.forum_id " +
                             "WHERE p.forum_id = @Id";
 
             try
