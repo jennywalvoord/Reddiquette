@@ -32,11 +32,12 @@ export default {
     posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
     return posts;
     },
-    filteredByClout() {
-      let forumId = this.forum.id;
-      let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
-      posts.sort((a, b) => b.clout - a.clout );
-      return posts;
+    computed: {
+        filteredPosts() {
+            let thisForumId = this.forum.id;  
+            let posts = this.$store.state.posts.filter((p) => { p.forumId === thisForumId});
+            return posts;
+        }
     }
   }
 }
