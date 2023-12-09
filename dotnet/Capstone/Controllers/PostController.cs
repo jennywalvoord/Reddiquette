@@ -11,7 +11,7 @@ using Capstone.DTO;
 
 namespace Capstone.Controllers
 {
-    [Route("api/post")]
+    [Route("[controller]")]
     [ApiController]
 
     public class PostController : ControllerBase
@@ -31,7 +31,7 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all posts and returns them as a list of PostDto objects.
-        [HttpGet]
+        [HttpGet("/posts")]
         public IActionResult GetAllPosts()
         {
             try

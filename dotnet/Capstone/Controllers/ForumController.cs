@@ -84,8 +84,8 @@ namespace Capstone.Controllers
         //   If the forum is created successfully, it returns a CreatedAtAction result with the created forum object.
         //   If an error occurs during the creation of the forum, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
-        [HttpPost]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [HttpPost("/forums")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult CreateForum(Forum forum)
         {
             try
