@@ -8,13 +8,11 @@ namespace Capstone.Models
         // Primary key of post
         public int PostID { get; set; }
 
-        // Required post title
-        [Required(ErrorMessage = "Post title is required.")]
-        public string Title { get; set; }
+        public int UserID { get; set; }
 
         // Required post content
         [Required(ErrorMessage = "Post content is required.")]
-        public string Content { get; set; }
+        public string PostContent { get; set; }
 
         // Up votes of post
         public int UpVotes { get; set; }
@@ -27,7 +25,7 @@ namespace Capstone.Models
         public DateTime DateCreated { get; set; }
 
         // Path to image related to post
-        public string ImagePath { get; set; }
+        //public string ImagePath { get; set; }
 
         // ID of the forum the post belongs to
         public int ForumID { get; set; }

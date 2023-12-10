@@ -17,7 +17,6 @@ namespace Capstone.Controllers
         private readonly IForumDao forumDao;
         private readonly IMapper mapper;
 
-
         // Initializes a new instance of the ForumController class.
         //
         // Parameters:
@@ -30,7 +29,7 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all forums and returns them as a list of ForumDto objects.
-        [HttpGet("/forums")]
+        [HttpGet("/forum")]
         public IActionResult GetAllForums()
         {
             try
@@ -39,6 +38,7 @@ namespace Capstone.Controllers
                 var forumDtos = mapper.Map<List<ForumDto>>(forums);
 
                 return Ok(forumDtos);
+
             }
             catch (DaoException e)
             {
@@ -48,10 +48,10 @@ namespace Capstone.Controllers
         }
 
         // Retrieves a forum by its ID.
-
+        //
         // Parameters:
         //   id: The ID of the forum to retrieve.
-
+        //
         // Returns:
         //   An IActionResult containing the forum with the specified ID, if found.
         [HttpGet("{id}")]
@@ -108,7 +108,7 @@ namespace Capstone.Controllers
         // Returns: 
         //   An IActionResult representing the result of the update operation.
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult UpdateForum(int id, Forum forum)
         {
             if (id != forum.ForumId)
@@ -138,7 +138,7 @@ namespace Capstone.Controllers
         // Returns:
         //   An IActionResult representing the result of the deletion operation.
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "admin, moderator")]
         public IActionResult DeleteForum(int id)
         {
             try
