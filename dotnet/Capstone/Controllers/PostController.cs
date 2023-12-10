@@ -78,7 +78,6 @@ namespace Capstone.Controllers
         //     The ID of the forum.
         //
         // Returns: An IActionResult object representing the HTTP response.
-<<<<<<< HEAD
         //[HttpGet("forum/{id}")]
         //public IActionResult GetPostsByForumId(int id)
         //{
@@ -90,19 +89,6 @@ namespace Capstone.Controllers
         //            return NotFound($"No posts found with Forum ID {id}.");
         //        }
         //        var postDtos = mapper.Map<List<PostDto>>(posts);
-=======
-        [HttpGet("forum/{id}")]
-        public IActionResult GetPostsByForumId(int id)
-        {
-            try
-            {
-                var posts = postDao.GetPostsByForumID(id);
-                if (posts == null)
-                {
-                    return NotFound($"No posts found with Forum ID {id}.");
-                }
-                var postDtos = mapper.Map<List<PostDto>>(posts);
->>>>>>> f600add6658a93bdaf6996d4a40a6f4be01f9cbb
 
         //        return Ok(postDtos);
         //    }
