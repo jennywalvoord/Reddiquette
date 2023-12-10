@@ -11,7 +11,7 @@ namespace Capstone.DTO
         public int PostID { get; set; }
 
         // Title of the post
-        public string Title { get; set; }
+        //public string Title { get; set; }
 
         // Content of the post
         public string Content { get; set; }
@@ -26,10 +26,10 @@ namespace Capstone.DTO
         public DateTime DateCreated { get; set; }
 
         // Path to the image related to the post
-        public string ImagePath { get; set; }
+        //public string ImagePath { get; set; }
 
         // Unique identifier for the forum
-        public int ForumID { get; set; }
+        public int ForumId { get; set; }
 
         // Title of the forum
         public string ForumTitle { get; set; }

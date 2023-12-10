@@ -186,7 +186,7 @@ namespace Capstone.DAO
         // Returns: The deleted forum if it exists, otherwise null.
         public Forum DeleteForum(int id)
         {
-            string query = "DELETE FROM Forums WHERE forum_id = @Id";
+            string query = "DELETE FROM forums WHERE forum_id = @Id";
             Forum deletedForum = null;
 
             try

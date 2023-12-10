@@ -39,7 +39,7 @@ namespace Capstone.Controllers
                 var posts = postDao.GetAllPosts();
                 var postDtos = mapper.Map<List<PostDto>>(posts);
 
-                return Ok(postDtos);
+                return Ok(postDao);
             }
             catch (DaoException e)
             {
@@ -80,25 +80,25 @@ namespace Capstone.Controllers
         //     The ID of the forum.
         //
         // Returns: An IActionResult object representing the HTTP response.
-        [HttpGet("forum/{id}")]
-        public IActionResult GetPostsByForumId(int id)
-        {
-            try
-            {
-                var posts = postDao.GetPostsByForumId(id);
-                if (posts == null)
-                {
-                    return NotFound($"No posts found with Forum ID {id}.");
-                }
-                var postDtos = mapper.Map<List<PostDto>>(posts);
+        //[HttpGet("forum/{id}")]
+        //public IActionResult GetPostsByForumId(int id)
+        //{
+        //    try
+        //    {
+        //        var posts = postDao.GetPostsByForumId(id);
+        //        if (posts == null)
+        //        {
+        //            return NotFound($"No posts found with Forum ID {id}.");
+        //        }
+        //        var postDtos = mapper.Map<List<PostDto>>(posts);
 
-                return Ok(postDtos);
-            }
-            catch (DaoException e)
-            {
-                return StatusCode(500, $"Failed to retrieve posts with Forum ID {id}: {e.Message}");
-            }
-        }
+        //        return Ok(postDtos);
+        //    }
+        //    catch (DaoException e)
+        //    {
+        //        return StatusCode(500, $"Failed to retrieve posts with Forum ID {id}: {e.Message}");
+        //    }
+        //}
 
         
         // Creates a new post.

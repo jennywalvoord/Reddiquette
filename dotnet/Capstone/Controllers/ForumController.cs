@@ -108,7 +108,7 @@ namespace Capstone.Controllers
         // Returns: 
         //   An IActionResult representing the result of the update operation.
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult UpdateForum(int id, Forum forum)
         {
             if (id != forum.ForumId)
@@ -138,7 +138,7 @@ namespace Capstone.Controllers
         // Returns:
         //   An IActionResult representing the result of the deletion operation.
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "admin, moderator")]
         public IActionResult DeleteForum(int id)
         {
             try
