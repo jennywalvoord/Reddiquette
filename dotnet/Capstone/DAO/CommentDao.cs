@@ -25,8 +25,8 @@ namespace Capstone.DAO
         {
             List<Comment> commentList = new List<Comment>();
 
-            string query = "SELECT comment_id, post_id, content, upvotes, downvotes, date_commented " +
-                    "FROM Comments";
+            string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id " +
+                    "FROM comment";
             
             try
             {
@@ -45,9 +45,9 @@ namespace Capstone.DAO
                             PostID = Convert.ToInt32(reader["post_id"]),
                             UserID = Convert.ToInt32(reader["user_id"]),
                             CommentContent = reader["comment_content"].ToString(),
-                            UpVotes = Convert.ToInt32(reader["upvotes"]),
-                            DownVotes = Convert.ToInt32(reader["downvotes"]),
-                            DateCreated = Convert.ToDateTime(reader["date_commented"]),
+                            UpVotes = Convert.ToInt32(reader["up_votes"]),
+                            DownVotes = Convert.ToInt32(reader["down_votes"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumID = Convert.ToInt32(reader["forum_id"]),
                             ParentID = Convert.ToInt32(reader["parent_id"])
                         };
@@ -66,7 +66,43 @@ namespace Capstone.DAO
 
         public Comment GetCommentById(int id)
         {
-            throw new NotImplementedException();
+            Comment comment = new();
+            
+            string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id " +
+                    "FROM comment " +
+                    "WHERE comment_id = @Id";
+
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        comment = new Comment
+                        {
+                            CommentID = Convert.ToInt32(reader["comment_id"]),
+                            PostID = Convert.ToInt32(reader["post_id"]),
+                            UserID = Convert.ToInt32(reader["user_id"]),
+                            CommentContent = reader["comment_content"].ToString(),
+                            UpVotes = Convert.ToInt32(reader["up_votes"]),
+                            DownVotes = Convert.ToInt32(reader["down_votes"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            ForumID = Convert.ToInt32(reader["forum_id"]),
+                            ParentID = Convert.ToInt32(reader["parent_id"])
+                        };
+                    }
+                }        
+            }
+            catch (SqlException e)
+            {
+                throw new DaoException("SQL exception occurred", e);
+            }
+            return comment;
         }
 
         public List<Comment> GetCommentsByPostId(int id)

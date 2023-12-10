@@ -17,7 +17,6 @@ namespace Capstone.Controllers
         private readonly IForumDao forumDao;
         private readonly IMapper mapper;
 
-
         // Initializes a new instance of the ForumController class.
         //
         // Parameters:
@@ -30,11 +29,7 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all forums and returns them as a list of ForumDto objects.
-<<<<<<< HEAD
         [HttpGet("/forum")]
-=======
-        [HttpGet("/forums")]
->>>>>>> 8285a7d67309e01614915a8642ea851354e05fd5
         public IActionResult GetAllForums()
         {
             try
@@ -43,7 +38,6 @@ namespace Capstone.Controllers
                 var forumDtos = mapper.Map<List<ForumDto>>(forums);
 
                 return Ok(forumDtos);
-                // return content("application/json");
 
             }
             catch (DaoException e)

@@ -30,8 +30,8 @@ namespace Capstone.DAO
             Forum forum = new();
 
             string query = "SELECT forum_id, forum_title, forum_description, image_path, date_created " +
-            "FROM forum " +
-            "WHERE forum_id = @Id";
+                    "FROM forum " +
+                    "WHERE forum_id = @Id";
 
             try
             {
