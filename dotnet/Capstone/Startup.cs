@@ -66,6 +66,7 @@ namespace Capstone
             services.AddTransient<IUserDao>(m => new UserSqlDao(connectionString));
             services.AddTransient<IForumDao>(fd => new ForumDao(connectionString));
             services.AddTransient<IPostDao>(fd => new PostDao(connectionString));
+            services.AddTransient<ICommentDao>(fd => new CommentDao(connectionString));
             
             services.AddAutoMapper(typeof(Startup), typeof(PostProfile), typeof(ForumProfile), typeof(CommentProfile));
         }

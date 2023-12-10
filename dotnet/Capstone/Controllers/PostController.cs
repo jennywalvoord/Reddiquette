@@ -8,12 +8,10 @@ using System.Collections.Generic;
 using AutoMapper;
 using Capstone.DTO;
 
-
 namespace Capstone.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-
     public class PostController : ControllerBase
     {
         private readonly IPostDao postDao;
@@ -53,12 +51,12 @@ namespace Capstone.Controllers
         //   id: The ID of the post to retrieve.
         //
         // Returns: An IActionResult containing the post with the specified ID, if found.
-        [HttpGet("{id}")]
+        [HttpGet("/posts/{id}")]
         public IActionResult GetPostById(int id)
         {
             try
             {
-                var post = postDao.GetPostById(id);
+                var post = postDao.GetPostByID(id);
                 if (post == null)
                 {
                     return NotFound($"No post found with ID {id}.");
@@ -80,6 +78,7 @@ namespace Capstone.Controllers
         //     The ID of the forum.
         //
         // Returns: An IActionResult object representing the HTTP response.
+<<<<<<< HEAD
         //[HttpGet("forum/{id}")]
         //public IActionResult GetPostsByForumId(int id)
         //{
@@ -91,6 +90,19 @@ namespace Capstone.Controllers
         //            return NotFound($"No posts found with Forum ID {id}.");
         //        }
         //        var postDtos = mapper.Map<List<PostDto>>(posts);
+=======
+        [HttpGet("forum/{id}")]
+        public IActionResult GetPostsByForumId(int id)
+        {
+            try
+            {
+                var posts = postDao.GetPostsByForumID(id);
+                if (posts == null)
+                {
+                    return NotFound($"No posts found with Forum ID {id}.");
+                }
+                var postDtos = mapper.Map<List<PostDto>>(posts);
+>>>>>>> f600add6658a93bdaf6996d4a40a6f4be01f9cbb
 
         //        return Ok(postDtos);
         //    }
@@ -111,8 +123,8 @@ namespace Capstone.Controllers
         //   If the post is created successfully, it returns a CreatedAtAction result with the created post object.
         //   If an error occurs during the creation of the post, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
-        [HttpPost("/createpost")]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [HttpPost]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult CreatePost(Post post)
         {
             try
@@ -134,7 +146,7 @@ namespace Capstone.Controllers
         //
         // Returns: An IActionResult representing the result of the update operation.
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult UpdatePost(int id, Post post)
         {
             if (id != post.PostID)
@@ -164,7 +176,7 @@ namespace Capstone.Controllers
         // Returns:
         //   An IActionResult representing the result of the deletion operation.
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Moderator")]
+        [Authorize(Roles = "admin, moderator")]
         public IActionResult DeletePost(int id)
         {
             try

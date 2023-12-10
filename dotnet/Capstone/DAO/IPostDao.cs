@@ -7,9 +7,9 @@ namespace Capstone.DAO
     {
         List<Post> GetAllPosts();
 
-        Post GetPostById(int id);
+        Post GetPostByID(int id);
 
-        List<Post> GetPostsByForumId(int id);
+        List<Post> GetPostsByForumID(int id);
 
         Post CreatePost(Post post);
 

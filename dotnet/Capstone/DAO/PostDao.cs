@@ -25,13 +25,13 @@ namespace Capstone.DAO
         //     id: The ID of the post to retrieve.
         //
         // Returns: The retrieved Post object.
-        public Post GetPostById(int id)
+        public Post GetPostByID(int id)
         {
             Post post = new();
 
-            string query = "SELECT post_id, post_content, up_votes, down_votes, date_created " +
-            "FROM posts " +
-            "WHERE post_id = @Id";
+            string query = "SELECT post_id, user_id, post_content, up_votes, down_votes, date_created, forum_id " +
+                    "FROM posts " +
+                    "WHERE post_id = @Id";
 
             try
             {
@@ -47,13 +47,12 @@ namespace Capstone.DAO
                         post = new Post
                         {
                             PostID = Convert.ToInt32(reader["post_id"]),
-                            //Title = reader["title"].ToString(),
-                            Content = reader["post_content"].ToString(),
+                            UserID = Convert.ToInt32(reader["user_id"]),
+                            PostContent = reader["post_content"].ToString(),
                             UpVotes = Convert.ToInt32(reader["up_votes"]),
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
-                            //ImagePath = reader["image_path"].ToString(),
-                            ForumId = Convert.ToInt32(reader["forum_id"])
+                            ForumID = Convert.ToInt32(reader["forum_id"]),
                         };
                     }
                 }
@@ -73,9 +72,9 @@ namespace Capstone.DAO
         {
             List<Post> postList = new List<Post>();
 
-            string query = "SELECT p.post_id, p.post_content, p.up_votes, p.down_votes, p.date_created, p.forum_id " +
-                    "FROM posts AS p ";
-                    //"JOIN Forum f ON p.forum_id = f.forum_id";
+            string query = "SELECT p.post_id, p.user_id, p.post_content, p.up_votes, p.down_votes, p.date_created, p.forum_id, f.forum_title " +
+                    "FROM posts AS p " +
+                    "JOIN forum AS f ON p.forum_id = f.forum_id";
 
             try
             {
@@ -91,13 +90,14 @@ namespace Capstone.DAO
                         Post post = new Post
                         {
                             PostID = Convert.ToInt32(reader["post_id"]),
-                            //Title = reader["title"].ToString(),
-                            Content = reader["post_content"].ToString(),
+                            UserID = Convert.ToInt32(reader["user_id"]),
+                            PostContent = reader["post_content"].ToString(),
                             UpVotes = Convert.ToInt32(reader["up_votes"]),
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
-                            //ImagePath = reader["image_path"].ToString(),
-                            ForumId = Convert.ToInt32(reader["forum_id"])
+                            ForumID = Convert.ToInt32(reader["forum_id"]),
+                            ForumTitle = reader["forum_title"].ToString()
+                            
                         };
 
                         postList.Add(post);
@@ -118,14 +118,14 @@ namespace Capstone.DAO
         //   id: The ID of the forum.
         //
         // Returns: A list of Post objects.
-        public List<Post> GetPostsByForumId(int id)
+        public List<Post> GetPostsByForumID(int id)
         {
             List<Post> postList = new List<Post>();
 
-            string query = "SELECT p.post_id, p.title, p.post_content, p.up_votes, p.down_votes, p.date_created, f.forum_title " +
-                            "FROM posts AS p " +
-                            "JOIN forum AS f ON p.forum_id = f.forum_id " +
-                            "WHERE p.forum_id = @Id";
+            string query = "SELECT p.post_id, p.user_id , p.post_content, p.up_votes, p.down_votes, p.date_created, p.forum_id, f.forum_title " +
+                        "FROM posts AS p " +
+                        "JOIN forum AS f ON p.forum_id = f.forum_id " +
+                        "WHERE p.forum_id = @Id";
 
             try
             {
@@ -142,13 +142,13 @@ namespace Capstone.DAO
                         Post post = new Post
                         {
                             PostID = Convert.ToInt32(reader["post_id"]),
-                            Title = reader["title"].ToString(),
-                            Content = reader["content"].ToString(),
-                            UpVotes = Convert.ToInt32(reader["upvotes"]),
-                            DownVotes = Convert.ToInt32(reader["downvotes"]),
-                            DateCreated = Convert.ToDateTime(reader["date_posted"]),
-                            //ImagePath = reader["image_path"].ToString(),
-                            ForumId = Convert.ToInt32(reader["forum_id"])
+                            UserID = Convert.ToInt32(reader["user_id"]),
+                            PostContent = reader["post_content"].ToString(),
+                            UpVotes = Convert.ToInt32(reader["up_votes"]),
+                            DownVotes = Convert.ToInt32(reader["down_votes"]),
+                            DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            ForumID = Convert.ToInt32(reader["forum_id"]),
+                            ForumTitle = reader["forum_title"].ToString()
                         };
 
                         postList.Add(post);
@@ -171,9 +171,9 @@ namespace Capstone.DAO
         // Returns: The newly created post with the updated PostID.
         public Post CreatePost(Post post)
         {
-            string query = "INSERT INTO posts (title, content, date_posted, image_path) " +
-                           "VALUES (@Title, @Content, @DatePosted, @ImagePath); " +
-                           "SELECT SCOPE_IDENTITY();";
+            string query = "INSERT INTO posts (post_content, up_votes, down_votes, date_created, forum_id) " +
+                         "VALUES (@UserID, @PostContent, @DateCreated, @ForumID); " +
+                        "SELECT SCOPE_IDENTITY();";
 
             try
             {
@@ -182,10 +182,10 @@ namespace Capstone.DAO
                     conn.Open();
 
                     var cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@DatePosted", post.DateCreated);
-                    //cmd.Parameters.AddWithValue("@ImagePath", post.ImagePath);
+                    cmd.Parameters.AddWithValue("@UserID", post.UserID);
+                    cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
+                    cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
+                    cmd.Parameters.AddWithValue("@ForumID", post.ForumID);
 
                     int newPostId = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -209,8 +209,8 @@ namespace Capstone.DAO
         public Post UpdatePost(Post post)
         {
             string query = "UPDATE posts " +
-                           "SET title = @Title, content = @Content, image_path = @ImagePath " +
-                           "WHERE post_id = @Id";
+                        "SET user_id = @UserID, post_content = @PostContent, date_created = @DateCreated, forum_id = @ForumID " +
+                        "WHERE post_id = @Id";
 
             try
             {
@@ -219,10 +219,10 @@ namespace Capstone.DAO
                     conn.Open();
 
                     var cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Title", post.Title);
-                    cmd.Parameters.AddWithValue("@Content", post.Content);
-                    cmd.Parameters.AddWithValue("@Id", post.PostID);
-                    //cmd.Parameters.AddWithValue("@ImagePath", post.ImagePath);
+                    cmd.Parameters.AddWithValue("@UserID", post.UserID);
+                    cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
+                    cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
+                    cmd.Parameters.AddWithValue("@ForumID", post.ForumID);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected == 0)
@@ -254,7 +254,7 @@ namespace Capstone.DAO
 
             try
             {
-                deletedPost = GetPostById(id);
+                deletedPost = GetPostByID(id);
 
                 using (var conn = new SqlConnection(connectionString))
                 {
