@@ -1,6 +1,6 @@
 <template>
       <v-main class="bg-grey-lighten-3">
-      <v-container>
+      <v-container class="bg-grey-lighten-3">
         <v-row>
           
           <v-col>
@@ -9,63 +9,69 @@
               rounded="lg"
             >
             <div class="custom-padding">
-        <v-content>
-        <div>
-        <v-text class="text-h4">Create a Post</v-text>
-        <v-select
-        label="Choose a forum"
-        :items="['Forum1', 'Forum2', 'Forum3', 'Forum4', 'Forum5', 'Forum6']"
-        ></v-select>
-    </div>
-    <v-card>
-        <v-tabs v-model="tab" align-tabs="center">
-          <v-tab :value="1">Post</v-tab>
-          <v-tab :value="2">Image</v-tab>
-        </v-tabs>
-        <v-window v-model="tab">
-          <v-window-item v-for="n in 3" :key="n" :value="n">
-            <!-- Content for Tab 1: Post -->
-            <v-container fluid v-if="tab === 1">
-                <v-sheet width="400" class="mx-auto">
-                    <v-form fast-fail @submit.prevent>
-                    <v-text-field
-                        v-model="title"
-                        label="Title"
-                        :rules="titleRules"
-                    ></v-text-field>
-                    <v-row>
-                    <v-textarea label="Text (Optional)"></v-textarea>
-                    </v-row>
+                <v-content>
+                <div class="pb-6">
+                <v-text class="text-h4">Create a Post</v-text>
+                <p class="font-weight-bold py-4">Choose a forum to post to:</p>
+                <v-select
+                class="py-4"
+                label="Choose a forum"
+                :items="['Forum1', 'Forum2', 'Forum3', 'Forum4', 'Forum5', 'Forum6']"
+                ></v-select>
+                <p class="font-weight-bold py-4">Add text and an image: </p>
 
-                    <v-btn type="submit" block class="mt-2">Post</v-btn>
-                    </v-form>
-                    <div>
+                <v-tabs v-model="tab" color="#FF4500" align-tabs="center">
+                  <v-tab :value="1">Post</v-tab>
+                  <v-tab :value="2">Image</v-tab>
+                </v-tabs>
+
+                <v-window v-model="tab">
+                  <v-window-item v-for="n in 3" :key="n" :value="n">
+                    <!-- Content for Tab 1: Post -->
+                    <v-container fluid v-if="tab === 1">
+                        <v-sheet  class="mx-auto">
+                            <v-form fast-fail @submit.prevent>
+                            <v-text-field
+                                v-model="title"
+                                label="Title"
+                                :rules="titleRules"
+                            ></v-text-field>
+                            <v-row>
+                            <v-textarea label="Text (Optional)"></v-textarea>
+                            </v-row>
+
+                            <v-btn type="submit" block class="mt-2">Post</v-btn>
+                            </v-form>
+                            <div>
+                            
+                              <tiptap-rich-text-editor />
+
+                            </div>
+                        </v-sheet>
                     
-                      <tiptap-rich-text-editor />
+                    </v-container>
 
-                    </div>
-                </v-sheet>
-             
-            </v-container>
+                    <!-- Content for Tab 2: Image -->
+                    <v-container fluid v-else-if="tab === 2">
+                      <v-row>
+                      
+                          <v-file-input
+                            label="File input"
+                            variant="filled"
+                            prepend-icon="mdi-camera"
+                        ></v-file-input>
+                      
+                      </v-row>
+                    </v-container>
 
-            <!-- Content for Tab 2: Image -->
-            <v-container fluid v-else-if="tab === 2">
-              <v-row>
-               
-                  <v-file-input
-                    label="File input"
-                    variant="filled"
-                    prepend-icon="mdi-camera"
-                ></v-file-input>
-               
-              </v-row>
-            </v-container>
-
-          
-          </v-window-item>
-        </v-window>
-      </v-card>
-    </v-content>
+                  
+                  </v-window-item>
+                </v-window>
+                </div>
+                
+                
+                
+            </v-content>
     </div>
             </v-sheet>
           </v-col>
@@ -117,6 +123,6 @@ export default {
 
 <style>
 .custom-padding {
-  padding: 100px;
+  padding: 80px 60px;
 }
 </style>

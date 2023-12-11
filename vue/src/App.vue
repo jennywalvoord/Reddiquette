@@ -7,11 +7,19 @@
       <v-app-bar app
       class="px-3 elevation-10"
       color="grey-lighten-4"
-      
       height="72"
-      >
+      > <v-img
+                src="./src/assets/Rediquette_Logo_Orange.png"
+                width="100"
+                height="100"
+              ></v-img>
         <v-app-bar-nav-icon>
-          
+            <router-link to="/">
+              <v-avatar size="48">
+               
+              </v-avatar>
+             
+            </router-link>
           </v-app-bar-nav-icon>
           <v-app-bar-title class="text-uppercase">Rediquette</v-app-bar-title>
           <router-link v-bind:to="{ name: 'home' }">Home</router-link>
@@ -21,6 +29,7 @@
             <v-icon icon="mdi-logout"></v-icon>
           </v-btn>
     </v-app-bar>
+    
       
     <router-view />
    
@@ -44,6 +53,8 @@ export default {
 </script>
 
 <style>
+
+
 div.nav{
   flex-flow: row;
 }
