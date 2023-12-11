@@ -9,7 +9,7 @@ namespace Capstone.DAO
 
         Post GetPostByID(int id);
 
-        List<Post> GetPostsByForumID(int id);
+        List<Post> GetPostsByForumId(int id);
 
         Post CreatePost(Post post);
 

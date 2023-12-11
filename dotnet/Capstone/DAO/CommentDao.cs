@@ -25,7 +25,7 @@ namespace Capstone.DAO
         {
             List<Comment> commentList = new List<Comment>();
 
-            string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id " +
+            string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id " +
                     "FROM comment";
             
             try
@@ -49,7 +49,6 @@ namespace Capstone.DAO
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ParentID = Convert.ToInt32(reader["parent_id"])
                         };
 
                         commentList.Add(comment);
@@ -66,7 +65,7 @@ namespace Capstone.DAO
 
         public Comment GetCommentById(int id)
         {
-            Comment comment = new();
+            Comment comment = null;
             
             string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id " +
                     "FROM comment " +
@@ -93,7 +92,7 @@ namespace Capstone.DAO
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ParentID = Convert.ToInt32(reader["parent_id"])
+                            ParentID = reader["parent_id"] != DBNull.Value ? Convert.ToInt32(reader["parent_id"]) :(int?)null
                         };
                     }
                 }        
@@ -109,9 +108,10 @@ namespace Capstone.DAO
         {
             List<Comment> commentList = new List<Comment>();
 
-            string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id " +
-                    "FROM comment " +
-                    "WHERE post_id = @Id";
+            string query = "SELECT c.comment_id, c.user_id, c.post_id, c.comment_content, c.up_votes, c.down_votes, c.date_created, c.forum_id, c.parent_id " +
+                    "FROM comment AS c " +
+                    "JOIN posts AS p ON c.post_id = p.post_id " +
+                    "WHERE c.post_id = @Id";
 
             try
             {
@@ -127,6 +127,7 @@ namespace Capstone.DAO
                     {
                         Comment comment = new Comment
                         {
+                           
                             CommentID = Convert.ToInt32(reader["comment_id"]),
                             PostID = Convert.ToInt32(reader["post_id"]),
                             UserID = Convert.ToInt32(reader["user_id"]),
@@ -135,7 +136,7 @@ namespace Capstone.DAO
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ParentID = Convert.ToInt32(reader["parent_id"])
+                            ParentID = reader["parent_id"] != DBNull.Value ? Convert.ToInt32(reader["parent_id"]) : (int?)null
                         };
 
                         commentList.Add(comment);
@@ -151,8 +152,8 @@ namespace Capstone.DAO
         }
         public Comment CreateComment(Comment comment)
         {
-            string query = "INSERT INTO comment (user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id) " +
-                        "VALUES (@UserId, @PostId, @CommentContent, @UpVotes, @DownVotes, @DateCreated, @ForumID, @ParentId)" +
+            string query = "INSERT INTO comment (user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id) " +
+                        "VALUES (@UserId, @PostId, @CommentContent, @UpVotes, @DownVotes, @DateCreated, @ForumID)" +
                         "SELECT SCOPE_IDENTITY();";
 
             try
@@ -169,7 +170,6 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@DownVotes", comment.DownVotes);
                     cmd.Parameters.AddWithValue("@DateCreated", comment.DateCreated);
                     cmd.Parameters.AddWithValue("@ForumID", comment.ForumID);
-                    cmd.Parameters.AddWithValue("@ParentId", comment.ParentID);
 
                     int newCommentId = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -186,11 +186,69 @@ namespace Capstone.DAO
 
         public Comment UpdateComment(Comment comment)
         {
-            throw new NotImplementedException();
+            string query = "UPDATE comment " +
+                        "SET user_id = @UserId, post_id = @PostId, comment_content = @CommentContent, up_votes = @UpVotes, down_votes = @DownVotes, date_created = @DateCreated, forum_id = @ForumId " +
+                        "WHERE comment_id = @Id";
+
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@UserId", comment.UserID);
+                    cmd.Parameters.AddWithValue("@PostId", comment.PostID);
+                    cmd.Parameters.AddWithValue("@CommentContent", comment.CommentContent);
+                    cmd.Parameters.AddWithValue("@UpVotes", comment.UpVotes);
+                    cmd.Parameters.AddWithValue("@DownVotes", comment.DownVotes);
+                    cmd.Parameters.AddWithValue("@DateCreated", comment.DateCreated);
+                    cmd.Parameters.AddWithValue("@ForumId", comment.ForumID);
+                    cmd.Parameters.AddWithValue("@Id", comment.CommentID);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new DaoException("Comment not found");
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                throw new DaoException("SQL exception occurred", e);
+            }
+
+            return comment;
         }
         public Comment DeleteComment(int id)
         {
-            throw new NotImplementedException();
+            string query = "DELETE FROM comment WHERE comment_id = @Id";
+            Comment deletedComment = null;
+
+            try
+            {
+                deletedComment = GetCommentById(id);
+
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Id", id);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new DaoException("Deletion failed: Comment not found");
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                throw new DaoException("SQL exception occurred", e);
+            }
+
+            return deletedComment;
         }
     }
     
