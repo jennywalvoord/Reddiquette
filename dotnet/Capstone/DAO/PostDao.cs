@@ -251,9 +251,6 @@ namespace Capstone.DAO
         // Returns: The deleted post.
         public Post DeletePost(int id)
         {
-            string query = "DELETE " +
-                        "FROM posts " +
-                        "WHERE post_id = @Id";
             Post deletedPost = null;
 
             try
@@ -264,13 +261,23 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Id", id);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected == 0)
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        throw new DaoException("Deletion failed: Post not found");
+                        try
+                        {
+                            DeleteIfExistsWithTransaction(transaction, "post_votes", "post_id = @PostId", id);
+                            DeleteIfExistsWithTransaction(transaction, "comment_votes", "comment_id IN (SELECT comment_id FROM comment WHERE post_id = @PostId)", id);
+                            DeleteIfExistsWithTransaction(transaction, "comment", "post_id = @PostId", id);
+                            DeleteIfExistsWithTransaction(transaction, "posts", "post_id = @PostId", id);
+
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw new DaoException("Transaction rolled back due to an error: " + ex.Message, ex);
+                        }
                     }
                 }
             }
@@ -280,6 +287,22 @@ namespace Capstone.DAO
             }
 
             return deletedPost;
+        }
+        private void DeleteIfExistsWithTransaction(SqlTransaction transaction, string tableName, string condition, int id)
+        {
+            string query = $"DELETE FROM {tableName} WHERE {condition}";
+
+            using (var cmd = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                cmd.Parameters.AddWithValue("@PostId", id);
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+
+                    Console.WriteLine($"Deletion skipped for {tableName} as there were no matching rows.");
+                }
+            }
         }
     }
 }
