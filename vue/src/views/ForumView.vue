@@ -9,7 +9,7 @@
         rounded="lg"
         class="ma-4 pa-4"
         >
-        <v-text class="text-h2">Forum posts</v-text> 
+        <v-text class="text-h4">{{ findForumName }}</v-text> 
         <v-text-field class="flex-1-0 ma-2 pa-2" id="postInput" v-model="inputValue" @click="navigateToFormPage" label="Create Post"></v-text-field>
 
         <forum-section v-bind:forum="findForum" />
@@ -43,7 +43,13 @@ export default {
             let forumId = this.$route.params.id;  
             let forum = this.$store.state.forums.find((p) => p.id == forumId);
             return forum;
+        },
+        findForumName() {
+            let forumId = this.$route.params.id;  
+            let forum = this.$store.state.forums.find((p) => p.id == forumId);
+            return forum.title
         }
+
     },
     methods: {
       navigateToFormPage() {

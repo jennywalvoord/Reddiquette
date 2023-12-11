@@ -38,6 +38,7 @@ CREATE TABLE forum(
 CREATE TABLE posts(
 	post_id int IDENTITY(1,1)NOT NULL,
 	user_id int NOT NULL,
+	post_title varchar NOT NULL,
 	post_content NVARCHAR(MAX),
 	up_votes INT NOT NULL,
 	down_votes INT NOT NULL,
@@ -99,7 +100,11 @@ CREATE TABLE comment_votes(
 --Inserting Users --
 INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'student@techelevator.com');
 INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@rediquette.com');
-
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('omar', 'CIg+yNbN/5HBMzjqZlmQvyJgxqU=', '47eHKmONCLQ=', 'admin', 'omar@omar.com');
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('jenny', 'QWBFDVUqqT/lrUtlqXVwSvieIcE=', 'oTId1s8xJRs=', 'admin', 'jenny@jenny.com');
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('mac','L9PuttSomTIhB+1pNvQQZq4Gz8M=', 'Y0PpDvZ6k3M=', 'admin', 'mac@mac.com');
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('wayne', 'Q4l+GG376OQMip/n9pN3iaWcov0=', 'py0HLDIdK6Q=', 'admin', 'wayne@wayne.com');
+INSERT INTO users (username, password_hash, salt, user_role, user_email) VALUES ('wayne', 'w/dBq/PVRHyI9HJ/6RX04FPFv64=', 'QvRYQP+fnSg=', 'admin', 'john@john.com');
 
 INSERT INTO forum (forum_title, forum_description, image_path, date_created)
 VALUES
@@ -262,6 +267,29 @@ VALUES ('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 			CURRENT_TIMESTAMP,
 			5,
 			1);
+			select * from forum
+INSERT INTO comment (user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id)
+VALUES (3, 1, 'Great post very informative !', 15, 10, CURRENT_TIMESTAMP, 1),
+    (3, 6, 'Thanks for sharing this information!', 13, 8, CURRENT_TIMESTAMP, 2),
+    (3, 7, 'I have a question about this topic.', 5, 2, CURRENT_TIMESTAMP, 3),
+    (4, 8, 'Well researched and nicely presented.', 17, 4, CURRENT_TIMESTAMP, 3),
+    (5, 9, 'I appreciate the effort put into this post.', 14, 6, CURRENT_TIMESTAMP, 3),
+    (6, 10, 'Great insights, keep it up!', 16, 3, CURRENT_TIMESTAMP, 4),
+    (7, 11, 'I found this very helpful for my project.', 11, 1, CURRENT_TIMESTAMP, 4),
+    (6, 12, 'Looking forward to more discussions on this topic.', 9, 5, CURRENT_TIMESTAMP, 5),
+    (5, 13, 'Awesome content, thank you!', 19, 2, CURRENT_TIMESTAMP, 5),
+    (4, 14, 'This post deserves more attention.', 7, 3, CURRENT_TIMESTAMP, 5),
+    (3, 15, 'I shared this with my colleagues. Great work!', 20, 4, CURRENT_TIMESTAMP, 6),
+	(2, 16, 'Thanks for sharing this information!', 13, 8, CURRENT_TIMESTAMP, 11),
+    (3, 17, 'I have a question about this topic.', 5, 2, CURRENT_TIMESTAMP, 10),
+    (4, 18, 'Well researched and nicely presented.', 17, 4, CURRENT_TIMESTAMP, 8),
+    (5, 19, 'I appreciate the effort put into this post.', 14, 6, CURRENT_TIMESTAMP, 7),
+    (6, 21, 'Great insights, keep it up!', 16, 3, CURRENT_TIMESTAMP, 6),
+    (7, 20, 'I found this very helpful for my project.', 11, 1, CURRENT_TIMESTAMP, 9),
+    (7, 19, 'Looking forward to more discussions on this topic.', 9, 5, CURRENT_TIMESTAMP, 11),
+    (6, 18, 'Awesome content, thank you!', 19, 2, CURRENT_TIMESTAMP, 5),
+    (5, 17, 'This post deserves more attention.', 7, 3, CURRENT_TIMESTAMP, 6),
+    (4, 15, 'I shared this with my colleagues. Great work!', 20, 4, CURRENT_TIMESTAMP, 2);
 
 
 -- Inserting
