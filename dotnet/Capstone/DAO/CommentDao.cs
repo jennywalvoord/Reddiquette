@@ -108,9 +108,10 @@ namespace Capstone.DAO
         {
             List<Comment> commentList = new List<Comment>();
 
-            string query = "SELECT comment_id, user_id, post_id, comment_content, up_votes, down_votes, date_created, forum_id, parent_id " +
-                    "FROM comment " +
-                    "WHERE post_id = @Id";
+            string query = "SELECT c.comment_id, c.user_id, c.post_id, c.comment_content, c.up_votes, c.down_votes, c.date_created, c.forum_id, c.parent_id " +
+                    "FROM comment AS c " +
+                    "JOIN posts AS p ON c.post_id = p.post_id " +
+                    "WHERE c.post_id = @Id";
 
             try
             {
@@ -135,7 +136,7 @@ namespace Capstone.DAO
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ParentID = Convert.ToInt32(reader["parent_id"])
+                            ParentID = reader["parent_id"] != DBNull.Value ? Convert.ToInt32(reader["parent_id"]) : (int?)null
                         };
 
                         commentList.Add(comment);
@@ -171,10 +172,8 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@ForumID", comment.ForumID);
 
                     int newCommentId = Convert.ToInt32(cmd.ExecuteScalar());
-                    int newParentId = Convert.ToInt32(cmd.ExecuteScalar());
 
                     comment.CommentID = newCommentId;
-                    comment.ParentID = newParentId;
                 }
             }
             catch (SqlException e)
