@@ -73,6 +73,7 @@ namespace Capstone.Controllers
             }
         }
 
+        [HttpGet("/comment/posts/{id}")]
         public IActionResult GetCommentsByPostId(int id)
         {
             try
