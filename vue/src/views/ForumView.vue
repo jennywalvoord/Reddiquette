@@ -18,11 +18,11 @@
       </v-col>
     </v-row>
   </v-container>
+  <side-bar :isAppMode="isAppMode" />
 
 
 </v-main>
 
-  <side-bar />
 
 
 </template> 

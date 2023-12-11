@@ -8,15 +8,15 @@
       class="px-3 elevation-10"
       color="grey-lighten-4"
       height="72"
-      > <v-img
-                src="./src/assets/Rediquette_Logo_Orange.png"
-                width="100"
-                height="100"
-              ></v-img>
+      > 
         <v-app-bar-nav-icon>
             <router-link to="/">
               <v-avatar size="48">
-               
+                <v-img
+                src="./src/assets/Logo_Orange.png"
+                width="100"
+                height="100"
+            />
               </v-avatar>
              
             </router-link>
