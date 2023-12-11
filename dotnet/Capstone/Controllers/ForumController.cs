@@ -54,7 +54,7 @@ namespace Capstone.Controllers
         //
         // Returns:
         //   An IActionResult containing the forum with the specified ID, if found.
-        [HttpGet("{id}")]
+        [HttpGet("/forum/{id}")]
         public IActionResult GetForumById(int id)
         {
             try
@@ -84,7 +84,7 @@ namespace Capstone.Controllers
         //   If the forum is created successfully, it returns a CreatedAtAction result with the created forum object.
         //   If an error occurs during the creation of the forum, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
-        [HttpPost("/forums")]
+        [HttpPost]
         [Authorize(Roles = "admin, moderator, user")]
         public IActionResult CreateForum(Forum forum)
         {
@@ -107,7 +107,7 @@ namespace Capstone.Controllers
         //
         // Returns: 
         //   An IActionResult representing the result of the update operation.
-        [HttpPut("{id}")]
+        [HttpPut("/forum/{id}")]
         [Authorize(Roles = "admin, moderator, user")]
         public IActionResult UpdateForum(int id, Forum forum)
         {
@@ -139,11 +139,11 @@ namespace Capstone.Controllers
         //   An IActionResult representing the result of the deletion operation.
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin, moderator")]
-        public IActionResult DeleteForum(int id)
+        public IActionResult DeleteForumByID(int id)
         {
             try
             {
-                var deletedForum = forumDao.DeleteForum(id);
+                var deletedForum = forumDao.DeleteForumByID(id);
                 if (deletedForum == null)
                 {
                     return NotFound($"No forum found.");

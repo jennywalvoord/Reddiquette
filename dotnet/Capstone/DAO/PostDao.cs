@@ -172,7 +172,7 @@ namespace Capstone.DAO
         public Post CreatePost(Post post)
         {
             string query = "INSERT INTO posts (post_content, up_votes, down_votes, date_created, forum_id) " +
-                         "VALUES (@UserID, @PostContent, @DateCreated, @ForumID); " +
+                        "VALUES (@UserID, @PostContent, @UpVotes, @DownVotes, @DateCreated, @ForumID); " +
                         "SELECT SCOPE_IDENTITY();";
 
             try
@@ -182,7 +182,10 @@ namespace Capstone.DAO
                     conn.Open();
 
                     var cmd = new SqlCommand(query, conn);
+                    
                     cmd.Parameters.AddWithValue("@UserID", post.UserID);
+                    cmd.Parameters.AddWithValue("@UpVotes", post.UpVotes);
+                    cmd.Parameters.AddWithValue("@DownVotes", post.DownVotes);
                     cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
                     cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
                     cmd.Parameters.AddWithValue("@ForumID", post.ForumID);
@@ -248,8 +251,8 @@ namespace Capstone.DAO
         public Post DeletePost(int id)
         {
             string query = "DELETE " +
-            "FROM posts " +
-            "WHERE post_id = @Id";
+                        "FROM posts " +
+                        "WHERE post_id = @Id";
             Post deletedPost = null;
 
             try
