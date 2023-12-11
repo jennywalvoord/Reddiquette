@@ -9,6 +9,6 @@ namespace Capstone.DAO
         List<Forum> GetAllForums();
         Forum CreateForum(Forum forum);
         Forum UpdateForum(Forum forum);
-        Forum DeleteForum(int id);
+        Forum DeleteForumByID(int id);
     }
 }
