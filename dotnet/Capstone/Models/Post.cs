@@ -28,9 +28,9 @@ namespace Capstone.Models
         //public string ImagePath { get; set; }
 
         // ID of the forum the post belongs to
-        public int ForumID { get; set; }
+        public int ForumId { get; set; }
 
         // Title of the forum the post belongs to
-        public string ForumTitle { get; set; }
+        //public string ForumId { get; set; }
     }
 }

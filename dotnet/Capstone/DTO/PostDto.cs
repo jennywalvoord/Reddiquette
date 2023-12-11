@@ -28,7 +28,7 @@ namespace Capstone.DTO
         //public string ImagePath { get; set; }
 
         // Unique identifier for the forum
-        public int ForumID { get; set; }
+        public int ForumId { get; set; }
 
         // Title of the forum
         public string ForumTitle { get; set; }

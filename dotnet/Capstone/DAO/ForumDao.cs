@@ -1,8 +1,8 @@
+using Capstone.Exceptions;
+using Capstone.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using Capstone.Models;
-using Capstone.Exceptions;
 
 namespace Capstone.DAO
 {
@@ -30,8 +30,8 @@ namespace Capstone.DAO
             Forum forum = new();
 
             string query = "SELECT forum_id, forum_title, forum_description, image_path, date_created " +
-                    "FROM forum " +
-                    "WHERE forum_id = @Id";
+                        "FROM forum " +
+                        "WHERE forum_id = @Id";
 
             try
             {
@@ -70,7 +70,7 @@ namespace Capstone.DAO
             List<Forum> forumList = new List<Forum>();
 
             string query = "SELECT forum_id, forum_title, forum_description, image_path, date_created " +
-            "FROM forum";
+                        "FROM forum";
             try
             {
                 using (var conn = new SqlConnection(connectionString))
@@ -111,8 +111,8 @@ namespace Capstone.DAO
         public Forum CreateForum(Forum forum)
         {
             string query = "INSERT INTO forum (forum_title, forum_description, image_path, date_created) " +
-                   "VALUES (@Title, @Description, @ImagePath, @DateCreated); " +
-                   "SELECT SCOPE_IDENTITY();";
+                          "VALUES (@Title, @Description, @ImagePath, @DateCreated); " +
+                          "SELECT SCOPE_IDENTITY();";
 
             try
             {
@@ -148,8 +148,8 @@ namespace Capstone.DAO
         public Forum UpdateForum(Forum forum)
         {
             string query = "UPDATE forum " +
-                           "SET forum_title = @Title, forum_description = @Description, image_path = @ImagePath " +
-                           "WHERE forum_id = @Id";
+                        "SET forum_title = @Title, forum_description = @Description, image_path = @ImagePath " +
+                        "WHERE forum_id = @Id";
 
             try
             {
@@ -178,15 +178,9 @@ namespace Capstone.DAO
             return forum;
         }
 
-        // Deletes a forum from the database with the specified ID.
-        // 
-        // Parameters:
-        //   id: The ID of the forum to be deleted.
-        //
-        // Returns: The deleted forum if it exists, otherwise null.
-        public Forum DeleteForum(int id)
+     
+        public Forum DeleteForumByID(int id)
         {
-            string query = "DELETE FROM forum WHERE forum_id = @Id";
             Forum deletedForum = null;
 
             try
@@ -197,13 +191,24 @@ namespace Capstone.DAO
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Id", id);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected == 0)
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        throw new DaoException("Deletion failed: Forum not found");
+                        try
+                        {
+                            DeleteIfExistsWithTransaction(transaction, "comment_votes", "comment_id IN (SELECT comment_id FROM comment WHERE post_id IN (SELECT post_id FROM posts WHERE forum_id = @Id))", id);
+                            DeleteIfExistsWithTransaction(transaction, "comment", "post_id IN (SELECT post_id FROM posts WHERE forum_id = @Id)", id);
+                            DeleteIfExistsWithTransaction(transaction, "post_votes", "post_id IN (SELECT post_id FROM posts WHERE post_id IN (SELECT post_id FROM posts WHERE forum_id = @Id))", id);
+                            DeleteIfExistsWithTransaction(transaction, "posts", "forum_id = @Id", id);
+                            DeleteIfExistsWithTransaction(transaction, "user_forum", "forum_id = @Id", id);
+                            DeleteIfExistsWithTransaction(transaction, "forum", "forum_id = @Id", id);
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw new DaoException("Transaction rolled back due to an error: " + ex.Message, ex);
+                        }
                     }
                 }
             }
@@ -213,6 +218,22 @@ namespace Capstone.DAO
             }
 
             return deletedForum;
+        }
+        private void DeleteIfExistsWithTransaction(SqlTransaction transaction, string tableName, string condition, int id)
+        {
+            string query = $"DELETE FROM {tableName} WHERE {condition}";
+
+            using (var cmd = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                cmd.Parameters.AddWithValue("@Id", id);
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                   
+                    Console.WriteLine($"Deletion skipped for {tableName} as there were no matching rows.");
+                }
+            }
         }
     }
 }

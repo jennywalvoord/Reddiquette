@@ -52,7 +52,7 @@ namespace Capstone.DAO
                             UpVotes = Convert.ToInt32(reader["up_votes"]),
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
-                            ForumID = Convert.ToInt32(reader["forum_id"]),
+                            ForumId = Convert.ToInt32(reader["forum_id"]),
                         };
                     }
                 }
@@ -95,8 +95,8 @@ namespace Capstone.DAO
                             UpVotes = Convert.ToInt32(reader["up_votes"]),
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
-                            ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ForumTitle = reader["forum_title"].ToString()
+                            ForumId = Convert.ToInt32(reader["forum_id"]),
+                            //ForumTitle = reader["forum_title"].ToString()
                             
                         };
 
@@ -147,8 +147,8 @@ namespace Capstone.DAO
                             UpVotes = Convert.ToInt32(reader["up_votes"]),
                             DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
-                            ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ForumTitle = reader["forum_title"].ToString()
+                            ForumId = Convert.ToInt32(reader["forum_id"]),
+                            //ForumTitle = reader["forum_title"].ToString()
                         };
 
                         postList.Add(post);
@@ -172,7 +172,7 @@ namespace Capstone.DAO
         public Post CreatePost(Post post)
         {
             string query = "INSERT INTO posts (post_content, up_votes, down_votes, date_created, forum_id) " +
-                         "VALUES (@UserID, @PostContent, @DateCreated, @ForumID); " +
+                        "VALUES (@UserID, @PostContent, @UpVotes, @DownVotes, @DateCreated, @ForumID); " +
                         "SELECT SCOPE_IDENTITY();";
 
             try
@@ -182,10 +182,13 @@ namespace Capstone.DAO
                     conn.Open();
 
                     var cmd = new SqlCommand(query, conn);
+                    
                     cmd.Parameters.AddWithValue("@UserID", post.UserID);
+                    cmd.Parameters.AddWithValue("@UpVotes", post.UpVotes);
+                    cmd.Parameters.AddWithValue("@DownVotes", post.DownVotes);
                     cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
                     cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
-                    cmd.Parameters.AddWithValue("@ForumID", post.ForumID);
+                    cmd.Parameters.AddWithValue("@ForumID", post.ForumId);
 
                     int newPostId = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -222,7 +225,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@UserID", post.UserID);
                     cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
                     cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
-                    cmd.Parameters.AddWithValue("@ForumID", post.ForumID);
+                    cmd.Parameters.AddWithValue("@ForumID", post.ForumId);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected == 0)
@@ -248,8 +251,8 @@ namespace Capstone.DAO
         public Post DeletePost(int id)
         {
             string query = "DELETE " +
-            "FROM posts " +
-            "WHERE post_id = @Id";
+                        "FROM posts " +
+                        "WHERE post_id = @Id";
             Post deletedPost = null;
 
             try
