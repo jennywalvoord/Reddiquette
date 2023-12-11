@@ -11,7 +11,7 @@ using Capstone.DTO;
 
 namespace Capstone.Controllers
 {
-    [Route("api/comment")]
+    [Route("[controller]")]
     [ApiController]
 
     public class CommentController : ControllerBase
@@ -31,7 +31,7 @@ namespace Capstone.Controllers
         }
 
         // Retrieves all comments and returns them as a list of CommentDto objects.
-        [HttpGet]
+        [HttpGet("/comment")]
         public IActionResult GetAllComments()
         {
             try
@@ -53,7 +53,7 @@ namespace Capstone.Controllers
         //   id: The ID of the comment to retrieve.
         //
         // Returns: An IActionResult containing the comment with the specified ID, if found.
-        [HttpGet("{id}")]
+        [HttpGet("/comment/{id}")]
         public IActionResult GetCommentById(int id)
         {
             try

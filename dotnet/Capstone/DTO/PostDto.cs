@@ -10,23 +10,22 @@ namespace Capstone.DTO
         // Unique identifier for a post
         public int PostID { get; set; }
 
-        // Title of the post
-        public string Title { get; set; }
+        public string UserID { get; set; }
 
         // Content of the post
-        public string Content { get; set; }
+        public string PostContent { get; set; }
 
-        // Number of upvotes for the post
+        // Number of up votes for the post
         public int UpVotes { get; set; }
 
-        // Number of downvotes for the post
+        // Number of down votes for the post
         public int DownVotes { get; set; }
 
         // Date when the post was created
         public DateTime DateCreated { get; set; }
 
         // Path to the image related to the post
-        public string ImagePath { get; set; }
+        //public string ImagePath { get; set; }
 
         // Unique identifier for the forum
         public int ForumID { get; set; }

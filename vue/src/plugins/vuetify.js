@@ -11,4 +11,7 @@ export default createVuetify({
       mdi,
     },
   },
+  theme: {
+    padding: '80px',
+  }
 })

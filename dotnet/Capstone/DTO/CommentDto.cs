@@ -20,10 +20,10 @@ namespace Capstone.DTO
         // Content of the comment
         public string CommentContent { get; set; }
 
-        // Number of upvotes for the comment
+        // Number of up votes for the comment
         public int UpVotes { get; set; }
 
-        // Number of downvotes for the comment
+        // Number of down votes for the comment
         public int DownVotes { get; set; }
 
         // Date when the comment was created
