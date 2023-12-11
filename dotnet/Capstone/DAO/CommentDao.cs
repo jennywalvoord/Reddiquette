@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using Capstone.Models;
 using Capstone.Exceptions;
+using System.ComponentModel.Design;
 
 namespace Capstone.DAO
 {
@@ -222,24 +223,29 @@ namespace Capstone.DAO
         }
         public Comment DeleteComment(int id)
         {
-            string query = "DELETE FROM comment WHERE comment_id = @Id";
             Comment deletedComment = null;
-
             try
             {
-                deletedComment = GetCommentById(id);
-
+                deletedComment=GetCommentById(id);
                 using (var conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    var cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("@Id", id);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected == 0)
+                    using (var transaction = conn.BeginTransaction())
                     {
-                        throw new DaoException("Deletion failed: Comment not found");
+                        try
+                        {
+                            DeleteIfExistsWithTransaction(transaction, "comment_votes", "comment_id = @CommentId", id);
+                            DeleteIfExistsWithTransaction(transaction, "comment", "parent_id = @CommentId", id);
+                            DeleteIfExistsWithTransaction(transaction, "comment", "comment_id = @CommentId", id);
+
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            throw new DaoException("Transaction rolled back due to an error: " + ex.Message, ex);
+                        }
                     }
                 }
             }
@@ -247,8 +253,23 @@ namespace Capstone.DAO
             {
                 throw new DaoException("SQL exception occurred", e);
             }
-
             return deletedComment;
+        }
+        private void DeleteIfExistsWithTransaction(SqlTransaction transaction, string tableName, string condition, int commentId)
+        {
+            string query = $"DELETE FROM {tableName} WHERE {condition}";
+
+            using (var cmd = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                cmd.Parameters.AddWithValue("@CommentId", commentId);
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+                    // Optional: Log a message or take some action if the table is empty
+                    Console.WriteLine($"Deletion skipped for {tableName} as there were no matching rows.");
+                }
+            }
         }
     }
     

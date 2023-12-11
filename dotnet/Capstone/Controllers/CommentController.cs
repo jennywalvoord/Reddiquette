@@ -103,7 +103,7 @@ namespace Capstone.Controllers
         //   If the comment is created successfully, it returns a CreatedAtAction result with the created comment object.
         //   If an error occurs during the creation of the comment, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
-        [HttpPost]
+        [HttpPost("/comment")]
         [Authorize(Roles = "admin, moderator, user")]
         public IActionResult CreateComment(Comment comment)
         {
