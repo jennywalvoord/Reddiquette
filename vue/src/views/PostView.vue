@@ -1,7 +1,7 @@
 <template>
     <v-sheet class="d-flex flex-wrap bg-surface-variant">
         <v-sheet class="flex-1-0 ma-24 pa-24">
-            <post-section :post="findPost" />
+            <post-section :reply="findReply" :post="findPost"  />
         </v-sheet>
         <v-navigation-drawer fixed permanent location="right">
             <div class="ma-24 pa-24">
@@ -28,7 +28,12 @@ export default {
             let postId = this.$route.params.id;  
             let post = this.$store.state.posts.find((p) => p.id == postId);
             return post;
-        }
+        },
+        findReply() {
+            let replyId = this.$route.params.id;  
+            let reply = this.$store.state.Reply.filter((p) => p.id == replyId);
+            return reply;
+        },
     },
 }
 </script>
