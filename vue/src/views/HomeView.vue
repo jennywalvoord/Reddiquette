@@ -11,7 +11,7 @@
             rounded="lg"
             class="ma-4 pa-4"
             >
-            <v-text class="text-h2">My Posts</v-text>
+            <v-text class="text-h2">Recent Posts</v-text>
             <v-slide-group show-arrows>
                 <v-slide-group-item
                   v-for="post in filteredPosts"
