@@ -118,7 +118,7 @@ namespace Capstone.DAO
         //   id: The ID of the forum.
         //
         // Returns: A list of Post objects.
-        public List<Post> GetPostsByForumID(int id)
+        public List<Post> GetPostsByForumId(int id)
         {
             List<Post> postList = new List<Post>();
 
@@ -171,7 +171,7 @@ namespace Capstone.DAO
         // Returns: The newly created post with the updated PostID.
         public Post CreatePost(Post post)
         {
-            string query = "INSERT INTO posts (post_content, up_votes, down_votes, date_created, forum_id) " +
+            string query = "INSERT INTO posts (user_id, post_content, up_votes, down_votes, date_created, forum_id) " +
                         "VALUES (@UserID, @PostContent, @UpVotes, @DownVotes, @DateCreated, @ForumID); " +
                         "SELECT SCOPE_IDENTITY();";
 
@@ -226,6 +226,7 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
                     cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
                     cmd.Parameters.AddWithValue("@ForumID", post.ForumId);
+                    cmd.Parameters.AddWithValue("@Id", post.PostID);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected == 0)
