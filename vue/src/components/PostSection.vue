@@ -1,7 +1,7 @@
 <template>
   <v-content class="post-section">
     <v-sheet class="citation">
-      <h4>{{ getForumTitle(post.forumId) }}</h4>
+      <h3>{{ getForumTitle(post.forumId) }}</h3>
       <v-row class="d-flex ">
         <v-col>
           <h6>Posted by: {{ getUserName(post.userId) }}</h6>
@@ -33,6 +33,12 @@
             <v-chip class="grey" label size="small" @click=null>
               <i class="fa-regular fa-comment pr-2"></i>Comment
             </v-chip>
+            
+            <div class="replies">
+              <p>
+               {{ getReply(post.postId) }}
+              </p>
+            </div>
 
           </v-chip-group>
         </div>
@@ -49,7 +55,7 @@
 import { storeKey } from 'vuex';
 
 export default {
-  props: ["post"],
+  props: ["post", "reply"],
   components: {
   },
   methods: {
@@ -60,6 +66,10 @@ export default {
     getUserName(userId) {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
+    },
+    getReply(postId){
+      const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
+      return reply ? reply.body : 'No Comments Yet!';
     },
     upVote() {
       if (!this.isUpvoted) {
