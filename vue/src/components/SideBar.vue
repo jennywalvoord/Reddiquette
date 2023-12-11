@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-navigation-drawer app permanent location="right" v-model="drawer">
+    <v-navigation-drawer app permanent location="right" >
 
       <login-bar />
           <v-list-item
