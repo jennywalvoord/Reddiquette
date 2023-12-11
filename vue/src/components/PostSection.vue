@@ -93,8 +93,8 @@ export default {
       else if (Math.round(differenceInTime/(60*60*24) < 30)) {return `${Math.round(differenceInTime/(60*60*24))} days ago`}
       else if (Math.round(differenceInTime/(60*60*24*30) == 1)) {return "1 month ago"}
       else if (Math.round(differenceInTime/(60*60*24*30) < 12)) {return `${Math.round(differenceInTime/(60*60*24*30))} months ago`}
-      else if (Math.round(differenceInTime/(60*60*365) == 1)) {return "1 year ago"}
-      else  return `${Math.round(differenceInTime/(60*60*365))} years ago`
+      else if (Math.round(differenceInTime/(60*60*24*365) == 1)) {return "1 year ago"}
+      else  return `${Math.round(differenceInTime/(60*60*24*365))} years ago`
 
     },
   }
