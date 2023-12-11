@@ -2,10 +2,10 @@
   
   <v-app class="grey lighten-4">
     <!-- <navbar></navbar> -->
-    <div style="height: 72px;"></div>
+    <!-- <div style="height: 72px;"></div> -->
    
       <v-app-bar app
-      class="px-3 elevation-10"
+      class="px-3 elevation-4"
       color="grey-lighten-4"
       height="72"
       > 
@@ -21,7 +21,7 @@
              
             </router-link>
           </v-app-bar-nav-icon>
-          <v-app-bar-title class="text-uppercase">Rediquette</v-app-bar-title>
+          <v-app-bar-title class="font-weight-bold" :style="{color: '#ff4500'}">rediquette</v-app-bar-title>
           <router-link v-bind:to="{ name: 'home' }">Home</router-link>
           <v-btn flat color="grey">
             <span>Sign Out</span>&nbsp;
