@@ -161,7 +161,7 @@ namespace Capstone.Controllers
         //
         // Returns:
         //   An IActionResult representing the result of the deletion operation.
-        [HttpDelete("/{id}")]
+        [HttpDelete("/posts/{id}")]
         [Authorize(Roles = "admin, moderator")]
         public IActionResult DeletePost(int id)
         {
