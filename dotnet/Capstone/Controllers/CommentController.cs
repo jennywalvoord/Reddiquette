@@ -103,7 +103,7 @@ namespace Capstone.Controllers
         //   If an error occurs during the creation of the comment, it returns a StatusCode result with a 500 status code
         //   and an error message indicating the failure.
         [HttpPost]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult CreateComment(Comment comment)
         {
             try
@@ -124,8 +124,8 @@ namespace Capstone.Controllers
         //   comment: The updated comment object.
         //
         // Returns: An IActionResult representing the result of the update operation.
-        [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [HttpPut("/comment/{id}")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult UpdateComment(int id, Comment comment)
         {
             if (id != comment.CommentID)
@@ -154,8 +154,8 @@ namespace Capstone.Controllers
         //
         // Returns:
         //   An IActionResult representing the result of the deletion operation.
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, Moderator, User")]
+        [HttpDelete("/comment/{id}")]
+        [Authorize(Roles = "admin, moderator, user")]
         public IActionResult DeleteComment(int id)
         {
             try
