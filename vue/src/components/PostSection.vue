@@ -104,10 +104,12 @@ export default {
     
 <style>
 .citation {
-  margin: 7.5% auto auto auto;
+  margin: 2.5% auto auto auto;
+  padding-left: 2%;
+  padding-right: 33%;
 }
 .postDetails {
-  margin-top: 100px;
+  margin-top: 2.5%;
 }
 #textArea {
   background-color: rgb(222, 222, 222);
