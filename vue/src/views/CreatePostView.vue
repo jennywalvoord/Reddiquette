@@ -34,19 +34,19 @@
                             <v-text-field
                                 v-model="title"
                                 label="Title"
-                                :rules="titleRules"
+                                required
                             ></v-text-field>
                             <v-row>
-                            <v-textarea label="Text (Optional)"></v-textarea>
+                              <div>
+                            
+                            <tiptap-rich-text-editor />
+
+                          </div>
                             </v-row>
 
                             <v-btn type="submit" block class="mt-2">Post</v-btn>
                             </v-form>
-                            <div>
                             
-                              <tiptap-rich-text-editor />
-
-                            </div>
                         </v-sheet>
                     
                     </v-container>
