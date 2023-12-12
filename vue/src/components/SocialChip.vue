@@ -1,7 +1,8 @@
 <template>
 <v-chip-group class="ma-2">
-    <v-chip class="green" label size="small" @click="upVote">
+    <v-chip class="green" label size="small" @click="upVote" onclick="">
       <i class="fa-solid fa-up-long pr-2"></i>Upvote
+      <div id="snackBar">You Must be Logged In to UpVote!</div>
     </v-chip>
 
     <v-chip class="red" label size="small" @click="downVote">
@@ -60,6 +61,11 @@ export default {
       const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
       return forum ? forum.title : 'Forum Not Found';
     },
+    loginPromt(){
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
     
   },
   mounted() {

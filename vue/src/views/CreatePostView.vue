@@ -26,27 +26,27 @@
                         <v-sheet class="mx-auto">
                           <v-form @submit.prevent="createPost">
                             <v-text-field v-model="title" label="Title" :rules="titleRules"></v-text-field>
+                  <v-window>
+                    <v-window-item v-for="n in 3" :key="n" :value="n">
+                      <v-container fluid>
+                        <v-sheet class="mx-auto">
+                          <v-form @submit.prevent>
+                            <v-text-field v-model="title" label="Title" required></v-text-field>
+                            <v-row>
+                              <div>
+                                <tiptap-rich-text-editor />
+                              </div>
+                            </v-row>
                             <v-row>
                               <v-textarea v-model="text" label="Text (Optional)"></v-textarea>
+                              <v-file-input label="File input" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                             </v-row>
-
                             <v-btn type="submit" block class="mt-2">Post</v-btn>
                           </v-form>
-                          <div>
-                            <!-- ... (other code remains unchanged) ... -->
-                          </div>
+
                         </v-sheet>
+
                       </v-container>
-
-                      <!-- Content for Tab 2: Image -->
-                      <v-container fluid v-else-if="tab === 2">
-                        <v-row>
-
-                          <v-file-input label="File input" variant="filled" prepend-icon="mdi-camera"></v-file-input>
-
-                        </v-row>
-                      </v-container>
-
 
                     </v-window-item>
                   </v-window>
