@@ -98,13 +98,11 @@ export default {
     return {
       selectedForum: '',
       post: {
-        UserId: 4, //this.$store.state.user.UserId,
+        UserId: this.$store.state.user.id,
         PostTitle: '',
         PostContent: '',
-        // UpVotes: 0,
-        // DownVotes: 0,
         DateCreated: currentDate.toISOString(),
-        ForumID: '3',
+        ForumID: '',
         ImagePath: '',
       },
       postingErrors: false,
@@ -119,6 +117,7 @@ export default {
     async createPost() {
     try {
       this.post.ForumID = this.selectedForum.id;
+      this.post.UserId = this.$store.state.user.userId;
       const response = await postService.createPost(this.post);
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
@@ -138,9 +137,26 @@ export default {
         // Handle other errors
         console.error('Error creating post:', error);
       }
+      
     }
   }
-  }
+  },
+  // computed: {
+  //   isLoggedIn() {
+  //     return !!this.$store.state.token;
+  //   },
+  //   user() {
+  //     return this.$store.state.user;
+  //   },
+  //   displayedUsername() {
+
+  //     if (this.user && this.user.username) {
+  //       return this.user.username;
+  //     } else {
+  //       return 'Anonymous';
+  //     }
+  //   }
+  // }
 };
 </script>
 
