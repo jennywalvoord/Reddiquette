@@ -25,12 +25,14 @@ namespace Capstone.Models
         public DateTime DateCreated { get; set; }
 
         // Path to image related to post
-        //public string ImagePath { get; set; }
+        public string ImagePath { get; set; }
 
         // ID of the forum the post belongs to
         public int ForumId { get; set; }
 
         // Title of the forum the post belongs to
         //public string ForumId { get; set; }
+
+        public string PostTitle { get; set; }
     }
 }
