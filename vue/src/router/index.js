@@ -72,7 +72,7 @@ const routes = [
     name: "create-post",
     component: CreatePostView,
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
 ];
