@@ -88,13 +88,13 @@ export default {
     const currentDate = new Date();
     return {
       post: {
-        UserId: this.$store.state.user.UserId,
+        UserId: 4, //this.$store.state.user.UserId,
         PostTitle: '',
         PostContent: '',
-        UpVotes: 0,
-        DownVotes: 0,
+        // UpVotes: 0,
+        // DownVotes: 0,
         DateCreated: currentDate.toISOString(),
-        // ForumID: '',
+        ForumID: '3',
         ImagePath: '',
       },
       postingErrors: false,
