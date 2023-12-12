@@ -5,10 +5,10 @@
         </div>
         <div>
             <h3 v-bind:to="{ name: 'forum-view', params: { id: forums.forumId } }">
-                {{ forums.title }}
+                {{ forums.forumTitle }}
                 <!-- //<router-link  v-bind:to="{ name: 'forum-view', params: {id: forums.forumId}}">{{forums.title}}</router-link> -->
             </h3>
-            <p v-bind:to="{ name: 'forum-view', params: { id: forums.forumId } }">{{ forums.description }}</p>
+            <p v-bind:to="{ name: 'forum-view', params: { id: forums.forumId } }">{{ forums.forumDescription }}</p>
 
 
         </div>
