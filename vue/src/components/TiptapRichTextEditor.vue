@@ -1,5 +1,5 @@
 <template>
-    <editor-content :editor="editor" />
+    <editor-content :editor="editor"/>
     <!-- <div>
         <button onclick="editor.chain().focus().toggleBold().run()">
         <v-icon icon="mdi-format-bold"></v-icon>
@@ -51,6 +51,8 @@
         extensions: [
           StarterKit,
         ],
+        injectCSS: false,
+
       })
     },
   
