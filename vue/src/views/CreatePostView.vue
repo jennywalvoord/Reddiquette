@@ -12,7 +12,13 @@
                   <p class="font-weight-bold py-4">Choose a forum to post to:</p>
                   
 
-                  <v-window>
+                  <v-tabs v-model="tab" color="#FF4500" align-tabs="center">
+                    <v-tab :value="1">Post</v-tab>
+                    <v-tab :value="2">Image</v-tab>
+                  </v-tabs>
+
+
+                            <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
@@ -92,13 +98,13 @@ export default {
     return {
       selectedForum: '',
       post: {
-        UserId: this.$store.state.user.id,
+        UserId: 4, //this.$store.state.user.UserId,
         PostTitle: '',
         PostContent: '',
-        UpVotes: 0,
-        DownVotes: 0,
+        // UpVotes: 0,
+        // DownVotes: 0,
         DateCreated: currentDate.toISOString(),
-        ForumID: '',
+        ForumID: '3',
         ImagePath: '',
       },
       postingErrors: false,
