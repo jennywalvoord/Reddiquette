@@ -110,8 +110,8 @@ export default {
       this.$store.commit('updateClout', upVoteCount - downVoteCount);
     },
     getForumTitle(forumId) {
-      const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
-      return forum ? forum.title : 'Forum Not Found';
+      const forum = this.$store.state.forums.find((forum) => forum.forumId === forumId);
+      return forum ? forum.forumTitle : 'Forum Not Found';
     },
     
   },

@@ -5,7 +5,7 @@
         </div>
         <div>
             <h3>
-                <router-link  v-bind:to="{ name: 'forum-view', params: {id: forums.id}}">{{forums.title}}</router-link>
+                <router-link  v-bind:to="{ name: 'forum-view', params: {id: forums.forumId}}">{{forums.forumTitle}}</router-link>
             </h3>
             
         
