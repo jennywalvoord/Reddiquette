@@ -5,6 +5,7 @@ export default {
     list() {
         return axios.get('/posts');
     },
+    
     createPost(post){
         return axios.post('/posts', post);
     },
