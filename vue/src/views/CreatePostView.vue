@@ -10,9 +10,7 @@
                 <div class="pb-6">
                   <v-text class="text-h4">Create a Post</v-text>
                   <p class="font-weight-bold py-4">Choose a forum to post to:</p>
-                  <v-select class="py-4" label="Choose a forum"
-                    :items="['Forum1', 'Forum2', 'Forum3', 'Forum4', 'Forum5', 'Forum6']"></v-select>
-                  <p class="font-weight-bold py-4">Add text and an image: </p>
+                  
 
                   <v-tabs v-model="tab" color="#FF4500" align-tabs="center">
                     <v-tab :value="1">Post</v-tab>
@@ -25,6 +23,17 @@
                       <v-container fluid>
                         <v-sheet class="mx-auto">
                           <v-form @submit.prevent="createPost">
+                            <v-select 
+                              class="py-4" 
+                              label="Choose a forum"
+                              :items="forums"
+                              :item-value="id"
+                              :item-title="title"
+                              v-model="selectedForum"
+                              return-object
+                              ></v-select>
+                            <p class="font-weight-bold py-4">Add text and an image: </p>
+
                                 <v-text-field 
                                   v-model="post.PostTitle" 
                                   label="Title" required></v-text-field>
@@ -87,14 +96,13 @@ export default {
   data() {
     const currentDate = new Date();
     return {
+      selectedForum: '',
       post: {
-        UserId: 4, //this.$store.state.user.UserId,
+        UserId: this.$store.state.user.id,
         PostTitle: '',
         PostContent: '',
-        // UpVotes: 0,
-        // DownVotes: 0,
         DateCreated: currentDate.toISOString(),
-        ForumID: '3',
+        ForumID: '',
         ImagePath: '',
       },
       postingErrors: false,
@@ -102,12 +110,14 @@ export default {
       // components: {
       //   TiptapRichTextEditor
       // },
-      tab: 1, // Set the initial value to 1 for the "Post" tab
+      forums: this.$store.state.forums,
     };
   },
   methods:{
     async createPost() {
     try {
+      this.post.ForumID = this.selectedForum.id;
+      this.post.UserId = this.$store.state.user.userId;
       const response = await postService.createPost(this.post);
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
@@ -127,9 +137,26 @@ export default {
         // Handle other errors
         console.error('Error creating post:', error);
       }
+      
     }
   }
-  }
+  },
+  // computed: {
+  //   isLoggedIn() {
+  //     return !!this.$store.state.token;
+  //   },
+  //   user() {
+  //     return this.$store.state.user;
+  //   },
+  //   displayedUsername() {
+
+  //     if (this.user && this.user.username) {
+  //       return this.user.username;
+  //     } else {
+  //       return 'Anonymous';
+  //     }
+  //   }
+  // }
 };
 </script>
 
