@@ -54,18 +54,7 @@ export default {
       const forumIdsWithRecentPosts = Array.from(new Set(allPosts.map(post => post.forumId)));
       const activeForums = allForums
         .filter(forum => forumIdsWithRecentPosts.includes(forum.forumId))
-        .sort((a, b) => {
-          const recentPostA = allPosts
-            .filter(post => post.forumId === a.id)
-            .sort((x, y) => new Date(y.dateCreated) - new Date(x.dateCreated))[0];
-
-          const recentPostB = allPosts
-            .filter(post => post.forumId === b.id)
-            .sort((x, y) => new Date(y.dateCreated) - new Date(x.dateCreated))[0];
-
-
-          return new Date(recentPostB.dateCreated) - new Date(recentPostA.dateCreated);
-        })
+        .sort((a, b) => {return new Date(b.dateCreated) - new Date(a.dateCreated)[0]})
           .slice(0, 5);
           return activeForums;
       },
