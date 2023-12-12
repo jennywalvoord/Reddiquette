@@ -29,7 +29,13 @@
                                   color="cyan"
                                   label="Label"
                                 ></v-textarea>
-                              <v-file-input v-model="post.ImagePath" label="File input" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+
+                                <v-text-field 
+                                  v-model="post.ImagePath" 
+                                  label="Add image url" 
+                                  variant="filled" 
+                                  prepend-icon="mdi-camera"
+                                  ></v-text-field>
 
                                 <!-- <tiptap-rich-text-editor /> -->
                               </div>
