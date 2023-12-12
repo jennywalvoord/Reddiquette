@@ -35,7 +35,7 @@ namespace Capstone.Controllers
             try
             {
                 var posts = postDao.GetAllPosts();
-                var postDtos = mapper.Map<List<PostDto>>(posts);
+                var postDtos = mapper.Map<List<Post>>(posts);
 
                 return Ok(postDtos);
             }
@@ -61,7 +61,7 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No post found with ID {id}.");
                 }
-                var postDto = mapper.Map<PostDto>(post);
+                var postDto = mapper.Map<Post>(post);
 
                 return Ok(postDto);
             }
@@ -88,7 +88,7 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No posts found with Forum ID {id}.");
                 }
-                var postDtos = mapper.Map<List<PostDto>>(posts);
+                var postDtos = mapper.Map<List<Post>>(posts);
 
                 return Ok(postDtos);
             }
