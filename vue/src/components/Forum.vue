@@ -12,11 +12,11 @@
         </div>
     </div>
 </template>
+
 <script>
+import ForumService from '../services/ForumService.js';
 
 export default {
-    props: ['forums']
-   
+    props: ['forum'],
 }
-
 </script>

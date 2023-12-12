@@ -1,6 +1,7 @@
 import { createStore as _createStore } from 'vuex';
 import axios from 'axios';
 import AuthService from '../services/AuthService';
+import ForumService from '../services/ForumService';
 
 export function createStore(currentToken, currentUser) {
   let store = _createStore({
@@ -13,24 +14,24 @@ export function createStore(currentToken, currentUser) {
       isAuthenticated: !!currentToken,
       forums:[{
         id: 1,
-        title: "Tech Enthusiasts Unite",
-        description: "Discuss the latest gadgets and innovations!",
+        title: "tech enthusiasts unite",
+        description: "discuss the latest gadgets and innovations!",
         image:'',
-        numberOfReplys:0
+        numberofreplys:0
       },
       {
         id: 2,
-        title: "Pop Culture Club",
-        description: "Discuss the latest in Pop Culture and related happenings!",
+        title: "pop culture club",
+        description: "discuss the latest in pop culture and related happenings!",
         image:'',
-        numberOfReplys:0
+        numberofreplys:0
       },
       {
         id: 3,
-        title: "Creative Minds Hub",
-        description: "Share your art, writing, and other passions",
+        title: "creative minds hub",
+        description: "share your art, writing, and other passions",
         image:'',
-        numberOfReplys:0
+        numberofreplys:0
 
       },
       {
@@ -492,6 +493,12 @@ export function createStore(currentToken, currentUser) {
           throw new Error('Login failed');
         }
       },
+      fetchForums(context) {
+        // Use ForumService to call api
+        ForumService.getForums().then(response => {
+          context.commit("SET_FORUMS", response.data);
+        });
+      }
     }
   });
   return store;
