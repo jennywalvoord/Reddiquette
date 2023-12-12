@@ -48,7 +48,6 @@ namespace Capstone.DAO
                             CommentContent = reader["comment_content"].ToString(),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumID = Convert.ToInt32(reader["forum_id"]),
-                            ParentID = Convert.ToInt32(reader["parent_id"])
                         };
 
                         commentList.Add(comment);
