@@ -32,5 +32,6 @@ namespace Capstone.DTO
 
         // Title of the forum
         public string ForumTitle { get; set; }
+        public string PostTitle { get; set; }
     }
 }

@@ -14,7 +14,13 @@
                     :items="['Forum1', 'Forum2', 'Forum3', 'Forum4', 'Forum5', 'Forum6']"></v-select>
                   <p class="font-weight-bold py-4">Add text and an image: </p>
 
-                  <v-window>
+                  <v-tabs v-model="tab" color="#FF4500" align-tabs="center">
+                    <v-tab :value="1">Post</v-tab>
+                    <v-tab :value="2">Image</v-tab>
+                  </v-tabs>
+
+
+                            <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
@@ -82,13 +88,13 @@ export default {
     const currentDate = new Date();
     return {
       post: {
-        UserId: this.$store.state.user.id,
+        UserId: this.$store.state.user.UserId,
         PostTitle: '',
         PostContent: '',
         UpVotes: 0,
         DownVotes: 0,
         DateCreated: currentDate.toISOString(),
-        ForumID: '',
+        // ForumID: '',
         ImagePath: '',
       },
       postingErrors: false,
