@@ -12,11 +12,7 @@
                   <p class="font-weight-bold py-4">Choose a forum to post to:</p>
                   
 
-                  <v-tabs v-model="tab" color="#FF4500" align-tabs="center">
-                    <v-tab :value="1">Post</v-tab>
-                    <v-tab :value="2">Image</v-tab>
-                  </v-tabs>
-
+                 
 
                             <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
@@ -39,11 +35,15 @@
                                   label="Title" required></v-text-field>
                             
                               <div>
-                                <v-textarea v-model="post.PostContent"
+                                <div class="content">
+                                    <p>Enter your post content</p>
+                                    <tiptap />
+                                  </div>
+                                <!-- <v-textarea v-model="post.PostContent"
                                   bg-color="grey-lighten-2"
                                   color="cyan"
                                   label="Label"
-                                ></v-textarea>
+                                ></v-textarea> -->
 
                                 <v-text-field 
                                   v-model="post.ImagePath" 
@@ -52,12 +52,13 @@
                                   prepend-icon="mdi-camera"
                                   ></v-text-field>
 
-                                <!-- <tiptap-rich-text-editor /> -->
+
+                                  
                               </div>
-                            
+                              
                             <v-row>
                             </v-row>
-                            <v-btn type="submit" block class="mt-2">Post</v-btn>
+                            <v-btn type="submit" block class="mt-10">Post</v-btn>
                           </v-form>
                         </v-sheet>
                       </v-container>
@@ -87,12 +88,12 @@
 </template>
 
 <script>
-// import TiptapRichTextEditor from '../components/TiptapRichTextEditor.vue';
+import Tiptap from '../components/Tiptap.vue';
 import postService from '../services/PostService';
 // import CommentService from '../services/CommentService';
 export default {
   // props: ['forums'],
-  // components: { TiptapRichTextEditor },
+  components: { Tiptap },
   data() {
     const currentDate = new Date();
     return {
@@ -141,27 +142,61 @@ export default {
     }
   }
   },
-  // computed: {
-  //   isLoggedIn() {
-  //     return !!this.$store.state.token;
-  //   },
-  //   user() {
-  //     return this.$store.state.user;
-  //   },
-  //   displayedUsername() {
-
-  //     if (this.user && this.user.username) {
-  //       return this.user.username;
-  //     } else {
-  //       return 'Anonymous';
-  //     }
-  //   }
-  // }
+  
 };
 </script>
 
 <style>
+.tiptap {
+  height: 140px;
+  border: solid 0.5px lightslategray;
+  border-radius: 8px;
+  padding: 8px 16px;
+}
+.tiptap p {
+  margin: 1em 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+  }
+code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
 .custom-padding {
   padding: 80px 60px;
+}
+
+.content {
+  margin-top: 20px;  /* Adjust the top margin as needed */
+  border: 1px solid #ccc;  /* Add a border for visual separation */
+  padding: 10px;
+  margin-bottom: 20px;
+  overflow-y: auto;  /* Enable vertical scroll if content overflows */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Add a subtle shadow */
+}
+
+/* Additional styles specific to tiptap content */
+.content p {
+  margin-bottom: 10px;
+}
+
+/* You may need to target specific tiptap elements based on its structure */
+.content h1, .content h2, .content h3 {
+  color: #333;
+  font-weight: bold;
 }
 </style>

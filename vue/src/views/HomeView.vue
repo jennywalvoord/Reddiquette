@@ -56,6 +56,7 @@
 <script>
 import SmallPost from '../components/SmallPost.vue'
 import SideBar from '../components/SideBar.vue'
+import ForumService from '../services/ForumService';
 
 export default {
   components: {
@@ -68,6 +69,13 @@ export default {
         }
     },
   data: () => ({ drawer: null }),
+  created() {
+    ForumService.getForums().then(response => {
+    this.$store.commit("SET_FORUMS", response.data);
+    }  
+    );
+  },      
+  
 };
 </script> 
 
