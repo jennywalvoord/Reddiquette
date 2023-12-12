@@ -1,5 +1,6 @@
 ﻿using Capstone.Exceptions;
 using Capstone.Models;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public ReturnVotes GetPostVotesById(int targetID)
+        public ReturnVotes GetAllPostVotesById(int targetID)
         {
             ReturnVotes votes = new ReturnVotes() { TargetID = targetID, Upvotes = 0, Downvotes = 0 };
             IList<Vote> votesList = new List<Vote>();
@@ -88,7 +89,7 @@ namespace Capstone.DAO
             return vote;
         }
 
-        public ReturnVotes GetCommentVotesById(int targetID)
+        public ReturnVotes GetAllCommentVotesById(int targetID)
         {
             ReturnVotes votes = new ReturnVotes() { TargetID = targetID, Upvotes = 0, Downvotes = 0 };
             IList<Vote> votesList = new List<Vote>();
@@ -165,7 +166,7 @@ namespace Capstone.DAO
 
             string sql = "INSERT INTO post_votes(user_id, target_id, inc) " +
                 "VALUES (@userId, @targetId, @inc)";
-            string sql2 = "SELECT * FROM post_votes WHERE user_id = @userId AND target_id = @targetId";
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -179,15 +180,7 @@ namespace Capstone.DAO
 
                     cmd.ExecuteNonQuery();
 
-                    SqlCommand cmd2 = new SqlCommand(sql2, conn);
-                    cmd2.Parameters.AddWithValue("@userId", userId);
-                    cmd2.Parameters.AddWithValue("@targetId", targetID);
-                    SqlDataReader reader = cmd2.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        vote = MapRowToVote(reader);
-                    }
+                    vote = GetPostVoteById(userId, targetID);
 
                 }
             }
@@ -204,7 +197,6 @@ namespace Capstone.DAO
 
             string sql = "INSERT INTO comment_votes(user_id, target_id, inc) " +
                 "VALUES (@userId, @targetId, @inc)";
-            string sql2 = "SELECT * FROM comment_votes WHERE user_id = @userId AND target_id = @targetId";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -218,16 +210,7 @@ namespace Capstone.DAO
 
                     cmd.ExecuteNonQuery();
 
-                    SqlCommand cmd2 = new SqlCommand(sql2, conn);
-                    cmd2.Parameters.AddWithValue("@userId", userId);
-                    cmd2.Parameters.AddWithValue("@targetId", targetID);
-                    SqlDataReader reader = cmd2.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        vote = MapRowToVote(reader);
-                    }
-
+                    vote = GetCommentVoteById(userId, targetID);
                 }
             }
             catch (SqlException ex)
@@ -236,6 +219,74 @@ namespace Capstone.DAO
             }
             return vote;
         }
+
+        public Vote UpdateCommentVote(int userId, int commentId, int increment)
+        {
+            Vote vote = null;
+            string query = "UPDATE comment_votes " +
+                        "SET inc = @Inc " +
+                        "WHERE comment_id = @commentId AND user_id = @userId";
+
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Inc", increment);
+                    cmd.Parameters.AddWithValue("@commentId", commentId);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new DaoException("Update failed: Vote not found");
+                    }
+                    vote = GetCommentVoteById(userId, commentId);
+                }
+            }
+            catch (SqlException e)
+            {
+                throw new DaoException("SQL exception occurred", e);
+            }
+
+            return vote;
+        }
+        public Vote UpdatePostVote(int userId, int postId, int increment)
+        {
+            Vote vote = null;
+            string query = "UPDATE post_votes " +
+                        "SET inc = @Inc " +
+                        "WHERE post_id = @posttId AND user_id = @userId";
+
+            try
+            {
+                using (var conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@Inc", increment);
+                    cmd.Parameters.AddWithValue("@postId", postId);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        throw new DaoException("Update failed: Vote not found");
+                    }
+                    vote = GetPostVoteById(userId, postId);
+                }
+            }
+            catch (SqlException e)
+            {
+                throw new DaoException("SQL exception occurred", e);
+            }
+
+            return vote;
+        }
+
         private Vote MapRowToVote(SqlDataReader reader)
         {
             Vote vote = new Vote();
