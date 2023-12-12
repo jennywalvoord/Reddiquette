@@ -49,8 +49,8 @@ namespace Capstone.DAO
                             PostID = Convert.ToInt32(reader["post_id"]),
                             UserID = Convert.ToInt32(reader["user_id"]),
                             PostContent = reader["post_content"].ToString(),
-                            UpVotes = Convert.ToInt32(reader["up_votes"]),
-                            DownVotes = Convert.ToInt32(reader["down_votes"]),
+                            //UpVotes = Convert.ToInt32(reader["up_votes"]),
+                            //DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumId = Convert.ToInt32(reader["forum_id"]),
                             PostTitle = reader["post_title"].ToString()
@@ -73,7 +73,7 @@ namespace Capstone.DAO
         {
             List<Post> postList = new List<Post>();
 
-            string query = "SELECT p.post_id, p.post_title, p.user_id, p.post_content, p.up_votes, p.down_votes, p.date_created, p.forum_id, f.forum_title " +
+            string query = "SELECT p.post_id, p.post_title, p.user_id, p.post_content,  p.date_created, p.forum_id, f.forum_title " +
                     "FROM posts AS p " +
                     "JOIN forum AS f ON p.forum_id = f.forum_id";
 
@@ -93,8 +93,8 @@ namespace Capstone.DAO
                             PostID = Convert.ToInt32(reader["post_id"]),
                             UserID = Convert.ToInt32(reader["user_id"]),
                             PostContent = reader["post_content"].ToString(),
-                            UpVotes = Convert.ToInt32(reader["up_votes"]),
-                            DownVotes = Convert.ToInt32(reader["down_votes"]),
+                            //UpVotes = Convert.ToInt32(reader["up_votes"]),
+                            //DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumId = Convert.ToInt32(reader["forum_id"]),
                             PostTitle = reader["post_title"].ToString()
@@ -123,7 +123,7 @@ namespace Capstone.DAO
         {
             List<Post> postList = new List<Post>();
 
-            string query = "SELECT p.post_id, p.user_id, p.post_title, p.post_content, p.up_votes, p.down_votes, p.date_created, p.forum_id, f.forum_title " +
+            string query = "SELECT p.post_id, p.user_id, p.post_title, p.post_content,  p.date_created, p.forum_id, f.forum_title " +
                         "FROM posts AS p " +
                         "JOIN forum AS f ON p.forum_id = f.forum_id " +
                         "WHERE p.forum_id = @Id";
@@ -145,8 +145,8 @@ namespace Capstone.DAO
                             PostID = Convert.ToInt32(reader["post_id"]),
                             UserID = Convert.ToInt32(reader["user_id"]),
                             PostContent = reader["post_content"].ToString(),
-                            UpVotes = Convert.ToInt32(reader["up_votes"]),
-                            DownVotes = Convert.ToInt32(reader["down_votes"]),
+                            //UpVotes = Convert.ToInt32(reader["up_votes"]),
+                            //DownVotes = Convert.ToInt32(reader["down_votes"]),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
                             ForumId = Convert.ToInt32(reader["forum_id"]),
                             PostTitle = reader["post_title"].ToString(),

@@ -14,11 +14,11 @@ namespace Capstone.Models
         [Required(ErrorMessage = "Post content is required.")]
         public string PostContent { get; set; }
 
-        // Up votes of post
-        public int UpVotes { get; set; }
+        //// Up votes of post
+        //public int UpVotes { get; set; }
 
-        // Down votes of post
-        public int DownVotes { get; set; }
+        //// Down votes of post
+        //public int DownVotes { get; set; }
 
         // Required date posted
         [Required(ErrorMessage = "Date created is required.")]

@@ -16,10 +16,10 @@ namespace Capstone.DTO
         public string PostContent { get; set; }
 
         // Number of up votes for the post
-        public int UpVotes { get; set; }
+        //public int UpVotes { get; set; }
 
-        // Number of down votes for the post
-        public int DownVotes { get; set; }
+        //// Number of down votes for the post
+        //public int DownVotes { get; set; }
 
         // Date when the post was created
         public DateTime DateCreated { get; set; }
