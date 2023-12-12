@@ -32,5 +32,7 @@ namespace Capstone.Models
 
         // Title of the forum the post belongs to
         //public string ForumId { get; set; }
+
+        public string PostTitle { get; set; }
     }
 }
