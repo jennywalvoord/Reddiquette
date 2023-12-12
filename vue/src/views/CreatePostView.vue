@@ -19,41 +19,36 @@
                     <v-tab :value="2">Image</v-tab>
                   </v-tabs>
 
-                  <v-window v-model="tab">
-                    <v-window-item v-for="n in 3" :key="n" :value="n">
-                      <!-- Content for Tab 1: Post -->
-                      <v-container fluid v-if="tab === 1">
-                        <v-sheet class="mx-auto">
-                          <v-form @submit.prevent="createPost">
-                            <v-text-field v-model="title" label="Title" :rules="titleRules"></v-text-field>
-                  <v-window>
+
+                            <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
-                          <v-form @submit.prevent>
-                            <v-text-field v-model="title" label="Title" required></v-text-field>
-                            <v-row>
+                          <v-form @submit.prevent="createPost">
+                                <v-text-field 
+                                  v-model="post.PostTitle" 
+                                  label="Title" required></v-text-field>
+                            
                               <div>
-                                <tiptap-rich-text-editor />
+                                <v-textarea v-model="post.PostContent"
+                                  bg-color="grey-lighten-2"
+                                  color="cyan"
+                                  label="Label"
+                                ></v-textarea>
+                              <v-file-input v-model="post.ImagePath" label="File input" variant="filled" prepend-icon="mdi-camera"></v-file-input>
+
+                                <!-- <tiptap-rich-text-editor /> -->
                               </div>
-                            </v-row>
+                            
                             <v-row>
-                              <v-textarea v-model="text" label="Text (Optional)"></v-textarea>
-                              <v-file-input label="File input" variant="filled" prepend-icon="mdi-camera"></v-file-input>
                             </v-row>
                             <v-btn type="submit" block class="mt-2">Post</v-btn>
                           </v-form>
-
                         </v-sheet>
-
                       </v-container>
-
                     </v-window-item>
                   </v-window>
                 </div>
-
-
-
               </v-content>
             </div>
           </v-sheet>
@@ -80,7 +75,6 @@
 // import TiptapRichTextEditor from '../components/TiptapRichTextEditor.vue';
 import postService from '../services/PostService';
 // import CommentService from '../services/CommentService';
-
 export default {
   // props: ['forums'],
   // components: { TiptapRichTextEditor },
@@ -88,18 +82,17 @@ export default {
     const currentDate = new Date();
     return {
       post: {
-        UserId: this.$store.state.user.UserId,
+        UserId: this.$store.state.user.id,
         PostTitle: '',
-        PostContent: 'This is hard coded',
+        PostContent: '',
         UpVotes: 0,
         DownVotes: 0,
         DateCreated: currentDate.toISOString(),
-        ForumID: ''
-
+        ForumID: '',
+        ImagePath: '',
       },
       postingErrors: false,
       postingErrorMsg: 'There were problems creating this post.',
-      
       // components: {
       //   TiptapRichTextEditor
       // },
@@ -110,7 +103,6 @@ export default {
     async createPost() {
     try {
       const response = await postService.createPost(this.post);
-
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
           path: '/posts',
@@ -123,7 +115,6 @@ export default {
     } catch (error) {
       this.postingErrors = true;
       const response = error.response;
-
       if (response && response.status === 400) {
         this.postingErrorMsg = 'Bad Request: Validation Errors';
       } else {

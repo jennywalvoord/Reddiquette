@@ -1,4 +1,16 @@
 <template>
+
+    <v-main class="bg-grey-lighten-4">
+        <v-container>
+            <v-row>
+                <v-col>
+                    <v-sheet min-height="90vh">
+
+                    </v-sheet>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-main>
     <v-sheet class="d-flex flex-wrap bg-surface-variant">
         <v-sheet class="flex-1-0 ma-24 pa-24">
             <post-section :reply="findReply" :post="findPost"  />
