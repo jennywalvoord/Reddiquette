@@ -172,8 +172,8 @@ namespace Capstone.DAO
         // Returns: The newly created post with the updated PostID.
         public Post CreatePost(Post post)
         {
-            string query = "INSERT INTO posts (user_id, post_content, up_votes, down_votes, date_created, forum_id, post_image) " +
-                        "VALUES (@PostTitle, @UserID, @PostContent, @UpVotes, @DownVotes, @DateCreated, @ForumID, @ImagePath); " +
+            string query = "INSERT INTO posts (user_id, post_content, up_votes, down_votes, date_created, forum_id, post_title, post_image) " +
+                        "VALUES ( @UserID, @PostContent, @UpVotes, @DownVotes, @DateCreated, @ForumID, @PostTitle, @ImagePath); " +
                         "SELECT SCOPE_IDENTITY();";
 
             try
