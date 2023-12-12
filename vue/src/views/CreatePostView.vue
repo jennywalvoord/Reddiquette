@@ -10,15 +10,24 @@
                 <div class="pb-6">
                   <v-text class="text-h4">Create a Post</v-text>
                   <p class="font-weight-bold py-4">Choose a forum to post to:</p>
-                  <v-select class="py-4" label="Choose a forum"
-                    :items="['Forum1', 'Forum2', 'Forum3', 'Forum4', 'Forum5', 'Forum6']"></v-select>
-                  <p class="font-weight-bold py-4">Add text and an image: </p>
+                  
 
                   <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
                           <v-form @submit.prevent="createPost">
+                            <v-select 
+                              v-model="post.forumID"
+                              class="py-4" 
+                              label="Choose a forum"
+                              :items="forums"
+                              :item-value="id"
+                              :item-title="title"
+                              @input="onForumSelect"
+                              ></v-select>
+                            <p class="font-weight-bold py-4">Add text and an image: </p>
+
                                 <v-text-field 
                                   v-model="post.PostTitle" 
                                   label="Title" required></v-text-field>
@@ -96,10 +105,13 @@ export default {
       // components: {
       //   TiptapRichTextEditor
       // },
-      tab: 1, // Set the initial value to 1 for the "Post" tab
+      forums: this.$store.state.forums,
     };
   },
   methods:{
+    onForumSelect() {
+      console.log('Selected Forum ID:', this.post.ForumID);
+    },
     async createPost() {
     try {
       const response = await postService.createPost(this.post);
