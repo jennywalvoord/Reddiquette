@@ -7,7 +7,7 @@
 
           <v-col>
             <v-sheet
-            min-height="70vh"
+            min-height="100vh"
             rounded="lg"
             class="ma-4 pa-4"
             >
