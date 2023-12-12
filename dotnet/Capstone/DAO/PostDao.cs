@@ -172,8 +172,8 @@ namespace Capstone.DAO
         // Returns: The newly created post with the updated PostID.
         public Post CreatePost(Post post)
         {
-            string query = "INSERT INTO posts (user_id, post_content, up_votes, down_votes, date_created, forum_id, post_title, post_image) " +
-                        "VALUES ( @UserID, @PostContent, @UpVotes, @DownVotes, @DateCreated, @ForumID, @PostTitle, @ImagePath); " +
+            string query = "INSERT INTO posts (user_id, post_content, date_created, forum_id, post_title, post_imgurl) " +
+                        "VALUES ( @UserID, @PostContent, @DateCreated, @ForumID, @PostTitle, @ImagePath); " +
                         "SELECT SCOPE_IDENTITY();";
 
             try
@@ -185,8 +185,8 @@ namespace Capstone.DAO
                     var cmd = new SqlCommand(query, conn);
                     
                     cmd.Parameters.AddWithValue("@UserID", post.UserID);
-                    cmd.Parameters.AddWithValue("@UpVotes", post.UpVotes);
-                    cmd.Parameters.AddWithValue("@DownVotes", post.DownVotes);
+                    //cmd.Parameters.AddWithValue("@UpVotes", post.UpVotes);
+                    //cmd.Parameters.AddWithValue("@DownVotes", post.DownVotes);
                     cmd.Parameters.AddWithValue("@PostContent", post.PostContent);
                     cmd.Parameters.AddWithValue("@DateCreated", post.DateCreated);
                     cmd.Parameters.AddWithValue("@ForumID", post.ForumId);
