@@ -37,7 +37,7 @@ namespace Capstone.Controllers
                 var posts = postDao.GetAllPosts();
                 var postDtos = mapper.Map<List<PostDto>>(posts);
 
-                return Ok(postDao);
+                return Ok(postDtos);
             }
             catch (DaoException e)
             {
