@@ -1,102 +1,103 @@
 import { createStore as _createStore } from 'vuex';
 import axios from 'axios';
 import AuthService from '../services/AuthService';
+import ForumService from '../services/ForumService';
 
-export function createStore(currentToken, currentUser) {
+export function createStore(currentToken, currentUser, currentForum) {
   let store = _createStore({
   
     state: {
       // comment: [],
-      // forums: [],
+      forums:  [],
       token: currentToken || '',
       user: currentUser || {},
       isAuthenticated: !!currentToken,
-      forums:[{
-        id: 1,
-        title: "Tech Enthusiasts Unite",
-        description: "Discuss the latest gadgets and innovations!",
-        image:'',
-        numberOfReplys:0
-      },
-      {
-        id: 2,
-        title: "Pop Culture Club",
-        description: "Discuss the latest in Pop Culture and related happenings!",
-        image:'',
-        numberOfReplys:0
-      },
-      {
-        id: 3,
-        title: "Creative Minds Hub",
-        description: "Share your art, writing, and other passions",
-        image:'',
-        numberOfReplys:0
+      // forums:[{
+      //   id: 1,
+      //   title: "tech enthusiasts unite",
+      //   description: "discuss the latest gadgets and innovations!",
+      //   image:'',
+      //   numberofreplys:0
+      // },
+      // {
+      //   id: 2,
+      //   title: "pop culture club",
+      //   description: "discuss the latest in pop culture and related happenings!",
+      //   image:'',
+      //   numberofreplys:0
+      // },
+      // {
+      //   id: 3,
+      //   title: "creative minds hub",
+      //   description: "share your art, writing, and other passions",
+      //   image:'',
+      //   numberofreplys:0
 
-      },
-      {
-        id: 4,
-        title: "Fitness Fanatics Forum",
-        description: "Achieve your health and wellness goals together.",
-        image:'',
-        numberOfReplys:0
-      },
-      {
-        id: 5,
-        title: "Travel Tales Exchange",
-        description: "",
-        image:'',
-        numberOfReplys:0
-      },
-      {
-        id: 6,
-        title: "Global Conflicts Dialogue",
-        description: "Navigate discussions on the Israeli-Palestinian conflict and its parallels with the war in Ukraine. Foster understanding and explore potential connections for a world in search of peace.",
-        image:'',
-        numberOfReplys:0
-      },
-      {
-        id: 7,
-        title: "Cleveland Sports Fever",
-        description: "Cheer for your favorite teams in the heart of the action!",
-        image:'',
-        numberOfReplys:0
-      },
-      {
-        id: 8,
-        title: "Foodie Haven",
-        description: "Explore culinary delights, share recipes, and discuss your favorite dining experiences!",
-        image: '',
-        numberOfReplies: 0
-      },
-      {
-        id: 9,
-        title: "Tech Tips and Tricks",
-        description: "Exchange hacks, tips, and tricks for mastering the latest technologies!",
-        image: '',
-        numberOfReplies: 0
-      },
-      {
-        id: 10,
-        title: "Bookworms Corner",
-        description: "Dive into the world of literature! Share book recommendations, discuss plots, and connect with fellow book enthusiasts.",
-        image: '',
-        numberOfReplies: 0
-      },
-      {
-        id: 11,
-        title: "Gaming Galore",
-        description: "Level up your gaming discussions! From latest releases to all-time classics, join fellow gamers in the ultimate gaming community.",
-        image: '',
-        numberOfReplies: 0
-      },
-      {
-        id: 12,
-        title: "Mindfulness Oasis",
-        description: "Embark on a journey of self-discovery. Discuss mindfulness practices, meditation techniques, and wellness strategies.",
-        image: '',
-        numberOfReplies: 0
-      }
-      ],
+      // },
+      // {
+      //   id: 4,
+      //   title: "Fitness Fanatics Forum",
+      //   description: "Achieve your health and wellness goals together.",
+      //   image:'',
+      //   numberOfReplys:0
+      // },
+      // {
+      //   id: 5,
+      //   title: "Travel Tales Exchange",
+      //   description: "",
+      //   image:'',
+      //   numberOfReplys:0
+      // },
+      // {
+      //   id: 6,
+      //   title: "Global Conflicts Dialogue",
+      //   description: "Navigate discussions on the Israeli-Palestinian conflict and its parallels with the war in Ukraine. Foster understanding and explore potential connections for a world in search of peace.",
+      //   image:'',
+      //   numberOfReplys:0
+      // },
+      // {
+      //   id: 7,
+      //   title: "Cleveland Sports Fever",
+      //   description: "Cheer for your favorite teams in the heart of the action!",
+      //   image:'',
+      //   numberOfReplys:0
+      // },
+      // {
+      //   id: 8,
+      //   title: "Foodie Haven",
+      //   description: "Explore culinary delights, share recipes, and discuss your favorite dining experiences!",
+      //   image: '',
+      //   numberOfReplies: 0
+      // },
+      // {
+      //   id: 9,
+      //   title: "Tech Tips and Tricks",
+      //   description: "Exchange hacks, tips, and tricks for mastering the latest technologies!",
+      //   image: '',
+      //   numberOfReplies: 0
+      // },
+      // {
+      //   id: 10,
+      //   title: "Bookworms Corner",
+      //   description: "Dive into the world of literature! Share book recommendations, discuss plots, and connect with fellow book enthusiasts.",
+      //   image: '',
+      //   numberOfReplies: 0
+      // },
+      // {
+      //   id: 11,
+      //   title: "Gaming Galore",
+      //   description: "Level up your gaming discussions! From latest releases to all-time classics, join fellow gamers in the ultimate gaming community.",
+      //   image: '',
+      //   numberOfReplies: 0
+      // },
+      // {
+      //   id: 12,
+      //   title: "Mindfulness Oasis",
+      //   description: "Embark on a journey of self-discovery. Discuss mindfulness practices, meditation techniques, and wellness strategies.",
+      //   image: '',
+      //   numberOfReplies: 0
+      // }
+      // ],
       posts: [{
         userId: 1,
         id: 1,
@@ -468,9 +469,9 @@ export function createStore(currentToken, currentUser) {
         }
       },
       
-      // SET_FORUMS(state, forums){
-      //     state.forums = forums;
-      //   },
+      SET_FORUMS(state, forums){
+          state.forums = forums;
+        },
         
       },
     
@@ -492,6 +493,13 @@ export function createStore(currentToken, currentUser) {
           throw new Error('Login failed');
         }
       },
+      // fetchForums(context) {
+      //   // Use ForumService to call api
+
+      //   ForumService.getForums().then(response => {
+      //     context.commit("SET_FORUMS", response.data);
+      //   });
+      // }
     }
   });
   return store;
