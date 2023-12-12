@@ -18,13 +18,13 @@
                         <v-sheet class="mx-auto">
                           <v-form @submit.prevent="createPost">
                             <v-select 
-                              v-model="post.forumID"
                               class="py-4" 
                               label="Choose a forum"
                               :items="forums"
                               :item-value="id"
                               :item-title="title"
-                              @input="onForumSelect"
+                              v-model="selectedForum"
+                              return-object
                               ></v-select>
                             <p class="font-weight-bold py-4">Add text and an image: </p>
 
@@ -90,6 +90,7 @@ export default {
   data() {
     const currentDate = new Date();
     return {
+      selectedForum: '',
       post: {
         UserId: this.$store.state.user.id,
         PostTitle: '',
@@ -109,11 +110,9 @@ export default {
     };
   },
   methods:{
-    onForumSelect() {
-      console.log('Selected Forum ID:', this.post.ForumID);
-    },
     async createPost() {
     try {
+      this.post.ForumID = this.selectedForum.id;
       const response = await postService.createPost(this.post);
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
