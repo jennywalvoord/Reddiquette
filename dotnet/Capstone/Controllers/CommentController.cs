@@ -112,7 +112,7 @@ namespace Capstone.Controllers
                 var createdComment = commentDao.CreateComment(comment);
                 return CreatedAtAction(nameof(GetCommentById), new { id = createdComment.CommentID }, createdComment);
             }
-            catch (DaoException e)
+            catch (DaoException e) 
             {
                 return StatusCode(500, $"Failed to create comment: {e.Message}");
             }

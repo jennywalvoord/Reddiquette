@@ -76,22 +76,22 @@ CREATE TABLE user_forum(
 
 CREATE TABLE post_votes(
 	user_id INT NOT NULL,
-	post_id INT NOT NULL,
+	target_id INT NOT NULL,
 	inc INT NOT NULL,
 	CHECK (inc in (-1,1)),
-	CONSTRAINT PK_post_votes PRIMARY KEY (user_id, post_id),
+	CONSTRAINT PK_post_votes PRIMARY KEY (user_id, target_id),
 	CONSTRAINT FK_userPV FOREIGN KEY (user_id) REFERENCES users(user_id),
-	CONSTRAINT FK_postPV FOREIGN KEY (post_id) REFERENCES posts(post_id)
+	CONSTRAINT FK_postPV FOREIGN KEY (target_id) REFERENCES posts(post_id)
 );
 
 CREATE TABLE comment_votes(
 	user_id INT NOT NULL,
-	comment_id INT NOT NULL,
+	target_id INT NOT NULL,
 	inc INT NOT NULL,
 	CHECK (inc in (-1,1)),
-	CONSTRAINT PK_comment_votes PRIMARY KEY (user_id, comment_id),
+	CONSTRAINT PK_comment_votes PRIMARY KEY (user_id, target_id),
 	CONSTRAINT FK_userCV FOREIGN KEY (user_id) REFERENCES users(user_id),
-	CONSTRAINT FK_commentCV FOREIGN KEY (comment_id) REFERENCES comment(comment_id)
+	CONSTRAINT FK_commentCV FOREIGN KEY (target_id) REFERENCES comment(comment_id)
 );
 
 --populate default data
