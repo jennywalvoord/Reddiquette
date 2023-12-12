@@ -1,52 +1,68 @@
 <template>
-  <v-content class="small-post">
-        <router-link  v-bind:to="{ name: 'post-view', params: { id: post.id } }">
-    <v-card width="300" class="overflow-hidden">
-    
-      <v-img :width="300" :height="200" aspect-ratio="16/9" cover v-bind:src="post.image"></v-img>
-
-      <v-card-title primary-title>
-        <div>
-          <div class="headline text-center">{{ post.title }}</div>
-          <p class="text-subtitle-2">Date posted: {{ post.dateCreated }}</p>
-          <p class="text-subtitle-2">Clout: {{ post.clout }}</p>
-          
-          <v-flex xs6 sm4 md2>
+<v-container>
+  <v-row align="center" justify="center">
+    <v-col
+      cols="auto">
+      <v-card
+          class="mx-auto"
+          max-width="280"
+        >
+          <v-card-item>
             <div>
-              <v-chip small class="ma-2" color="orange" label size="small">
+              <div class="text-overline mb-1">
                 {{ getForumTitle(post.forumId) }}
-              </v-chip>
+              </div>
+              <v-img :width="280" :height="120" cover v-bind:src="post.image"></v-img>
+              
+              <div class="text-h6 my-1">
+                {{ post.title }}
+              </div>
+              <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ post.dateCreated }}</p>
+                <p class="text-subtitle-2">
+                  <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }">
+                    Clout:
+                  </span>
+                  {{ post.clout }}
+                </p>
+              <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
+                <v-card-text>
+                  {{ truncateText(post.body, 150) }}
+                </v-card-text>
+              </v-card>
+              <v-divider class="ma-4"></v-divider>
+                <v-chip-group 
+                  v-model="selection"
+                  selected-class="text-deep-orange-accent-4">
+                  <v-chip class="green" label size="x-small" @click="upVote">
+                    <i class="fa-solid fa-up-long pr-2"></i>Upvote
+                  </v-chip>
+
+                  <v-chip class="red" label size="x-small" @click="downVote">
+                    <i class="fa-solid fa-down-long pr-2"></i>Downvote
+                  </v-chip>
+
+                  <v-chip class="grey" label size="x-small" @click=null>
+                    <i class="fa-regular fa-comment pr-2"></i>Comment
+                  </v-chip>
+                </v-chip-group>
             </div>
-          </v-flex>
-          
-        
-        </div>
-      </v-card-title>
-      <v-card flat height="150" class="overflow-hidden">
-        <v-card-text>
-          <span style="text-wrap: wrap">{{ post.body.substring(0, 250) }}...</span>
+          </v-card-item>
 
-        </v-card-text>
-      </v-card>
-      <v-chip-group class="ma-2">
-        <v-chip class="green" label size="small" @click="upVote">
-          <i class="fa-solid fa-up-long pr-2"></i>Upvote
-        </v-chip>
+          <v-card-actions>
+            <v-btn  block>
+            <router-link v-bind:to="{ name: 'post-view', params: { id: post.id } }">
+              
+              View Post Details
+            </router-link>
+          </v-btn>
+            
+          </v-card-actions>
+        </v-card>
+    </v-col>
+  </v-row>
+</v-container>
 
-        <v-chip class="red" label size="small" @click="downVote">
-          <i class="fa-solid fa-down-long pr-2"></i>Downvote
-        </v-chip>
 
-        <v-chip class="grey" label size="small" @click=null>
-          <i class="fa-regular fa-comment pr-2"></i>Comment
-        </v-chip>
-      </v-chip-group>
-      </v-card>
-    </router-link>
-      
-
-      
-  </v-content>
 </template>
 
 <script>
@@ -60,6 +76,13 @@ export default {
     };
   },
   methods: {
+    truncateText(text, limit) {
+      if (text.length > limit) {
+        return text.substring(0, limit) + "...";
+      } else {
+        return text;
+      }
+    },
     upVote() {
     if (!this.isUpvoted) {
       this.$store.dispatch('upVotePost', this.post.id);
@@ -106,6 +129,12 @@ export default {
 </script>
 
 <style>
+.text-positive {
+  color: green;
+}
+.text-negative {
+  color: red;
+}
 .small-post a {
   text-decoration: none;
 }

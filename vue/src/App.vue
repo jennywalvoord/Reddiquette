@@ -1,19 +1,30 @@
 <template>
   <v-app class="grey lighten-4">
-    <!-- <navbar></navbar> -->
-    <div style="height: 72px;"></div>
-
-    <v-app-bar app class="px-3 elevation-5" color="grey-lighten-4" height="72">
+    <v-app-bar app class="px-3 elevation-4" color="grey-lighten-4" height="72">
       <v-app-bar-nav-icon>
         <router-link to="/">
           <v-avatar size="48">
             <v-img src="./src/assets/Logo_Orange.png" width="100" height="100" />
           </v-avatar>
-
         </router-link>
       </v-app-bar-nav-icon>
-      <v-app-bar-title class="text-uppercase">Rediquette</v-app-bar-title>
+      <v-app-bar-title class="font-weight-bold" :style="{ color: '#ff4500' }">ReddiQuette</v-app-bar-title>
+      
+      <!-- Centered search bar -->
+      <v-row align="center" class="mx-auto">
+        <v-col cols="12">
+          <v-text-field
+            v-model="search"
+            placeholder="Search ReddiQuette"
+            append-icon="mdi-magnify"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-col>
+      </v-row>
+      
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
+      
       <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg">
         <v-list-item-content>
           <v-list-item-title>{{ displayedUsername }}</v-list-item-title>
@@ -25,10 +36,7 @@
       </v-list-item>
     </v-app-bar>
 
-
     <router-view />
-
-
   </v-app>
 </template>
 
@@ -68,6 +76,10 @@ export default {
 
 div.nav{
   flex-flow: row;
+}
+
+input{
+  align-items: center;
 }
 /* .global-padding {
   padding: 80px;

@@ -274,7 +274,7 @@ export function createStore(currentToken, currentUser) {
           userId: 2,
           title: 'Best Yoga Alternatives',
           body: "For those seeking a holistic approach to well-being beyond traditional yoga, join us on a journey to discover alternative practices that nurture mind, body, and spirit. From dynamic workouts that fuse strength and flexibility to mindful meditation practices that promote inner calm, explore a range of alternatives tailored to diverse preferences and fitness levels. Whether you're a seasoned yogi looking to mix things up or a newcomer curious about holistic wellness, let's explore the myriad paths to self-discovery and balance. Embrace the diversity of well-being practices that extend beyond the yoga mat!",
-          image: "https://images.everydayhealth.com/images/healthy-living/fitness/all-about-yoga-mega-722x406.jpg?sfvrsn=c26482ac_0",
+          image: "https://mir-s3-cdn-cf.behance.net/project_modules/hd/2f572281374889.5cfe294fd0d7b.gif",
           dateCreated: '02/14/2020',
           clout: 3,
           upVote:13,
