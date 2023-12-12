@@ -26,7 +26,7 @@
                 </p>
               <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
                 <v-card-text>
-                  <span style="text-wrap: wrap">{{ post.body.substring(0, 250) }}...</span>
+                  {{ truncateText(post.body, 150) }}
                 </v-card-text>
               </v-card>
               <v-divider class="ma-4"></v-divider>
@@ -63,57 +63,6 @@
 </v-container>
 
 
-<!-- 
-
-  <v-content class="small-post">
-        <router-link  v-bind:to="{ name: 'post-view', params: { id: post.id } }">
-    <v-card  class="d-flex align-center flex-column overflow-hidden" width="250">
-    
-      <v-img :width="250" :height="200" aspect-ratio="3/2" cover v-bind:src="post.image"></v-img>
-
-      <v-card-title primary-title>
-        <div>
-          <div class="headline text-center">{{ post.title }}</div>
-          
-          <p class="text-subtitle-2">Date posted: {{ post.dateCreated }}</p>
-          <p class="text-subtitle-2">Clout: {{ post.clout }}</p>
-          
-          <v-flex xs6 sm4 md2>
-            <div>
-              <v-chip small class="ma-2" color="orange" label size="small">
-                {{ getForumTitle(post.forumId) }}
-              </v-chip>
-            </div>
-          </v-flex>
-          
-        
-        </div>
-      </v-card-title>
-      <v-card flat height="150" class="overflow-hidden">
-        <v-card-text>
-          <span style="text-wrap: wrap">{{ post.body.substring(0, 250) }}...</span>
-
-        </v-card-text>
-      </v-card>
-      <v-chip-group class="ma-2">
-        <v-chip class="green" label size="small" @click="upVote">
-          <i class="fa-solid fa-up-long pr-2"></i>Upvote
-        </v-chip>
-
-        <v-chip class="red" label size="small" @click="downVote">
-          <i class="fa-solid fa-down-long pr-2"></i>Downvote
-        </v-chip>
-
-        <v-chip class="grey" label size="small" @click=null>
-          <i class="fa-regular fa-comment pr-2"></i>Comment
-        </v-chip>
-      </v-chip-group>
-      </v-card>
-    </router-link>
-      
-
-      
-  </v-content> -->
 </template>
 
 <script>
@@ -127,6 +76,13 @@ export default {
     };
   },
   methods: {
+    truncateText(text, limit) {
+      if (text.length > limit) {
+        return text.substring(0, limit) + "...";
+      } else {
+        return text;
+      }
+    },
     upVote() {
     if (!this.isUpvoted) {
       this.$store.dispatch('upVotePost', this.post.id);
