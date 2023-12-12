@@ -37,7 +37,7 @@ namespace Capstone.Controllers
             try
             {
                 var comments = commentDao.GetAllComments();
-                var commentDtos = mapper.Map<List<CommentDto>>(comments);
+                var commentDtos = mapper.Map<List<Comment>>(comments);
 
                 return Ok(commentDtos);
             }
@@ -63,7 +63,7 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No comment found with ID {id}.");
                 }
-                var commentDto = mapper.Map<CommentDto>(comment);
+                var commentDto = mapper.Map<Comment>(comment);
 
                 return Ok(commentDto);
             }
@@ -83,7 +83,7 @@ namespace Capstone.Controllers
                 {
                     return NotFound($"No comments found with Post ID {id}.");
                 }
-                var commentDtos = mapper.Map<List<CommentDto>>(comments);
+                var commentDtos = mapper.Map<List<Comment>>(comments);
 
                 return Ok(commentDtos);
             }
