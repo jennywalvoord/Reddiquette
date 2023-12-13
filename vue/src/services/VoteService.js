@@ -2,25 +2,31 @@ import axios from 'axios';
 
 // TODO: figure out what the path needs to be
 export default {
-    createPostVote(post){
-        return axios.post('/createpost', post)
+    GetAllPostVotesbyId(id){
+        return axios.get(`/vote/post/${id}`)
     },
-    updatePostVote(post){
-        return axios.put('/createpost: id', post)
+    GetPostVoteByID(postId, userId) {
+        return axios.get(`/vote/post/${postId}/user/${userId}`)
     },
-    removePostVote(post){
-        return axios.delete('/createpost: id',post)
+    GetAllCommentVotesById(id){
+        return axios.get(`/vote/comment/${id}`)
     },
-    checkPostVote(post){
-        return axios.get('/???: id', post)
+    CreatePostVote(vote){
+        return axios.post('/vote/post',vote)
     },
-    upvoteComment(post){
-        return axios.post('/createpost', post)
+    CreateCommentVote(vote){
+        return axios.post('/vote/comment', vote)
     },
-    downvoteComment(post){
-        return axios.put('/createpost: id', post)
+    UpdateCommentVote(targetID, vote){
+        return axios.put(`/vote/comment/${targetID}`, vote)
     },
-    removeCommentVote(post){
-        return axios.delete('/createpost: id',post)
+    UpdatePostVote(targetID, vote){
+        return axios.put(`/vote/comment/${targetID}`, vote)
+    },
+    DeletePostVote(targetID, UserID){
+        return axios.delete(`/vote/post/${targetID}/user/${UserID}`)
+    },
+    DeleteCommentVote(targetID, userID){
+        return axios.delete(`/vote/comment/${targetID}/user/${userID}`)
     }
 }

@@ -12,7 +12,7 @@
                     <post-section v-bind:post="findPost"/>
 
                     </v-sheet>
-                </v-col>git 
+                </v-col> 
             </v-row>
         </v-container>
     </v-main>

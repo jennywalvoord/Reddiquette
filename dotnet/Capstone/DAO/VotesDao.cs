@@ -1,7 +1,5 @@
 ﻿using Capstone.Exceptions;
 using Capstone.Models;
-using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -17,9 +15,9 @@ namespace Capstone.DAO
             connectionString = dbConnectionString;
         }
 
-        public ReturnVotes GetAllPostVotesById(int targetID)
+        public ReturnVotes GetAllPostVotesById(int targetId)
         {
-            ReturnVotes votes = new ReturnVotes() { TargetID = targetID, Upvotes = 0, Downvotes = 0 };
+            ReturnVotes votes = new ReturnVotes() { TargetID = targetId, Upvotes = 0, Downvotes = 0 };
             IList<Vote> votesList = new List<Vote>();
            
 
@@ -31,7 +29,7 @@ namespace Capstone.DAO
                 {
                     conn.Open();
                     SqlCommand cmd = new SqlCommand(query, conn);
-                    cmd.Parameters.AddWithValue("postId", targetID);
+                    cmd.Parameters.AddWithValue("postId", targetId);
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     while (reader.Read())
@@ -51,10 +49,11 @@ namespace Capstone.DAO
                 {
                     votes.Upvotes += 1;
                 }
-                if(vote.Increment == -1)
+                else if (vote.Increment == -1)
                 {
                     votes.Downvotes += 1;
                 }
+                else continue;
             }
 
             return votes;
@@ -253,6 +252,7 @@ namespace Capstone.DAO
 
             return vote;
         }
+        
         public Vote UpdatePostVote(int userId, int postId, int increment)
         {
             Vote vote = null;
@@ -287,6 +287,55 @@ namespace Capstone.DAO
             return vote;
         }
 
+        public Vote DeletePostVote(int userId, int targetId)
+        {
+            Vote deletedVote = null;
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        DeleteIfExistsWithTransaction(transaction, "post_votes", "user_id = @userId AND post_id = @targetId", targetId, userId);
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new DaoException("Transaction rolled back due to an error: " + ex.Message, ex);
+                    }
+                }
+            }
+            return deletedVote;
+        }
+
+        public Vote DeleteCommentVote(int userId, int targetId)
+        {
+            Vote deletedVote = null;
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (var transaction = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        DeleteIfExistsWithTransaction(transaction, "comment_votes", "user_id = @userId AND comment_id = @targetId", targetId, userId);
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        throw new DaoException("Transaction rolled back due to an error: " + ex.Message, ex);
+                    }
+                }
+            }
+            return deletedVote;
+        }
+
         private Vote MapRowToVote(SqlDataReader reader)
         {
             Vote vote = new Vote();
@@ -294,6 +343,24 @@ namespace Capstone.DAO
             vote.TargetID = Convert.ToInt32(reader["target_id"]);
             vote.Increment = Convert.ToInt32(reader["inc"]);
             return vote;
+        }
+
+        private void DeleteIfExistsWithTransaction(SqlTransaction transaction, string tableName, string condition, int targetId, int userId)
+        {
+            string query = $"DELETE FROM {tableName} WHERE {condition}";
+
+            using (var cmd = new SqlCommand(query, transaction.Connection, transaction))
+            {
+                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@targetId", targetId);
+                int rowsAffected = cmd.ExecuteNonQuery();
+
+                if (rowsAffected == 0)
+                {
+
+                    Console.WriteLine($"Deletion skipped for {tableName} as there were no matching rows.");
+                }
+            }
         }
     }
 }

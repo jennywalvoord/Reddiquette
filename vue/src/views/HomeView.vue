@@ -18,9 +18,9 @@
                 <small-post 
                   :post="post" 
                   
-                  rounded
-                  width="250"/>
-                </v-slide-group-item>
+                    rounded
+                    width="250"/>
+                  </v-slide-group-item>
               </v-slide-group>
           </v-sheet>
           </v-col>

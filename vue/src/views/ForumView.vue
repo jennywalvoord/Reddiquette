@@ -58,7 +58,8 @@ export default {
         this.$router.push({ name: 'create-post' });
         
       }
-    },created() {
+    },
+    created() {
     ForumService.getForums().then(response => {
     this.$store.commit("SET_FORUMS", response.data);
     }  
