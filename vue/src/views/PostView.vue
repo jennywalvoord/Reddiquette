@@ -9,10 +9,10 @@
                     rounded="lg"
                     class="ma-4 pa-4"
                     >
-                    <post-section :reply="findReply" :post="findPost"  />
+                    <post-section v-bind:post="findPost"/>
 
                     </v-sheet>
-                </v-col>
+                </v-col>git 
             </v-row>
         </v-container>
     </v-main>
@@ -26,23 +26,40 @@
 
 import SideBar from '../components/SideBar.vue';
 import PostSection from '../components/PostSection.vue';
+import ForumService from '../services/ForumService';
+import PostService from '../services/PostService';
+import CommentService from '../services/CommentService';
 
 export default {
     components: {
         SideBar,
         PostSection,
     },
+    created() {
+    ForumService.getForums().then(response => {
+    this.$store.commit("SET_FORUMS", response.data);
+    }  
+    );
+    PostService.getPosts().then(response =>{
+    this.$store.commit("SET_POSTS", response.data);
+    }  
+    );
+    CommentService.getComments().then(response =>{
+    this.$store.commit("SET_COMMENTS", response.data);
+    }  
+    );
+  },
     computed: {
         findPost() {
             let postId = this.$route.params.id;  
-            let post = this.$store.state.posts.find((p) => p.id == postId);
+            let post = this.$store.state.posts.find((p) => p.postID == postId);
             return post;
         },
-        findReply() {
-            let replyId = this.$route.params.id;  
-            let reply = this.$store.state.Reply.filter((p) => p.id == replyId);
-            return reply;
-        },
+    //     findReply() {
+    //         let replyId = this.$route.params.id;  
+    //         let reply = this.$store.state.Reply.filter((p) => p.id == replyId);
+    //         return reply;
+    //     },
     },
 }
 </script>

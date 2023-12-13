@@ -9,11 +9,16 @@
                 {{ getForumTitle(post.forumId) }}
               </div>
               <v-img :width="280" :height="120" cover v-bind:src="post.imagePath"></v-img>
+<<<<<<< HEAD
 
+=======
+              
+>>>>>>> 499327df49fff7856fd5b1972a7c431ce1e42d59
               <div class="text-h6 my-1">
                 {{ post.postTitle }}
               </div>
               <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ post.dateCreated }}</p>
+<<<<<<< HEAD
               <p class="text-subtitle-2">
                 <span class="font-weight-bold"
                   :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }">
@@ -21,6 +26,14 @@
                 </span>
                 {{ post.clout }}
               </p>
+=======
+                <p class="text-subtitle-2">
+                  <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
+                    <!-- Clout:
+                  </span> -->
+                  <!-- {{ post.clout }} -->
+                </p>
+>>>>>>> 499327df49fff7856fd5b1972a7c431ce1e42d59
               <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
                 <v-card-text>
                   {{ truncateText(post.postContent, 150) }}
@@ -44,6 +57,7 @@
           </v-card-item>
 
           <v-card-actions>
+<<<<<<< HEAD
             <v-btn block>
               <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
 
@@ -51,6 +65,15 @@
               </router-link>
             </v-btn>
 
+=======
+            <v-btn  block>
+            <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
+              
+              View Post Details
+            </router-link>
+          </v-btn>
+            
+>>>>>>> 499327df49fff7856fd5b1972a7c431ce1e42d59
           </v-card-actions>
         </v-card>
       </v-col>

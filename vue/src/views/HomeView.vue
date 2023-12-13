@@ -10,13 +10,13 @@
             class="ma-4 pa-4"
             >
             <v-text class="text-h4">Recent Posts</v-text>
-              <v-slide-group show-arrows>
-                  <v-slide-group-item
-                    v-for="post in filteredPosts"
-                    :key="post.id"
-                  >
-                  <small-post 
-                    :post="post" 
+            <v-slide-group show-arrows>
+                <v-slide-group-item
+                  v-for="post in filteredPosts"
+                  :key="post.postID"
+                >
+                <small-post 
+                  :post="post" 
                   
                     rounded
                     width="250"/>

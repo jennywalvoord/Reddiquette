@@ -3,13 +3,14 @@ import axios from 'axios';
 import AuthService from '../services/AuthService';
 import ForumService from '../services/ForumService';
 import PostService from '../services/PostService';
+import CommentService from '../services/CommentService';
 
 export function createStore(currentToken, currentUser, currentForum) {
   let store = _createStore({
   
     state: {
       posts: [], 
-      // comment: [],
+      comments: [],
       forums:  [],
       token: currentToken || '',
       user: currentUser || {},
@@ -354,68 +355,68 @@ export function createStore(currentToken, currentUser, currentForum) {
     //       upVote:13,
     //       downVote:6
     //     },],
-        Reply: [
-          {
-            id: 1,
-            userId: 1,
-            postId: 21,
-            body: 'Great Post Appreciate the content!',
-            upVote: 1,
-            downVote: 0,
-            clout: 1,
-            dateCreated: '12/11/2023',
-          },
-          {
-            id: 2,
-            userId: 2,
-            postId: 15,
-            body: 'Informative Post Appreciate the content!',
-            upVote: 1,
-            downVote: 0,
-            clout: 1,
-            dateCreated: '10/11/2023',
-          },
-          {
-            id: 3,
-            userId: 3,
-            postId: 21,
-            body: 'Post needs more context! Appreciate the content!',
-            upVote: 1,
-            downVote: 1,
-            clout: 0,
-            dateCreated: '1/11/2023',
-          },
-          {
-            id: 4,
-            userId: 4,
-            postId: 6,
-            body: 'Amazing Post Appreciate the content!',
-            upVote: 10,
-            downVote: 1,
-            clout: 9,
-            dateCreated: '2/11/2022',
-          },
-          {
-            id: 5,
-            userId: 5,
-            postId: 11,
-            body: 'Good Post Appreciate the content!',
-            upVote: 1,
-            downVote: 10,
-            clout: -9,
-            dateCreated: '12/11/2022',
-          },
-          {
-            id: 6,
-            userId: 1,
-            postId: 12,
-            body: 'Do you have any citations available? Appreciate the content!',
-            upVote: 0,
-            downVote: 0,
-            clout: 0,
-            dateCreated: '5/11/2023',
-          },
-        ],
+        // Reply: [
+        //   {
+        //     id: 1,
+        //     userId: 1,
+        //     postId: 21,
+        //     body: 'Great Post Appreciate the content!',
+        //     upVote: 1,
+        //     downVote: 0,
+        //     clout: 1,
+        //     dateCreated: '12/11/2023',
+        //   },
+        //   {
+        //     id: 2,
+        //     userId: 2,
+        //     postId: 15,
+        //     body: 'Informative Post Appreciate the content!',
+        //     upVote: 1,
+        //     downVote: 0,
+        //     clout: 1,
+        //     dateCreated: '10/11/2023',
+        //   },
+        //   {
+        //     id: 3,
+        //     userId: 3,
+        //     postId: 21,
+        //     body: 'Post needs more context! Appreciate the content!',
+        //     upVote: 1,
+        //     downVote: 1,
+        //     clout: 0,
+        //     dateCreated: '1/11/2023',
+        //   },
+        //   {
+        //     id: 4,
+        //     userId: 4,
+        //     postId: 6,
+        //     body: 'Amazing Post Appreciate the content!',
+        //     upVote: 10,
+        //     downVote: 1,
+        //     clout: 9,
+        //     dateCreated: '2/11/2022',
+        //   },
+        //   {
+        //     id: 5,
+        //     userId: 5,
+        //     postId: 11,
+        //     body: 'Good Post Appreciate the content!',
+        //     upVote: 1,
+        //     downVote: 10,
+        //     clout: -9,
+        //     dateCreated: '12/11/2022',
+        //   },
+        //   {
+        //     id: 6,
+        //     userId: 1,
+        //     postId: 12,
+        //     body: 'Do you have any citations available? Appreciate the content!',
+        //     upVote: 0,
+        //     downVote: 0,
+        //     clout: 0,
+        //     dateCreated: '5/11/2023',
+        //   },
+        // ],
       postedUsers: [{
         userId: 1,
         userName: 'Jenny'
@@ -456,20 +457,20 @@ export function createStore(currentToken, currentUser, currentForum) {
         state.isAuthenticated = false;
         axios.defaults.headers.common = {};
       },
-      UPVOTE_POST(state, postId) {
-        const post = state.posts.find(p => p.id === postId);
-        if (post) {
-          post.upVote += 1;
-          post.clout = post.upVote - post.downVote;
-        }
-      },
-      DOWNVOTE_POST(state, postId) {
-        const post = state.posts.find(p => p.id === postId);
-        if (post) {
-          post.downVote += 1;
-          post.clout = post.upVote - post.downVote;
-        }
-      },
+      // UPVOTE_POST(state, postId) {
+      //   const post = state.posts.find(p => p.id === postId);
+      //   if (post) {
+      //     post.upVote += 1;
+      //     post.clout = post.upVote - post.downVote;
+      //   }
+      // },
+      // DOWNVOTE_POST(state, postId) {
+      //   const post = state.posts.find(p => p.id === postId);
+      //   if (post) {
+      //     post.downVote += 1;
+      //     post.clout = post.upVote - post.downVote;
+      //   }
+      // },
       
       SET_FORUMS(state, forums){
           state.forums = forums;
@@ -477,6 +478,9 @@ export function createStore(currentToken, currentUser, currentForum) {
         SET_POSTS(state, posts){
           state.posts = posts;
         },
+        SET_COMMENTS(state, comments){
+          state.comments = comments;
+        }
         
       },
     

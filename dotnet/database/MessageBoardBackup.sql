@@ -116,22 +116,11 @@ VALUES
   (4, 'Fitness Fanatics Forum', 'Achieve your health and wellness goals together', 'https://picsum.photos/301/400', '2023-01-04T18:15:00'),
   (5, 'Travel Tales Exchange', 'Share your best travel stories!', 'https://picsum.photos/301/400', '2023-01-05T21:00:00'),
   (6, 'Global Conflicts Dialogue', 'Navigate discussions on the Israeli-Palestinian conflict and its parallels with the war in Ukraine. Foster understanding and explore potential connections for a world in search of peace.', 'https://picsum.photos/301/400', '2023-01-06T09:30:00'),
-  (7,'Cleveland Sports Fever', 'Cheer for your favorite teams in the heart of the action!','https://picsum.photos/301/400','2023-01-03T15:35:00'),
-  (8, 'Foodie Haven', 'Explore culinary delights, share recipes, and discuss your favorite dining experiences!', 'https://picsum.photos/301/400', '2023-01-07T11:45:00'),
-  (9, 'Tech Tips and Tricks', 'Exchange hacks, tips, and tricks for mastering the latest technologies!', 'https://picsum.photos/301/400', '2023-01-08T14:20:00'),
-  (10, 'Bookworms Corner', 'Dive into the world of literature! Share book recommendations, discuss plots, and connect with fellow book enthusiasts.', 'https://picsum.photos/301/400', '2023-01-07T11:45:00'),
-  (11, 'Gaming Galore', 'Level up your gaming discussions! From latest releases to all-time classics, join fellow gamers in the ultimate gaming community.', 'https://picsum.photos/301/400', '2023-01-08T14:20:00'),
-  (12, 'Mindfulness Oasis', 'Embark on a journey of self-discovery. Discuss mindfulness practices, meditation techniques, and wellness strategies.', 'https://picsum.photos/301/400', '2023-01-04T18:15:00'),
-  (13, 'Science and Technology Hub', 'Explore the latest advancements in science and technology. Discuss breakthroughs, research findings, and future innovations!', 'https://picsum.photos/302/400', '2023-01-09T10:30:00'),
-  (14, 'Music Lovers Lounge', 'Dive into the world of music! Share your favorite artists, discover new genres, and discuss the latest hits.', 'https://picsum.photos/303/400', '2023-01-10T12:45:00'),
-  (15, 'Movie Buffs Club', 'Discuss the silver screen! Share your favorite movies, review the latest releases, and dive into discussions about cinematic masterpieces.', 'https://picsum.photos/304/400', '2023-01-11T15:00:00'),
-  (16, 'Health and Wellness Exchange', 'Embrace a holistic approach to well-being. Share tips on fitness, nutrition, and mental health for a healthier lifestyle.', 'https://picsum.photos/305/400', '2023-01-12T17:15:00'),
-  (17, 'Pet Lovers Paradise', 'Connect with fellow pet enthusiasts! Share stories about your furry friends, seek advice, and celebrate the joys of pet ownership.', 'https://picsum.photos/306/400', '2023-01-13T19:30:00'),
-  (18, 'DIY Crafters Corner', 'Unleash your creativity! Share DIY projects, craft ideas, and connect with fellow artisans in this crafting haven.', 'https://picsum.photos/307/400', '2023-01-14T21:45:00'),
-  (19, 'Language Learners Guild', 'Embark on a linguistic journey! Share language learning tips, resources, and connect with others passionate about mastering new languages.', 'https://picsum.photos/308/400', '2023-01-15T09:00:00'),
-  (20, 'Environmental Advocates Hub', 'Discuss environmental issues, sustainable living, and advocate for a greener future. Join the conversation to make a positive impact on the planet.', 'https://picsum.photos/309/400', '2023-01-16T11:15:00'),
-  (21, 'Fashion Trends Forum', 'Step into the world of fashion! Discuss the latest trends, share style tips, and connect with fashion enthusiasts from around the globe.', 'https://picsum.photos/310/400', '2023-01-17T13:30:00'),
-  (22, 'Home Cooks Collective', 'Join fellow home cooks in sharing delicious recipes, cooking tips, and the joy of creating delightful meals in your own kitchen.', 'https://picsum.photos/311/400', '2023-01-18T15:45:00')
+  (7, 'Foodie Haven', 'Explore culinary delights, share recipes, and discuss your favorite dining experiences!', 'https://picsum.photos/301/400', '2023-01-07T11:45:00'),
+  (8, 'Tech Tips and Tricks', 'Exchange hacks, tips, and tricks for mastering the latest technologies!', 'https://picsum.photos/301/400', '2023-01-08T14:20:00'),
+  (9, 'Bookworms Corner', 'Dive into the world of literature! Share book recommendations, discuss plots, and connect with fellow book enthusiasts.', 'https://picsum.photos/301/400', '2023-01-07T11:45:00'),
+  (10, 'Gaming Galore', 'Level up your gaming discussions! From latest releases to all-time classics, join fellow gamers in the ultimate gaming community.', 'https://picsum.photos/301/400', '2023-01-08T14:20:00'),
+  (11, 'Mindfulness Oasis', 'Embark on a journey of self-discovery. Discuss mindfulness practices, meditation techniques, and wellness strategies.', 'https://picsum.photos/301/400', '2023-01-04T18:15:00');
  SET IDENTITY_INSERT forum OFF;
 
  SET IDENTITY_INSERT posts ON;
@@ -156,129 +145,86 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(18, 6, 'Columbus Crew Champions!', 'Join us in jubilation as we salute the Columbus Crew, the undisputed champions! After an exhilarating season filled with grit, teamwork, and unforgettable moments, the Crew has emerged victorious. Share your elation, relive the standout plays, and discuss the key moments that led to this well-deserved triumph. It''s a celebration of soccer prowess and the unyielding spirit that defines champions. Congratulations to the Columbus Crew forever etched in the annals of soccer glory!', 'https://www.dispatch.com/gcdn/authoring/authoring-images/2023/12/03/NCOD/71792993007-crew-1202-fcc-ac-80.JPG?width=660&height=440&fit=crop&format=pjpg&auto=webp', '07/14/2022 14:53:42', 7),
 		(19, 2, 'Historic Landmarks Destroyed', 'In this solemn discussion, we delve into the pages of history to mourn the loss of once-iconic landmarks that have succumbed to the ravages of time, conflict, or natural disasters. Join us as we remember and honor these architectural marvels, exploring their significance and the cultural heritage they held. Let''s engage in a thoughtful reflection on the fragility of our shared history and the importance of preservation for generations to come.', '"https://picsum.photos/301/407', '09/14/2020 17:52:35', 6),
 		(20, 1, 'Exotic Flight Destinations', 'Unleash Your Wanderlust: Discover Exotic Flight Destinations! Ready to elevate your travel dreams? Explore the extraordinary with our guide to the most exotic flight destinations. From hidden gems nestled in tropical paradises to culturally rich cities off the beaten path, join us as we embark on a journey to uncover the worlds most enchanting and unforgettable places. Get ready to add a touch of exotic allure to your travel bucket list!', 'https://picsum.photos/306/400', '07/04/2022 18:23:46', 5),
-		(21, 4, 'Need Help Dieting?', 'Embarking on a journey to better health through dieting? Whether you''re aiming for weight loss, muscle gain, or simply adopting a healthier lifestyle, our community is here to offer support, tips, and personalized advice. Join us in the quest for a balanced and sustainable diet that aligns with your fitness goals because achieving your best self starts with nourishing your body right!', 'https://www.heartfoundation.org.au/getmedia/70195972-0139-4ce8-a170-ffdf2aa24f60/200615-Healthy-Eating-Gif3.gif', '08/14/2022 19:36:25', 4),
-		(47, 4, 'Need Help Dieting?', 'Embarking on a journey to better health through dieting? Whether you''re aiming for weight loss, muscle gain, or simply adopting a healthier lifestyle, our community is here to offer support, tips, and personalized advice. Join us in the quest for a balanced and sustainable diet that aligns with your fitness goals because achieving your best self starts with nourishing your body right!', 'https://www.heartfoundation.org.au/getmedia/70195972-0139-4ce8-a170-ffdf2aa24f60/200615-Healthy-Eating-Gif3.gif', '08/14/2022 19:36:25', 4),
-		(48, 7, 'Hidden Gems in Local Eateries', 'Explore the culinary scene in your city! Recommend hidden gem restaurants, share your recent dining experiences, and lets create a Foodie Haven guide to the best local spots.', 'https://picsum.photos/301/400', '02/14/2023 08:00:00', 8),
-		(49, 7, 'Delicious Dessert Discoveries', 'Indulge your sweet tooth! Share your favorite dessert recipes, explore local bakeries, and lets compile a delectable list of must-try treats.', 'https://picsum.photos/302/400', '2023-03-02 15:30:00', 8),
-		(50, 7, 'Spicy Adventures: Hot Pepper Challenge', 'Calling all spice enthusiasts! Join in on the hot pepper challenge discussion. Share your spicy recipes, rate your favorite hot sauces, and lets turn up the heat together!', 'https://picsum.photos/303/400', '2023-03-10 12:45:00', 8),
-		(51, 6, 'Optimizing Code Efficiency', 'Share your best practices for optimizing code efficiency! Whether its algorithmic tricks or performance enhancements, lets master the art of writing faster and more efficient code.', 'https://picsum.photos/304/400', '2023-03-20 09:15:00', 9),
-		(52, 6, 'Gadget Recommendations', 'Discover the latest and greatest gadgets! Share your favorite tech devices, accessories, and hidden gems that have revolutionized your daily life.', 'https://picsum.photos/305/400', '2023-04-05 14:30:00', 9),
-		(53, 6, 'Cybersecurity Essentials', 'Discuss essential cybersecurity tips and tricks. Share your insights on protecting systems, data, and personal information in an increasingly connected world.', 'https://picsum.photos/306/400', '2023-04-15 11:45:00', 9),
-		(54, 5, 'Fantasy Favorites', 'Embark on a journey to magical realms! Share your favorite fantasy books, discuss world-building techniques, and connect with fellow fantasy enthusiasts.', 'https://picsum.photos/307/400', '2023-05-01 10:00:00', 10),
-		(55, 5, 'Classic Literature Rediscovered', 'Delve into timeless classics! Recommend must-read literature, explore the profound themes in classic novels, and join the discussion on the enduring impact of these literary masterpieces.', 'https://picsum.photos/308/400', '2023-05-12 13:20:00', 10),
-		(56, 5, 'Sci-Fi Saga Discussion', 'Calling all science fiction enthusiasts! Share your favorite sci-fi series, explore futuristic worlds, and discuss the influence of science fiction on literature and beyond.', 'https://picsum.photos/309/400', '2023-05-25 15:45:00', 10),
-		(57, 7, 'Epic Boss Battles', 'Share your most memorable boss battles! Discuss strategies, challenges, and the adrenaline-pumping moments that make gaming unforgettable.', 'https://picsum.photos/310/400', '2023-06-08 12:30:00', 11),
-		(58, 4, 'Indie Gems Spotlight', 'Explore the world of indie games! Recommend hidden gems, discuss unique gameplay mechanics, and support the thriving indie gaming community.', 'https://picsum.photos/311/400', '2023-06-20 14:15:00', 11),
-		(59, 4, 'Multiplayer Madness', 'Dive into the world of multiplayer gaming! Share your favorite multiplayer experiences, discuss team strategies, and connect with fellow gamers for epic online adventures.', 'https://picsum.photos/312/400', '2023-07-02 16:45:00', 11),
-		(60, 7, 'Guided Meditation Recommendations', 'Share your favorite guided meditations! Whether its for relaxation, focus, or mindfulness, lets create a collection of soothing meditation recommendations.', 'https://picsum.photos/313/400', '2023-07-15 10:30:00', 12),
-		(61, 3, 'Mindful Living Tips', 'Discuss practical tips for incorporating mindfulness into daily life. Share your experiences, challenges, and success stories on the journey to mindful living.', 'https://picsum.photos/314/400', '2023-07-28 12:15:00', 12),
-		(62, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://picsum.photos/315/400', '2023-08-05 14:45:00', 12)
-	SET IDENTITY_INSERT posts OFF;
-
+		(21, 4, 'Need Help Dieting?', 'Embarking on a journey to better health through dieting? Whether you''re aiming for weight loss, muscle gain, or simply adopting a healthier lifestyle, our community is here to offer support, tips, and personalized advice. Join us in the quest for a balanced and sustainable diet that aligns with your fitness goals because achieving your best self starts with nourishing your body right!', 'https://www.heartfoundation.org.au/getmedia/70195972-0139-4ce8-a170-ffdf2aa24f60/200615-Healthy-Eating-Gif3.gif', '08/14/2022 19:36:25', 4)
 SET IDENTITY_INSERT posts OFF;
 SET IDENTITY_INSERT posts ON;
 
 -- Tech Enthusiasts Unite (Forum ID: 1)
 INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
 VALUES 
-  (63, 1, 'Favorite Programming Languages?', 'Let''s discuss our favorite programming languages and why they stand out. Share your experiences and insights!', 'https://i.imgur.com/abc123.jpg', '12/07/2023 12:31:25', 1),
-  (64, 3, 'Future of AI in Tech', 'What are your thoughts on the future of AI in the tech industry? Share your predictions and insights!', 'https://i.imgur.com/def456.png', '02/14/2021 04:34:55', 1),
-  (65, 6, 'VR Gaming Revolution', 'Explore the exciting world of virtual reality gaming! Share your favorite VR games and experiences.', 'https://i.imgur.com/ghi789.gif', '03/14/2022 15:53:34', 1),
-  (66, 2, 'Web Development Trends 2023', 'Discuss the latest trends in web development for the year 2023. What technologies are you excited about?', 'https://i.imgur.com/jkl012.jpg', '07/11/2022 17:23:34', 1),
-  (67, 4, 'Cybersecurity Challenges', 'Let''s talk about the current challenges in cybersecurity and how the industry is evolving to address them.', 'https://i.imgur.com/mno345.png', '02/14/2022 02:00:00', 1);
+  (22, 1, 'Favorite Programming Languages?', 'Let''s discuss our favorite programming languages and why they stand out. Share your experiences and insights!', 'https://i.imgur.com/abc123.jpg', '12/07/2023 12:31:25', 1),
+  (23, 3, 'Future of AI in Tech', 'What are your thoughts on the future of AI in the tech industry? Share your predictions and insights!', 'https://i.imgur.com/def456.png', '02/14/2021 04:34:55', 1),
+  (24, 6, 'VR Gaming Revolution', 'Explore the exciting world of virtual reality gaming! Share your favorite VR games and experiences.', 'https://i.imgur.com/ghi789.gif', '03/14/2022 15:53:34', 1),
+  (25, 2, 'Web Development Trends 2023', 'Discuss the latest trends in web development for the year 2023. What technologies are you excited about?', 'https://i.imgur.com/jkl012.jpg', '07/11/2022 17:23:34', 1),
+  (26, 4, 'Cybersecurity Challenges', 'Let''s talk about the current challenges in cybersecurity and how the industry is evolving to address them.', 'https://i.imgur.com/mno345.png', '02/14/2022 02:00:00', 1);
 
 -- Pop Culture Club (Forum ID: 2)
 INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
 VALUES 
-  (68, 5, 'Marvel vs. DC: Your Preference?', 'Join the debate! Are you a Marvel fan or a DC enthusiast? Share your favorite characters and storylines.', 'https://i.imgur.com/pqr678.jpg', '08/14/2022 15:35:02', 2),
-  (69, 2, 'Binge-Worthy TV Shows', 'What TV shows are you currently binge-watching? Recommend your favorites and discover new gems!', 'https://i.imgur.com/stu901.gif', '07/10/2022 05:34:52', 2),
-  (70, 5, 'Movie Night Recommendations', 'Looking for movie recommendations? Share your top picks and find cinematic treasures suggested by fellow members.', 'https://i.imgur.com/vwx234.jpg', '12/09/2023 20:43:23', 2),
-  (71, 3, 'Video Game Soundtracks', 'Discuss your favorite video game soundtracks and the impact they have on the gaming experience.', 'https://i.imgur.com/xyz567.png', '04/14/2022 21:34:12', 2),
-  (72, 1, 'Pop Culture Predictions 2023', 'Make your predictions for the hottest pop culture trends in 2023. What do you think will dominate the entertainment scene?', 'https://i.imgur.com/uvw890.png', '07/14/2022 23:51:34', 2);
+  (27, 5, 'Marvel vs. DC: Your Preference?', 'Join the debate! Are you a Marvel fan or a DC enthusiast? Share your favorite characters and storylines.', 'https://i.imgur.com/pqr678.jpg', '08/14/2022 15:35:02', 2),
+  (28, 2, 'Binge-Worthy TV Shows', 'What TV shows are you currently binge-watching? Recommend your favorites and discover new gems!', 'https://i.imgur.com/stu901.gif', '07/10/2022 05:34:52', 2),
+  (29, 5, 'Movie Night Recommendations', 'Looking for movie recommendations? Share your top picks and find cinematic treasures suggested by fellow members.', 'https://i.imgur.com/vwx234.jpg', '12/09/2023 20:43:23', 2),
+  (30, 3, 'Video Game Soundtracks', 'Discuss your favorite video game soundtracks and the impact they have on the gaming experience.', 'https://i.imgur.com/xyz567.png', '04/14/2022 21:34:12', 2),
+  (31, 1, 'Pop Culture Predictions 2023', 'Make your predictions for the hottest pop culture trends in 2023. What do you think will dominate the entertainment scene?', 'https://i.imgur.com/uvw890.png', '07/14/2022 23:51:34', 2);
 
 -- Creative Minds Hub (Forum ID: 3)
 INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
 VALUES 
-  (73, 5, 'Digital Art Showcase', 'Share your latest digital art creations and discuss the techniques you used to bring them to life.', 'https://i.imgur.com/abc123.jpg', '12/06/2023 03:31:01', 3),
-  (74, 3, 'Writing Prompts Galore', 'Need inspiration for your next writing piece? Explore and share writing prompts to ignite creativity.', 'https://i.imgur.com/def456.jpg', '09/04/2023 02:55:23', 3),
-  (75, 4, 'Coding and Art Fusion', 'How do you combine coding and art in your projects? Share your experiences and learn from others in this creative coding community.', 'https://i.imgur.com/ghi789.gif', '07/14/2022 14:53:42', 3),
-  (76, 1, 'Artistic Photography Tips', 'Discuss tips and tricks for capturing stunning photographs. Share your favorite photography techniques!', 'https://i.imgur.com/jkl012.jpg', '08/14/2022 19:36:25', 3),
-  (77, 2, 'Interactive Art Installations', 'Explore the world of interactive art installations. Share your favorite projects and discuss the impact of technology on art.', 'https://i.imgur.com/mno345.png', '07/04/2022 18:23:46', 3);
+  (32, 5, 'Digital Art Showcase', 'Share your latest digital art creations and discuss the techniques you used to bring them to life.', 'https://i.imgur.com/abc123.jpg', '12/06/2023 03:31:01', 3),
+  (33, 3, 'Writing Prompts Galore', 'Need inspiration for your next writing piece? Explore and share writing prompts to ignite creativity.', 'https://i.imgur.com/def456.jpg', '09/04/2023 02:55:23', 3),
+  (34, 4, 'Coding and Art Fusion', 'How do you combine coding and art in your projects? Share your experiences and learn from others in this creative coding community.', 'https://i.imgur.com/ghi789.gif', '07/14/2022 14:53:42', 3),
+  (35, 1, 'Artistic Photography Tips', 'Discuss tips and tricks for capturing stunning photographs. Share your favorite photography techniques!', 'https://i.imgur.com/jkl012.jpg', '08/14/2022 19:36:25', 3),
+  (36, 2, 'Interactive Art Installations', 'Explore the world of interactive art installations. Share your favorite projects and discuss the impact of technology on art.', 'https://i.imgur.com/mno345.png', '07/04/2022 18:23:46', 3);
 
 -- Fitness Fanatics Forum (Forum ID: 4)
 INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
 VALUES 
-  (78, 2, 'High-Intensity Workouts', 'Share your favorite high-intensity workouts and tips for staying motivated during challenging exercises.', 'https://i.imgur.com/pqr678.jpg', '10/07/2023 16:45:52', 4),
-  (79, 5, 'Nutrition Q&A', 'Have questions about nutrition? Ask the community for advice on healthy eating and dietary choices.', 'https://i.imgur.com/stu901.gif', '11/14/2021 05:26:48', 4),
-  (80, 6, 'Running Club Meetup', 'Plan a running club meetup in your area. Connect with fellow runners and share your favorite running routes.', 'https://i.imgur.com/vwx234.jpg', '07/14/2022 23:55:59', 4),
-  (81, 2, 'Yoga for Beginners', 'Discuss the benefits of yoga for beginners and share your favorite poses and routines.', 'https://i.imgur.com/xyz567.png', '09/14/2020 17:52:35', 4),
-  (82, 1, 'Wellness Retreat Recommendations', 'Recommend wellness retreats and discuss your experiences with rejuvenating getaways.', 'https://i.imgur.com/uvw890.png', '07/04/2022 18:23:46', 4);
+  (37, 2, 'High-Intensity Workouts', 'Share your favorite high-intensity workouts and tips for staying motivated during challenging exercises.', 'https://i.imgur.com/pqr678.jpg', '10/07/2023 16:45:52', 4),
+  (38, 5, 'Nutrition Q&A', 'Have questions about nutrition? Ask the community for advice on healthy eating and dietary choices.', 'https://i.imgur.com/stu901.gif', '11/14/2021 05:26:48', 4),
+  (39, 6, 'Running Club Meetup', 'Plan a running club meetup in your area. Connect with fellow runners and share your favorite running routes.', 'https://i.imgur.com/vwx234.jpg', '07/14/2022 23:55:59', 4),
+  (40, 2, 'Yoga for Beginners', 'Discuss the benefits of yoga for beginners and share your favorite poses and routines.', 'https://i.imgur.com/xyz567.png', '09/14/2020 17:52:35', 4),
+  (41, 1, 'Wellness Retreat Recommendations', 'Recommend wellness retreats and discuss your experiences with rejuvenating getaways.', 'https://i.imgur.com/uvw890.png', '07/04/2022 18:23:46', 4);
 
 -- Travel Tales Exchange (Forum ID: 5)
 INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
 VALUES 
-  (83, 4, 'Hidden Gems in Southeast Asia', 'Share your favorite hidden gems in Southeast Asia and recommend off-the-beaten-path destinations.', 'https://i.imgur.com/abc123.jpg', '12/06/2023 03:31:01', 5),
-  (84, 6, 'Solo Traveler Chronicles', 'Embark on a journey of solo travel experiences. Share your stories, tips, and recommendations for fellow solo adventurers.', 'https://i.imgur.com/def456.jpg', '09/04/2023 02:55:23', 5),
-  (85, 3, 'Culinary Adventures Abroad', 'Discuss your most memorable culinary experiences while traveling abroad. Share restaurant recommendations and local delicacies.', 'https://i.imgur.com/ghi789.gif', '07/14/2022 14:53:42', 5),
-  (86, 5, 'Road Trip Essentials', 'Compile a list of must-have items for an epic road trip. Share your experiences and recommendations for the open road.', 'https://i.imgur.com/jkl012.jpg', '08/14/2022 19:36:25', 5),
-  (87, 2, 'Photography in Paradise', 'Explore the art of travel photography. Share your favorite travel photos and discuss photography tips for capturing the essence of a destination.', 'https://i.imgur.com/mno345.png', '07/04/2022 18:23:46', 5);
+  (42, 4, 'Hidden Gems in Southeast Asia', 'Share your favorite hidden gems in Southeast Asia and recommend off-the-beaten-path destinations.', 'https://i.imgur.com/abc123.jpg', '12/06/2023 03:31:01', 5),
+  (43, 6, 'Solo Traveler Chronicles', 'Embark on a journey of solo travel experiences. Share your stories, tips, and recommendations for fellow solo adventurers.', 'https://i.imgur.com/def456.jpg', '09/04/2023 02:55:23', 5),
+  (44, 3, 'Culinary Adventures Abroad', 'Discuss your most memorable culinary experiences while traveling abroad. Share restaurant recommendations and local delicacies.', 'https://i.imgur.com/ghi789.gif', '07/14/2022 14:53:42', 5),
+  (45, 5, 'Road Trip Essentials', 'Compile a list of must-have items for an epic road trip. Share your experiences and recommendations for the open road.', 'https://i.imgur.com/jkl012.jpg', '08/14/2022 19:36:25', 5),
+  (46, 2, 'Photography in Paradise', 'Explore the art of travel photography. Share your favorite travel photos and discuss photography tips for capturing the essence of a destination.', 'https://i.imgur.com/mno345.png', '07/04/2022 18:23:46', 5);
 
 SET IDENTITY_INSERT posts OFF;
 
 INSERT INTO post_votes (user_id, target_id, inc)
-VALUES 
-(1, 1, 1),
-(2, 1, 1),
-(3, 1, 1),
-(4, 1, 1),
-(5, 1, 1),
-(6, 1, 1),
-(7, 1, 1),
-(4, 2, -1),
-(5, 2, -1),
-(6, 2, 1),
-(7, 2, 1),
-(1, 3, -1),
-(2, 3, -1),
-(4, 3, 1),
-(6, 3, 1),
-(7, 3, -1),
-(2, 21, -1),
-(3, 21, -1),
-(4, 21, 1),
-(5, 21, -1),
-(6, 21, -1),
-(7, 21, -1),
-(2, 2, 1),
-(3, 3, 1),
-(4, 4, -1),
-(5, 5, 1),
-(6, 6, 1),
-(1, 7, -1),
-(2, 8, 1),
-(4, 10, 1),
-(6, 12, -1),
-(7, 13, 1),
-(2, 15, -1),
-(3, 16, 1),
-(5, 18, 1),
-(6, 19, -1),
-(7, 20, 1),
-(1, 21, 1),
-(2, 22, -1),
-(3, 23, 1),
-(4, 24, 1),
-(5, 25, 1),
-(6, 26, -1),
-(7, 27, 1),
-(1, 28, 1),
-(2, 29, -1),
-(3, 30, 1),
-(4, 31, 1),
-(5, 32, 1),
-(6, 33, -1),
-(7, 34, 1),
-(1, 35, 1);
+VALUES (1, 1, 1),
+		(2, 1, 1),
+		(3, 1,1),
+		(4,1,1),
+		(5,1,1),
+		(6,1,1),
+		(7,1,1),
+		(1,2,1),
+		(2,2,1),
+		(3,2,1),
+		(4,2,-1),
+		(5,2,-1),
+		(6,2,1),
+		(7,2,1),
+		(1,3,-1),
+		(2,3,-1),
+		(3,3,1),
+		(4,3,1),
+		(6,3,1),
+		(7,3,-1),
+		(1, 21, -1),
+		(2, 21, -1),
+		(3, 21, -1),
+		(4, 21, 1),
+		(5, 21,-1),
+		(6, 21, -1),
+		(7, 21, -1)
+
 
 INSERT INTO comment (user_id, post_id, comment_content, date_created, forum_id)
 VALUES (3, 1, 'Great post very informative !', CURRENT_TIMESTAMP, 1),

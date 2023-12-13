@@ -34,17 +34,17 @@
   
 </template>
 <script>
-import ForumService from '../services/ForumService';
+// import ForumService from '../services/ForumService';
 
 export default {
   props: ['forums'],
   components: {
   },
-  created() {
-    ForumService.getForums().then(response => {
-    this.$store.commit("SET_FORUMS", response.data); 
-    }) 
-  },
+  // created() {
+  //   ForumService.getForums().then(response => {
+  //   this.$store.commit("SET_FORUMS", response.data); 
+  //   }) 
+  // },
   computed:
   {
     activeForums() {

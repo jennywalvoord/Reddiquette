@@ -2,8 +2,11 @@ import axios from 'axios';
 
 export default {
 
-    list() {
-        return axios.get('/comment');
+    getComments() {
+        const apiResponse = axios.get('https://localhost:44315/comment');
+        console.log("test");
+        console.log(apiResponse);
+        return apiResponse;
     },
     createComment(comment){
         return axios.post('/comment', comment);
