@@ -8,6 +8,9 @@ export default {
         console.log(apiResponse);
         return apiResponse;
     },
+    getCommentsByPost(id) {
+        return axios.get(`https://localhost:44315/comment/${id}`)
+    },
     createComment(comment){
         return axios.post('/comment', comment);
     },

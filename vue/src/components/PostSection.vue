@@ -35,12 +35,16 @@
           </v-chip-group>
         </div>
       </v-container>
+      <div class="comments-section">
+        <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      </div>
     </v-card>
     <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
     <div class="d-flex w-66 pa-5 ml-10 comment-button ">
       <v-btn @click="postComment" block size="x-large">Make a Comment</v-btn>
     </div>
+
   </v-content>
 </template>
     
@@ -48,11 +52,14 @@
 import Tiptap from '../components/Tiptap.vue'
 import { storeKey } from 'vuex';
 import VoteService from '../services/VoteService';
+import Comment from '../components/Comment.vue'
+import CommentService from '../services/CommentService';
 
 export default {
   props: ["post", "reply"],
   components: {
-    Tiptap
+    Tiptap,
+    Comment,
   },
   data() {
     return {
@@ -61,6 +68,7 @@ export default {
       isDownvoted: false,
       storedUpvotes: 0,
       storedDownvotes: 0,
+      comments: []
     };
   },
   methods: {
@@ -68,6 +76,14 @@ export default {
       const comment = {
         postId: this.post.postID,
         body: this.commentText,
+      }
+    },
+    async fetchComments(postID) {
+      try {
+        const response = await CommentService.getComments(postID);
+        this.comments = response.data.filter(comment => comment.postID ===postID);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
       }
     },
     // getReply(postId){
@@ -172,6 +188,8 @@ export default {
     },
   },
   mounted() {
+        this.fetchComments(this.post.postID);
+
     VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
