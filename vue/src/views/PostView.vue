@@ -18,11 +18,6 @@
     </v-main>
     <side-bar v-bind:forums="forums" />
     
-        <!-- <v-navigation-drawer fixed permanent location="right">
-            <div class="ma-24 pa-24">
-                <side-bar v-bind:forums="forums" />
-            </div>
-        </v-navigation-drawer> -->
         <v-sheet class="flex-1-1-100 ma-2 pa-2">
         </v-sheet>
 </template>

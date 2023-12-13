@@ -30,7 +30,8 @@
             <v-chip class="red" label size="small" @click="downVote">
               <i class="fa-solid fa-down-long pr-2"></i>{{ post.downVote }} Downvotes
             </v-chip>
-
+            <!--wondering about the function of this 'comment' chip...if a user wants to comment, they would click into the RTE and click the button to post the comment.
+            Seems that we should make this chip only visible on homeview-->
             <v-chip class="grey" label size="small" @click=null>
               <i class="fa-regular fa-comment pr-2"></i>Comment
             </v-chip>
@@ -46,21 +47,35 @@
         </div>
       </v-container>
     </v-card>
-    <v-divider :thickness="4" color="info"></v-divider>
+    <tiptap v-model="commentText" :enableEditing="true" />
+    <!-- <v-divider :thickness="4" color="info"></v-divider> -->
     <div class="d-flex w-66 pa-5 ml-10 comment-button ">
-      <v-btn block size="x-large">Make a Comment</v-btn>
+      <v-btn @click="postComment" block size="x-large">Make a Comment</v-btn>
     </div>
-
-</v-content></template>
+</v-content>
+</template>
     
 <script>
+import Tiptap from '../components/Tiptap.vue'
 import { storeKey } from 'vuex';
 
 export default {
   props: ["post", "reply"],
   components: {
+    Tiptap
+  },
+  data() {
+    return {
+      commentText: '',
+    };
   },
   methods: {
+    async postComment() {
+      const comment = {
+        postId: this.post.postId,
+        body: this.commentText,
+    }
+  },
     getForumTitle(forumId) {
       const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
       return forum ? forum.title : 'Forum Not Found';

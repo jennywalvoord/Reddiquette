@@ -1,68 +1,75 @@
 <template>
      <div v-if="editor">
-            <button @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
-            bold
+      <div class="icon-row">
+        <button class="item" @click="editor.chain().focus().toggleBold().run()" :disabled="!editor.can().chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+            <v-icon icon="mdi-format-bold"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
-            italic
+            
+            <button class="item" @click="editor.chain().focus().toggleItalic().run()" :disabled="!editor.can().chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
+              <v-icon icon="mdi-format-italic"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
-            strike
+            
+            <button class="item" @click="editor.chain().focus().toggleStrike().run()" :disabled="!editor.can().chain().focus().toggleStrike().run()" :class="{ 'is-active': editor.isActive('strike') }">
+              <v-icon icon="mdi-format-strikethrough"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleCode().run()" :disabled="!editor.can().chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">
-            code
+            
+            <button class="item" @click="editor.chain().focus().toggleCode().run()" :disabled="!editor.can().chain().focus().toggleCode().run()" :class="{ 'is-active': editor.isActive('code') }">
+              <v-icon icon="mdi-code-block-tags"></v-icon>
             </button>
-            <button @click="editor.chain().focus().unsetAllMarks().run()">
-            clear marks
+            
+            <button class="item" @click="editor.chain().focus().unsetAllMarks().run()">
+              <v-icon icon="mdi-format-clear"></v-icon>
             </button>
-            <button @click="editor.chain().focus().clearNodes().run()">
-            clear nodes
+            
+            <button class="item" @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">
+              <v-icon icon="mdi-format-paragraph"></v-icon>
             </button>
-            <button @click="editor.chain().focus().setParagraph().run()" :class="{ 'is-active': editor.isActive('paragraph') }">
-            paragraph
+            
+            <button class="item" @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
+              <v-icon icon="mdi-format-header-1"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
-            h1
+            
+            <button class="item" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
+              <v-icon icon="mdi-format-header-2"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
-            h2
+            
+            <button class="item" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
+              <v-icon icon="mdi-format-header-3"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
-            h3
+            
+            <button class="item" @click="editor.chain().focus().toggleHeading({ level: 4 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }">
+              <v-icon icon="mdi-format-header-4"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleHeading({ level: 4 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 4 }) }">
-            h4
+            
+            <button class="item" @click="editor.chain().focus().toggleHeading({ level: 5 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }">
+              <v-icon icon="mdi-format-header-5"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleHeading({ level: 5 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 5 }) }">
-            h5
+            
+            <button class="item" @click="editor.chain().focus().toggleHeading({ level: 6 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }">
+              <v-icon icon="mdi-format-header-6"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleHeading({ level: 6 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 6 }) }">
-            h6
+            
+            <button class="item" @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
+              <v-icon icon="mdi-format-list-bulleted"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
-            bullet list
+            
+            <button class="item" @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">
+              <v-icon icon="mdi-format-list-numbered"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleOrderedList().run()" :class="{ 'is-active': editor.isActive('orderedList') }">
-            ordered list
+            
+            <button class="item" @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
+              <v-icon icon="mdi-format-quote-close"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleCodeBlock().run()" :class="{ 'is-active': editor.isActive('codeBlock') }">
-            code block
+          
+            <button class="item" @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
+              <v-icon icon="mdi-undo"></v-icon>
             </button>
-            <button @click="editor.chain().focus().toggleBlockquote().run()" :class="{ 'is-active': editor.isActive('blockquote') }">
-            blockquote
+           
+            <button class="item" @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
+              <v-icon icon="mdi-redo"></v-icon>
             </button>
-            <button @click="editor.chain().focus().setHorizontalRule().run()">
-            horizontal rule
-            </button>
-            <button @click="editor.chain().focus().setHardBreak().run()">
-            hard break
-            </button>
-            <button @click="editor.chain().focus().undo().run()" :disabled="!editor.can().chain().focus().undo().run()">
-            undo
-            </button>
-            <button @click="editor.chain().focus().redo().run()" :disabled="!editor.can().chain().focus().redo().run()">
-            redo
-            </button>
+      </div>
+           
   </div>
   
   <editor-content :editor="editor" />
@@ -82,6 +89,10 @@
       type: String,
       default: '',
     },
+    enableEditing: {
+      type: Boolean,
+      default: true,
+    },
   },
   emits: ['update:modelValue'],
     data() {
@@ -92,37 +103,70 @@
     watch: {
     modelValue(value) {
       // HTML
-      const isSame = this.editor.getHTML() === value
-
+      // const isSame = this.editor.getHTML() === value
+      if (this.editor.getHTML() === value) {
+        return
+      }
+      this.editor.commands.setContent(value, false)
+    },
       // JSON
       // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
 
-      if (isSame) {
-        return
-      }
+    //   if (isSame) {
+    //     return
+    //   }
 
-      this.editor.commands.setContent(value, false)
-    },
+    //   this.editor.commands.setContent(value, false)
+    // },
   },
 
   mounted() {
-    this.editor = new Editor({
-      extensions: [
-        StarterKit,
-      ],
-      content: this.modelValue,
-      onUpdate: () => {
-        // HTML
-        this.$emit('update:modelValue', this.editor.getHTML())
-
-        // JSON
-        // this.$emit('update:modelValue', this.editor.getJSON())
-      },
-    })
+    if (this.enableEditing) {
+      this.initializeEditor()
+    }
   },
+  methods: {
+    initializeEditor() {
+      this.editor = new Editor({
+        extensions: [StarterKit],
+        content: this.modelValue,
+        onUpdate: () => {
+          this.$emit('update:modelValue', this.editor.getHTML())
+        },
+      })
+    },
+  },
+  //   this.editor = new Editor({
+  //     extensions: [
+  //       StarterKit,
+  //     ],
+  //     content: this.modelValue,
+  //     onUpdate: () => {
+  //       // HTML
+  //       this.$emit('update:modelValue', this.editor.getHTML())
+
+  //       // JSON
+  //       // this.$emit('update:modelValue', this.editor.getJSON())
+  //     },
+  //   })
+  // },
 
   beforeUnmount() {
-    this.editor.destroy()
+    if (this.editor) {
+      this.editor.destroy()
+
+    }
   },
 }
-  </script>
+</script>
+
+<style>
+.icon-row {
+display: flex;
+flex-wrap: wrap;
+margin: 16px 16px 2px 16px;
+}
+.item {
+  margin-right: 8px;
+}
+</style>
