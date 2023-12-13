@@ -12,7 +12,7 @@
                     <post-section/>
 
                     </v-sheet>
-                </v-col>
+                </v-col>git 
             </v-row>
         </v-container>
     </v-main>
