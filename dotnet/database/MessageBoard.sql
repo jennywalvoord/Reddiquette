@@ -147,6 +147,54 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(20, 1, 'Exotic Flight Destinations', 'Unleash Your Wanderlust: Discover Exotic Flight Destinations! Ready to elevate your travel dreams? Explore the extraordinary with our guide to the most exotic flight destinations. From hidden gems nestled in tropical paradises to culturally rich cities off the beaten path, join us as we embark on a journey to uncover the worlds most enchanting and unforgettable places. Get ready to add a touch of exotic allure to your travel bucket list!', 'https://picsum.photos/306/400', '07/04/2022 18:23:46', 5),
 		(21, 4, 'Need Help Dieting?', 'Embarking on a journey to better health through dieting? Whether you''re aiming for weight loss, muscle gain, or simply adopting a healthier lifestyle, our community is here to offer support, tips, and personalized advice. Join us in the quest for a balanced and sustainable diet that aligns with your fitness goals because achieving your best self starts with nourishing your body right!', 'https://www.heartfoundation.org.au/getmedia/70195972-0139-4ce8-a170-ffdf2aa24f60/200615-Healthy-Eating-Gif3.gif', '08/14/2022 19:36:25', 4)
 SET IDENTITY_INSERT posts OFF;
+SET IDENTITY_INSERT posts ON;
+
+-- Tech Enthusiasts Unite (Forum ID: 1)
+INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
+VALUES 
+  (22, 1, 'Favorite Programming Languages?', 'Let''s discuss our favorite programming languages and why they stand out. Share your experiences and insights!', 'https://i.imgur.com/abc123.jpg', '12/07/2023 12:31:25', 1),
+  (23, 3, 'Future of AI in Tech', 'What are your thoughts on the future of AI in the tech industry? Share your predictions and insights!', 'https://i.imgur.com/def456.png', '02/14/2021 04:34:55', 1),
+  (24, 6, 'VR Gaming Revolution', 'Explore the exciting world of virtual reality gaming! Share your favorite VR games and experiences.', 'https://i.imgur.com/ghi789.gif', '03/14/2022 15:53:34', 1),
+  (25, 2, 'Web Development Trends 2023', 'Discuss the latest trends in web development for the year 2023. What technologies are you excited about?', 'https://i.imgur.com/jkl012.jpg', '07/11/2022 17:23:34', 1),
+  (26, 4, 'Cybersecurity Challenges', 'Let''s talk about the current challenges in cybersecurity and how the industry is evolving to address them.', 'https://i.imgur.com/mno345.png', '02/14/2022 02:00:00', 1);
+
+-- Pop Culture Club (Forum ID: 2)
+INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
+VALUES 
+  (27, 5, 'Marvel vs. DC: Your Preference?', 'Join the debate! Are you a Marvel fan or a DC enthusiast? Share your favorite characters and storylines.', 'https://i.imgur.com/pqr678.jpg', '08/14/2022 15:35:02', 2),
+  (28, 2, 'Binge-Worthy TV Shows', 'What TV shows are you currently binge-watching? Recommend your favorites and discover new gems!', 'https://i.imgur.com/stu901.gif', '07/10/2022 05:34:52', 2),
+  (29, 5, 'Movie Night Recommendations', 'Looking for movie recommendations? Share your top picks and find cinematic treasures suggested by fellow members.', 'https://i.imgur.com/vwx234.jpg', '12/09/2023 20:43:23', 2),
+  (30, 3, 'Video Game Soundtracks', 'Discuss your favorite video game soundtracks and the impact they have on the gaming experience.', 'https://i.imgur.com/xyz567.png', '04/14/2022 21:34:12', 2),
+  (31, 1, 'Pop Culture Predictions 2023', 'Make your predictions for the hottest pop culture trends in 2023. What do you think will dominate the entertainment scene?', 'https://i.imgur.com/uvw890.png', '07/14/2022 23:51:34', 2);
+
+-- Creative Minds Hub (Forum ID: 3)
+INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
+VALUES 
+  (32, 5, 'Digital Art Showcase', 'Share your latest digital art creations and discuss the techniques you used to bring them to life.', 'https://i.imgur.com/abc123.jpg', '12/06/2023 03:31:01', 3),
+  (33, 3, 'Writing Prompts Galore', 'Need inspiration for your next writing piece? Explore and share writing prompts to ignite creativity.', 'https://i.imgur.com/def456.jpg', '09/04/2023 02:55:23', 3),
+  (34, 4, 'Coding and Art Fusion', 'How do you combine coding and art in your projects? Share your experiences and learn from others in this creative coding community.', 'https://i.imgur.com/ghi789.gif', '07/14/2022 14:53:42', 3),
+  (35, 1, 'Artistic Photography Tips', 'Discuss tips and tricks for capturing stunning photographs. Share your favorite photography techniques!', 'https://i.imgur.com/jkl012.jpg', '08/14/2022 19:36:25', 3),
+  (36, 2, 'Interactive Art Installations', 'Explore the world of interactive art installations. Share your favorite projects and discuss the impact of technology on art.', 'https://i.imgur.com/mno345.png', '07/04/2022 18:23:46', 3);
+
+-- Fitness Fanatics Forum (Forum ID: 4)
+INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
+VALUES 
+  (37, 2, 'High-Intensity Workouts', 'Share your favorite high-intensity workouts and tips for staying motivated during challenging exercises.', 'https://i.imgur.com/pqr678.jpg', '10/07/2023 16:45:52', 4),
+  (38, 5, 'Nutrition Q&A', 'Have questions about nutrition? Ask the community for advice on healthy eating and dietary choices.', 'https://i.imgur.com/stu901.gif', '11/14/2021 05:26:48', 4),
+  (39, 6, 'Running Club Meetup', 'Plan a running club meetup in your area. Connect with fellow runners and share your favorite running routes.', 'https://i.imgur.com/vwx234.jpg', '07/14/2022 23:55:59', 4),
+  (40, 2, 'Yoga for Beginners', 'Discuss the benefits of yoga for beginners and share your favorite poses and routines.', 'https://i.imgur.com/xyz567.png', '09/14/2020 17:52:35', 4),
+  (41, 1, 'Wellness Retreat Recommendations', 'Recommend wellness retreats and discuss your experiences with rejuvenating getaways.', 'https://i.imgur.com/uvw890.png', '07/04/2022 18:23:46', 4);
+
+-- Travel Tales Exchange (Forum ID: 5)
+INSERT INTO posts (post_id, user_id, post_title, post_content, post_imgurl, date_created, forum_id)
+VALUES 
+  (42, 4, 'Hidden Gems in Southeast Asia', 'Share your favorite hidden gems in Southeast Asia and recommend off-the-beaten-path destinations.', 'https://i.imgur.com/abc123.jpg', '12/06/2023 03:31:01', 5),
+  (43, 6, 'Solo Traveler Chronicles', 'Embark on a journey of solo travel experiences. Share your stories, tips, and recommendations for fellow solo adventurers.', 'https://i.imgur.com/def456.jpg', '09/04/2023 02:55:23', 5),
+  (44, 3, 'Culinary Adventures Abroad', 'Discuss your most memorable culinary experiences while traveling abroad. Share restaurant recommendations and local delicacies.', 'https://i.imgur.com/ghi789.gif', '07/14/2022 14:53:42', 5),
+  (45, 5, 'Road Trip Essentials', 'Compile a list of must-have items for an epic road trip. Share your experiences and recommendations for the open road.', 'https://i.imgur.com/jkl012.jpg', '08/14/2022 19:36:25', 5),
+  (46, 2, 'Photography in Paradise', 'Explore the art of travel photography. Share your favorite travel photos and discuss photography tips for capturing the essence of a destination.', 'https://i.imgur.com/mno345.png', '07/04/2022 18:23:46', 5);
+
+SET IDENTITY_INSERT posts OFF;
 
 INSERT INTO post_votes (user_id, target_id, inc)
 VALUES (1, 1, 1),

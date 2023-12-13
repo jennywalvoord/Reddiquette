@@ -20,9 +20,9 @@
                             <v-select 
                               class="py-4" 
                               label="Choose a forum"
-                              :items="forums"
-                              :item-value="forumId"
-                              :item-title="forumTitle"
+                              :items="forumDropdown"
+                              :item-value="id"
+                              :item-title="title"
                               v-model="selectedForum"
                               return-object
                               ></v-select>
@@ -68,11 +68,11 @@
         <v-col cols="2">
           <v-sheet rounded="lg">
             <v-list rounded="lg">
-              <v-list-item v-for="n in 5" :key="n" link :title="`List Item ${n}`"></v-list-item>
-
+              <v-list-item color="grey-lighten-4" link title="Reddiquette Rules"></v-list-item>
               <v-divider class="my-2"></v-divider>
-
-              <v-list-item color="grey-lighten-4" link title="Refresh"></v-list-item>
+              <v-list-item class="text-caption" v-for="(rule, index) in rules" :key="index">
+              {{ rule }}
+              </v-list-item>
             </v-list>
           </v-sheet>
         </v-col>
@@ -92,8 +92,15 @@ export default {
   components: { Tiptap },
   data() {
     
+    
     const currentDate = new Date();
     return {
+     
+      rules: ["No Trolls Allowed: Trolls live under bridges, not in our threads. Keep it friendly or face banishment to the land of Internet Outcasts.",
+        "Meme Responsibly: Memes are great, but not when overused. One meme per post, please. We're allergic to meme overload.",
+        "Grammar Police On Duty: We've hired the Grammar Police. Spelling errors and grammatical atrocities will be swiftly apprehended.",
+        // Add other rules here
+      ],
       forums : this.$store.state.forums,
       selectedForum: '',
       post: {
@@ -112,8 +119,9 @@ export default {
   methods:{
     async createPost() {
     try {
-      this.post.ForumID = this.selectedForum.forumId;
+      this.post.ForumID = this.selectedForum.id;
       this.post.UserId = this.$store.state.user.userId;
+      
       const response = await postService.createPost(this.post);
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
@@ -139,10 +147,11 @@ export default {
     this.post.PostContent = content;
   },
   },
-  // computed: {
-  //   forums(){return this.$store.state.forums}
-  // },
-  
+  computed: {
+    forumDropdown(){
+      return this.$store.state.forums.map(f => {return {title: f.forumTitle, id: f.forumId}})
+      }
+  },
 };
 </script>
 
