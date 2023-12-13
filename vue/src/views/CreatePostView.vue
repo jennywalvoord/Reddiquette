@@ -9,16 +9,16 @@
               <v-content>
                 <div class="pb-6">
                   <v-text class="text-h4">Create a Post</v-text>
-                  <p class="font-weight-bold py-4">Choose a forum to post to:</p>
                     <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
 
+                  <p class="font-weight-bold py-4">Choose a forum to post to:</p>
                           
                           <v-form @submit.prevent="createPost">
                             <v-select 
-                              class="py-4" 
+                              
                               label="Choose a forum"
                               :items="forumDropdown"
                               :item-value="id"
@@ -26,28 +26,30 @@
                               v-model="selectedForum"
                               return-object
                               ></v-select>
-                            <p class="font-weight-bold py-4">Add text and an image: </p>
+                            <p class="font-weight-bold py-4">Add a title, post content and an image: </p>
 
                                 <v-text-field 
                                   v-model="post.PostTitle" 
-                                  label="Title" required></v-text-field>
+                                  label="Title" 
+                                  color="#ff4500"
+                                  required></v-text-field>
                             
                               <div>
-                                <div class="content">
+                                <!-- <div class="content">
                                     <p>Enter your post content</p>
                                     <tiptap :modelValue="post.PostContent" @update:modelValue="updatePostContent" :enableEditing="true" />
-                                  </div>
-                                <!-- <v-textarea v-model="post.PostContent"
-                                  bg-color="grey-lighten-2"
-                                  color="cyan"
-                                  label="Label"
-                                ></v-textarea> -->
+                                  </div> -->
+                                <v-textarea v-model="post.PostContent"
+                                  color="#ff4500"
+                                  label="Post content"
+                                ></v-textarea>
 
                                 <v-text-field 
                                   v-model="post.ImagePath" 
                                   label="Add image url" 
                                   variant="filled" 
                                   prepend-icon="mdi-camera"
+                                  color="#ff4500"
                                   ></v-text-field>
                               </div>
                               
@@ -83,13 +85,11 @@
 </template>
 
 <script>
-import Tiptap from '../components/Tiptap.vue';
 import postService from '../services/PostService';
 // import forumService from '../services/ForumService';
 // import CommentService from '../services/CommentService';
 export default {
  
-  components: { Tiptap },
   data() {
     
     

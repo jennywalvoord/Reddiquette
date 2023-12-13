@@ -17,11 +17,11 @@ export default {
     CreateCommentVote(vote){
         return axios.post('/vote/comment', vote)
     },
-    UpdateCommentVote(userId, targetID, increment){
-        return axios.put(`/vote/comment/${targetID}`, userId, targetID, increment)
+    UpdateCommentVote(targetID, vote){
+        return axios.put(`/vote/comment/${targetID}`, vote)
     },
-    UpdatePostVote(userId, targetID, increment){
-        return axios.put(`/vote/comment/${targetID}`, userId, targetID, increment)
+    UpdatePostVote(targetID, vote){
+        return axios.put(`/vote/comment/${targetID}`, vote)
     },
     DeletePostVote(targetID, UserID){
         return axios.delete(`/vote/post/${targetID}/user/${UserID}`)
