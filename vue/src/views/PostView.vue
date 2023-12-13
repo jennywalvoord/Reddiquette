@@ -9,7 +9,7 @@
                     rounded="lg"
                     class="ma-4 pa-4"
                     >
-                    <post-section :reply="findReply" :post="findPost"  />
+                    <post-section  :post="findPost"  />
 
                     </v-sheet>
                 </v-col>
@@ -37,11 +37,6 @@ export default {
             let postId = this.$route.params.id;  
             let post = this.$store.state.posts.find((p) => p.id == postId);
             return post;
-        },
-        findReply() {
-            let replyId = this.$route.params.id;  
-            let reply = this.$store.state.Reply.filter((p) => p.id == replyId);
-            return reply;
         },
     },
 }

@@ -1,6 +1,12 @@
 import axios from 'axios';
+const http = axios.create({
+    baseURL: 'http://localhost:44315'
+  });
 
 export default {
+    list() {
+        return http.get('/posts');
+      },
 
     getPosts() {
         const apiResponse = axios.get('https://localhost:44315/posts');
