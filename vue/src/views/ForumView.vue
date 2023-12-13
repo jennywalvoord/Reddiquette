@@ -32,7 +32,9 @@
 <script>
 import ForumSection from '../components/ForumSection.vue';
 import SideBar from '../components/SideBar.vue';
-
+import ForumService from '../services/ForumService';
+import PostService from '../services/PostService';
+import CommentService from '../services/CommentService';
 export default {
     components: {
         SideBar,
@@ -56,7 +58,20 @@ export default {
         this.$router.push({ name: 'create-post' });
         
       }
-    }
+    },created() {
+    ForumService.getForums().then(response => {
+    this.$store.commit("SET_FORUMS", response.data);
+    }  
+    );
+    PostService.getPosts().then(response =>{
+    this.$store.commit("SET_POSTS", response.data);
+    }  
+    );
+    CommentService.getComments().then(response =>{
+    this.$store.commit("SET_COMMENTS", response.data);
+    }  
+    );
+  },
 }
 </script>
 
