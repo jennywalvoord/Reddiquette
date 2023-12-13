@@ -4,11 +4,11 @@
 
         </div>
         <div>
-            <h3 v-bind:to="{ name: 'forum-view', params: { id: forums.id } }">
-                {{ forums.title }}
-                <!-- //<router-link  v-bind:to="{ name: 'forum-view', params: {id: forums.id}}">{{forums.title}}</router-link> -->
+            <h3 v-bind:to="{ name: 'forum-view', params: { id: forums.forumId } }">
+                {{ forums.forumTitle }}
+                <!-- //<router-link  v-bind:to="{ name: 'forum-view', params: {id: forums.forumId}}">{{forums.title}}</router-link> -->
             </h3>
-            <p v-bind:to="{ name: 'forum-view', params: { id: forums.id } }">{{ forums.description }}</p>
+            <p v-bind:to="{ name: 'forum-view', params: { id: forums.forumId } }">{{ forums.forumDescription }}</p>
 
 
         </div>

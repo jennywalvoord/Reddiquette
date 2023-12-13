@@ -67,6 +67,7 @@
 
 <script>
 import { storeKey } from 'vuex';
+import PostService from '../services/PostService';
 export default {
   props: ['post', 'forum'], 
   data() {
@@ -110,8 +111,8 @@ export default {
       this.$store.commit('updateClout', upVoteCount - downVoteCount);
     },
     getForumTitle(forumId) {
-      const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
-      return forum ? forum.title : 'Forum Not Found';
+      const forum = this.$store.state.forums.find((forum) => forum.forumId === forumId);
+      return forum ? forum.forumTitle : 'Forum Not Found';
     },
     
   },
@@ -124,7 +125,12 @@ export default {
     this.isDownvoted = currentPost.downVote > 0;
   }
   
-}
+},
+// created() {
+//     PostService.getForums().then(response => {
+//     this.$store.commit("SET_POSTS", response.data); 
+//     }) 
+//   },
 };
 </script>
 

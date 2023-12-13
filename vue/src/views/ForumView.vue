@@ -41,13 +41,13 @@ export default {
     computed: {
         findForum() {
             let forumId = this.$route.params.id;  
-            let forum = this.$store.state.forums.find((p) => p.id == forumId);
+            let forum = this.$store.state.forums.find((p) => p.forumId == forumId);
             return forum;
         },
         findForumName() {
             let forumId = this.$route.params.id;  
-            let forum = this.$store.state.forums.find((p) => p.id == forumId);
-            return forum.title
+            let forum = this.$store.state.forums.find((p) => p.forumId == forumId);
+            return forum.forumTitle
         }
 
     },

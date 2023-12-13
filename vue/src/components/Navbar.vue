@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
  <v-app-bar id="inspire">
   <router-link to="/your-link">
     <v-img
@@ -29,4 +29,4 @@
 export default {
     
 }
-</script>
+</script> -->

@@ -38,13 +38,13 @@ export default {
   },
   methods: {
     filteredByDate() {
-      let forumId = this.forum.id;
+      let forumId = this.forum.forumId;
       let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
       posts.sort((a, b) => new Date(b.dateCreated) - new Date(a.dateCreated));
       return posts;
     },
     filteredByClout() {
-      let forumId = this.forum.id;
+      let forumId = this.forum.forumId;
       let posts = this.$store.state.posts.filter((p) => p.forumId === forumId);
 
       function compareClout(a, b) {

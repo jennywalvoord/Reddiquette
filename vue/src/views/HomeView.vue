@@ -3,8 +3,6 @@
     <v-main class="bg-grey-lighten-4">
       <v-container>
         <v-row>
-          
-
           <v-col>
             <v-sheet
             min-height="100vh"
@@ -56,6 +54,8 @@
 <script>
 import SmallPost from '../components/SmallPost.vue'
 import SideBar from '../components/SideBar.vue'
+import ForumService from '../services/ForumService';
+import PostService from '../services/PostService';
 
 export default {
   components: {
@@ -68,6 +68,23 @@ export default {
         }
     },
   data: () => ({ drawer: null }),
+  created() {
+    ForumService.getForums().then(response => {
+    this.$store.commit("SET_FORUMS", response.data);
+    }  
+    );
+    PostService.getPosts().then(response =>{
+    this.$store.commit("SET_POSTS", response.data);
+    }  
+    );
+  }, 
+  // createdPOSTS() {
+  //   PostService.getPosts().then(response =>{
+  //   this.$store.commit("SET_POSTS", response.data);
+  //   }  
+  //   );
+  // },     
+  
 };
 </script> 
 
