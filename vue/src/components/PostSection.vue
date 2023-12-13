@@ -5,7 +5,7 @@
       <h3>{{ getForumTitle(post.forumId) }}</h3>
       <v-row class="d-flex ">
         <v-col>
-          <h6>Posted by: {{ getUserName(post.userId) }}</h6>
+          <h6>Posted by: {{ getUserName(post.userID) }}</h6>
         </v-col>
         <v-col>
           <h6>Posted about  {{ timePassed }}</h6>
@@ -15,20 +15,20 @@
     <v-card class="postDetails">
       <v-container>
         <div class="d-flex flex-column">
-          <v-card-title class="d-flex justify-center">{{ post.title }}</v-card-title>
+          <v-card-title class="d-flex justify-center">{{ post.postTitle }}</v-card-title>
           <div class="d-flex">
-            <v-img class="float-left" :width="300" :height="200" aspect-ratio="16/9" cover :src="post.image"></v-img>
-            <v-card-text class="d-flex w-66 ">{{ post.body }} </v-card-text>
+            <v-img class="float-left" :width="300" :height="200" aspect-ratio="16/9" cover :src="post.imagePath"></v-img>
+            <v-card-text class="d-flex w-66 ">{{ post.postContent }} </v-card-text>
           </div>
         </div>
         <div class="comments-section">
           <v-chip-group class="ma-2">
             <v-chip class="green" label size="small" @click="upVote">
-              <i class="fa-solid fa-up-long pr-2"></i>{{ post.upVote }} Upvotes
+              <!-- <i class="fa-solid fa-up-long pr-2"></i>{{ post.upVote }} Upvotes -->
             </v-chip>
 
             <v-chip class="red" label size="small" @click="downVote">
-              <i class="fa-solid fa-down-long pr-2"></i>{{ post.downVote }} Downvotes
+              <!-- <i class="fa-solid fa-down-long pr-2"></i>{{ post.downVote }} Downvotes -->
             </v-chip>
             <!--wondering about the function of this 'comment' chip...if a user wants to comment, they would click into the RTE and click the button to post the comment.
             Seems that we should make this chip only visible on homeview-->
@@ -41,7 +41,7 @@
           </v-chip-group>
           <div class="replies">
               <p>
-               {{ getReply(post.postId) }}
+               {{ getReply(post.postID) }}
               </p>
             </div>
         </div>
@@ -72,7 +72,7 @@ export default {
   methods: {
     async postComment() {
       const comment = {
-        postId: this.post.postId,
+        postId: this.post.postID,
         body: this.commentText,
     }
   },
@@ -88,22 +88,22 @@ export default {
       const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
       return reply ? reply.body : 'No Comments Yet!';
     },
-    upVote() {
-      if (!this.isUpvoted) {
-        this.$store.dispatch('upVotePost', this.post.id);
-        this.isUpvoted = true;
-        this.updateClout();
-        this.updateLocalStorage();
-      }
-    },
-    downVote() {
-      if (!this.isDownvoted) {
-        this.$store.dispatch('downVotePost', this.post.id);
-        this.isDownvoted = true;
-        this.updateClout();
-        this.updateLocalStorage();
-      }
-    },
+    // upVote() {
+    //   if (!this.isUpvoted) {
+    //     this.$store.dispatch('upVotePost', this.post.id);
+    //     this.isUpvoted = true;
+    //     this.updateClout();
+    //     this.updateLocalStorage();
+    //   }
+    // },
+    // downVote() {
+    //   if (!this.isDownvoted) {
+    //     this.$store.dispatch('downVotePost', this.post.id);
+    //     this.isDownvoted = true;
+    //     this.updateClout();
+    //     this.updateLocalStorage();
+    //   }
+    // },
   },
   computed: {
     timePassed() {

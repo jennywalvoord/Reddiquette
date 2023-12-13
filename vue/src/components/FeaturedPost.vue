@@ -2,13 +2,13 @@
     <div class="card pb-6">
     <div class="well">
     <div>
-      <img v-bind:src="post.image">
+      <img v-bind:src="post.imagePath">
     </div>
     <div>
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.body.substring(0, 250) }}...</p>
+      <h3>{{ post.postTitle }}</h3>
+      <p>{{ post.postContent.substring(0, 250) }}...</p>
       <p>DATE POSTED: {{ post.dateCreated }}</p>
-      <p>CLOUT: {{ post.clout }}</p>
+      <!-- <p>CLOUT: {{ post.clout }}</p> -->
     </div>
   </div>
 
