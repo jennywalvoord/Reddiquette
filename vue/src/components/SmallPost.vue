@@ -67,6 +67,7 @@
 
 <script>
 import { storeKey } from 'vuex';
+import PostService from '../services/PostService';
 export default {
   props: ['post', 'forum'], 
   data() {
@@ -124,7 +125,12 @@ export default {
     this.isDownvoted = currentPost.downVote > 0;
   }
   
-}
+},
+// created() {
+//     PostService.getForums().then(response => {
+//     this.$store.commit("SET_POSTS", response.data); 
+//     }) 
+//   },
 };
 </script>
 
