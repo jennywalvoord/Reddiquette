@@ -43,6 +43,7 @@
 <script>
 import ForumService from '../src/services/ForumService';
 import PostService from '../src/services/PostService';
+import CommentService from '../src/services/CommentService';
 export default {
   created() {
     ForumService.getForums().then(response => {
@@ -51,6 +52,10 @@ export default {
     );
     PostService.getPosts().then(response =>{
     this.$store.commit("SET_POSTS", response.data);
+    }  
+    );
+    CommentService.getComments().then(response =>{
+    this.$store.commit("SET_COMMENTS", response.data);
     }  
     );
   }, 
