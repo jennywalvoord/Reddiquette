@@ -22,28 +22,28 @@
           </div>
         </div>
         <div class="comments-section">
-          <v-chip-group class="ma-2">
-            <v-chip class="green" label size="small" @click="upVote">
-              <!-- <i class="fa-solid fa-up-long pr-2"></i>{{ post.upVote }} Upvotes -->
-            </v-chip>
+          <!-- <v-chip-group class="ma-2">  -->
+            <!-- <v-chip class="green" label size="small" @click="upVote">
+              <i class="fa-solid fa-up-long pr-2"></i>{{ post.upVote }} Upvotes
+             </v-chip>
 
-            <v-chip class="red" label size="small" @click="downVote">
+            <v-chip class="red" label size="small" @click="downVote"> -->
               <!-- <i class="fa-solid fa-down-long pr-2"></i>{{ post.downVote }} Downvotes -->
-            </v-chip>
+            <!-- </v-chip> --> 
             <!--wondering about the function of this 'comment' chip...if a user wants to comment, they would click into the RTE and click the button to post the comment.
             Seems that we should make this chip only visible on homeview-->
-            <v-chip class="grey" label size="small" @click=null>
+            <!-- <v-chip class="grey" label size="small" @click=null>
               <i class="fa-regular fa-comment pr-2"></i>Comment
-            </v-chip>
+            </v-chip> -->
             
             
 
-          </v-chip-group>
+          <!-- </v-chip-group>
           <div class="replies">
-              <p>
+              < <p>
                {{ getReply(post.postID) }}
-              </p>
-            </div>
+              </p> -->
+            <!-- </div> -->
         </div>
       </v-container>
     </v-card>
@@ -84,9 +84,9 @@ export default {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
     },
-    getReply(postId){
-      const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
-      return reply ? reply.body : 'No Comments Yet!';
+    // getReply(postId){
+    //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
+    //   return reply ? reply.body : 'No Comments Yet!';
     },
     // upVote() {
     //   if (!this.isUpvoted) {
@@ -104,7 +104,7 @@ export default {
     //     this.updateLocalStorage();
     //   }
     // },
-  },
+  // },
   computed: {
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);

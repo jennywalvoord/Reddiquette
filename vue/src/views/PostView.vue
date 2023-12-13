@@ -9,7 +9,7 @@
                     rounded="lg"
                     class="ma-4 pa-4"
                     >
-                    <post-section/>
+                    <post-section v-bind:post="findPost"/>
 
                     </v-sheet>
                 </v-col>git 
@@ -49,17 +49,17 @@ export default {
     }  
     );
   },
-    // computed: {
-    //     findPost() {
-    //         let postId = this.$route.params.id;  
-    //         let post = this.$store.state.posts.find((p) => p.id == postId);
-    //         return post;
-    //     },
+    computed: {
+        findPost() {
+            let postId = this.$route.params.id;  
+            let post = this.$store.state.posts.find((p) => p.postID == postId);
+            return post;
+        },
     //     findReply() {
     //         let replyId = this.$route.params.id;  
     //         let reply = this.$store.state.Reply.filter((p) => p.id == replyId);
     //         return reply;
     //     },
-    // },
+    },
 }
 </script>
