@@ -82,63 +82,67 @@ export default {
         });
     },
     async upVote() {
-      if (this.isUpvoted) {
-        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = false;
+      if (this.$store.state.isAuthenticated) {
+        if (this.isUpvoted) {
+          const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = false;
+          }
         }
-      }
-      else if (this.isDownvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = false;
-          this.isUpvoted = true;
+        else if (this.isDownvoted) {
+          const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = false;
+            this.isUpvoted = true;
+          }
         }
-      }
-      else {
-        const vote = {
-          userId: this.$store.user.userId,
-          targetID: this.post.postID,
-          increment: 1
+        else {
+          const vote = {
+            UserID: this.$store.user.userId,
+            TargetID: this.post.postID,
+            Increment: 1
+          }
+          const response = await VoteService.CreatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = true;
+          }
+          //TODO: write catch eventually
         }
-        const response = await VoteService.CreatePostVote(vote)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = true;
-        }
-        //TODO: write catch eventually
       }
     },
     async downVote() {
-      if (this.isDownvoted) {
-        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = false;
+      if (this.$store.state.isAuthenticated) {
+        if (this.isDownvoted) {
+          const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = false;
+          }
         }
-      }
-      else if (this.isUpvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = true;
-          this.isUpvoted = false;
+        else if (this.isUpvoted) {
+          const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = true;
+            this.isUpvoted = false;
+          }
         }
-      }
-      else {
-        const vote = {
-          userId: this.$store.user.userId,
-          targetID: this.post.postID,
-          increment: -1
+        else {
+          const vote = {
+            userId: this.$store.user.userId,
+            targetID: this.post.postID,
+            increment: -1
+          }
+          const response = await VoteService.CreatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = true;
+          }
+          //TODO: write catch eventually
         }
-        const response = await VoteService.CreatePostVote(vote)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = true;
-        }
-        //TODO: write catch eventually
       }
     },
   },
