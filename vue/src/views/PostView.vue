@@ -4,25 +4,27 @@
         <v-container>
             <v-row>
                 <v-col>
-                    <v-sheet min-height="90vh">
+                    <v-sheet 
+                    min-height="90vh"
+                    rounded="lg"
+                    class="ma-4 pa-4"
+                    >
+                    <post-section :reply="findReply" :post="findPost"  />
 
                     </v-sheet>
                 </v-col>
             </v-row>
         </v-container>
     </v-main>
-    <v-sheet class="d-flex flex-wrap bg-surface-variant">
-        <v-sheet class="flex-1-0 ma-24 pa-24">
-            <post-section :reply="findReply" :post="findPost"  />
-        </v-sheet>
-        <v-navigation-drawer fixed permanent location="right">
+    <side-bar v-bind:forums="forums" />
+    
+        <!-- <v-navigation-drawer fixed permanent location="right">
             <div class="ma-24 pa-24">
                 <side-bar v-bind:forums="forums" />
             </div>
-        </v-navigation-drawer>
+        </v-navigation-drawer> -->
         <v-sheet class="flex-1-1-100 ma-2 pa-2">
         </v-sheet>
-    </v-sheet>
 </template>
 
 <script>
