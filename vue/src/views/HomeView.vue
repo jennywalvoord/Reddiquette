@@ -13,7 +13,7 @@
             <v-slide-group show-arrows>
                 <v-slide-group-item
                   v-for="post in filteredPosts"
-                  :key="post.id"
+                  :key="post.postID"
                 >
                 <small-post 
                   :post="post" 

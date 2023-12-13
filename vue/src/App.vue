@@ -41,15 +41,28 @@
 </template>
 
 <script>
-
+import ForumService from '../src/services/ForumService';
+import PostService from '../src/services/PostService';
 export default {
+  created() {
+    ForumService.getForums().then(response => {
+    this.$store.commit("SET_FORUMS", response.data);
+    }  
+    );
+    PostService.getPosts().then(response =>{
+    this.$store.commit("SET_POSTS", response.data);
+    }  
+    );
+  }, 
   name: 'App',
   components: {},
   data() {
     return {
 
     }
+    
   },
+  
   computed: {
     isLoggedIn() {
       return !!this.$store.state.token;
