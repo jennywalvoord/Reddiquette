@@ -55,6 +55,7 @@
 import SmallPost from '../components/SmallPost.vue'
 import SideBar from '../components/SideBar.vue'
 import ForumService from '../services/ForumService';
+import PostService from '../services/PostService';
 
 export default {
   components: {
@@ -72,7 +73,17 @@ export default {
     this.$store.commit("SET_FORUMS", response.data);
     }  
     );
-  },      
+    PostService.getPosts().then(response =>{
+    this.$store.commit("SET_POSTS", response.data);
+    }  
+    );
+  }, 
+  // createdPOSTS() {
+  //   PostService.getPosts().then(response =>{
+  //   this.$store.commit("SET_POSTS", response.data);
+  //   }  
+  //   );
+  // },     
   
 };
 </script> 

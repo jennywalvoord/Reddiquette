@@ -77,7 +77,7 @@ export default {
     }
   },
     getForumTitle(forumId) {
-      const forum = this.$store.state.forums.find((forum) => forum.id === forumId);
+      const forum = this.$store.state.forums.find((forum) => forum.forumId === forumId);
       return forum ? forum.title : 'Forum Not Found';
     },
     getUserName(userId) {

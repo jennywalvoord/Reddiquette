@@ -2,9 +2,13 @@ import axios from 'axios';
 
 export default {
 
-    list() {
-        return axios.get('/posts');
+    getPosts() {
+        const apiResponse = axios.get('https://localhost:44315/posts');
+        console.log("test");
+        console.log(apiResponse);
+        return apiResponse;
     },
+    
     createPost(post){
         return axios.post('/posts', post);
     },

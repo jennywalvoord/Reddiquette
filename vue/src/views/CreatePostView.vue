@@ -114,7 +114,7 @@ export default {
       const response = await postService.createPost(this.post);
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
-          path: '/posts',
+          path: `/forum/ ${this.post.ForumID}`,
           query: { posted: 'success' },
         });
       } else {
