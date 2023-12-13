@@ -3,8 +3,6 @@
     <v-main class="bg-grey-lighten-4">
       <v-container>
         <v-row>
-          
-
           <v-col>
             <v-sheet
             min-height="100vh"

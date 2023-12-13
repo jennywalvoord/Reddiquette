@@ -10,14 +10,12 @@
                 <div class="pb-6">
                   <v-text class="text-h4">Create a Post</v-text>
                   <p class="font-weight-bold py-4">Choose a forum to post to:</p>
-                  
-
-                 
-
-                            <v-window>
+                    <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
+
+                          
                           <v-form @submit.prevent="createPost">
                             <v-select 
                               class="py-4" 
@@ -37,7 +35,7 @@
                               <div>
                                 <div class="content">
                                     <p>Enter your post content</p>
-                                    <tiptap />
+                                    <tiptap :modelValue="post.PostContent" @update:modelValue="updatePostContent" :enableEditing="true" />
                                   </div>
                                 <!-- <v-textarea v-model="post.PostContent"
                                   bg-color="grey-lighten-2"
@@ -51,9 +49,6 @@
                                   variant="filled" 
                                   prepend-icon="mdi-camera"
                                   ></v-text-field>
-
-
-                                  
                               </div>
                               
                             <v-row>
@@ -108,9 +103,6 @@ export default {
       },
       postingErrors: false,
       postingErrorMsg: 'There were problems creating this post.',
-      // components: {
-      //   TiptapRichTextEditor
-      // },
       forums: this.$store.state.forums,
     };
   },
@@ -138,9 +130,11 @@ export default {
         // Handle other errors
         console.error('Error creating post:', error);
       }
-      
     }
-  }
+  },
+  updatePostContent(content) {
+    this.post.PostContent = content;
+  },
   },
   
 };
