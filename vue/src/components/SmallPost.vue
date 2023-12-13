@@ -14,10 +14,10 @@
               </div>
               <v-img :width="280" :height="120" cover v-bind:src="post.imagePath"></v-img>
               
-              <div class="text-h6 my-1">
+              <div class="text-h6 my-1 post-title">
                 {{ post.postTitle }}
               </div>
-              <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ post.dateCreated }}</p>
+              <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ formatDate(post.dateCreated) }}</p>
                 <p class="text-subtitle-2">
                   <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
                     <!-- Clout:
@@ -84,6 +84,11 @@ export default {
         return text;
       }
     },
+    formatDate(dateString) {
+      const options = { month: 'short', day: 'numeric', year: 'numeric' };
+      const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+      return formattedDate;
+    },
   //   upVote() {
   //   if (!this.isUpvoted) {
   //     this.$store.dispatch('upVotePost', this.post.postID);
@@ -135,6 +140,10 @@ export default {
 </script>
 
 <style>
+
+.post-title {
+  height: 60px;
+}
 .text-positive {
   color: green;
 }

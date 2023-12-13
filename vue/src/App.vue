@@ -3,14 +3,15 @@
     <v-app-bar app class="px-3 elevation-4" color="grey-lighten-4" height="72">
       <v-app-bar-nav-icon>
         <router-link to="/">
+          <v-img src="./src/assets/Logo_Orange.png" />
+
           <v-avatar size="48">
-            <v-img src="./src/assets/Logo_Orange.png" width="100" height="100" />
           </v-avatar>
         </router-link>
       </v-app-bar-nav-icon>
       <v-app-bar-title class="font-weight-bold" :style="{ color: '#ff4500' }">ReddiQuette</v-app-bar-title>
       
-      <!-- Centered search bar -->
+      <!-- Centered search bar
       <v-row align="center" class="mx-auto">
         <v-col cols="12">
           <v-text-field
@@ -21,7 +22,7 @@
             hide-details
           ></v-text-field>
         </v-col>
-      </v-row>
+      </v-row> -->
       
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
       
