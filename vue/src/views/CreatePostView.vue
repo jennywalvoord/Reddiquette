@@ -21,8 +21,8 @@
                               class="py-4" 
                               label="Choose a forum"
                               :items="forums"
-                              :item-value="id"
-                              :item-title="title"
+                              :item-value="forumId"
+                              :item-title="forumTitle"
                               v-model="selectedForum"
                               return-object
                               ></v-select>
@@ -85,13 +85,16 @@
 <script>
 import Tiptap from '../components/Tiptap.vue';
 import postService from '../services/PostService';
+// import forumService from '../services/ForumService';
 // import CommentService from '../services/CommentService';
 export default {
-  // props: ['forums'],
+ 
   components: { Tiptap },
   data() {
+    
     const currentDate = new Date();
     return {
+      forums : this.$store.state.forums,
       selectedForum: '',
       post: {
         UserId: this.$store.state.user.id,
@@ -103,13 +106,13 @@ export default {
       },
       postingErrors: false,
       postingErrorMsg: 'There were problems creating this post.',
-      forums: this.$store.state.forums,
+      
     };
   },
   methods:{
     async createPost() {
     try {
-      this.post.ForumID = this.selectedForum.id;
+      this.post.ForumID = this.selectedForum.forumId;
       this.post.UserId = this.$store.state.user.userId;
       const response = await postService.createPost(this.post);
       if (response.status >= 200 && response.status < 300) {
@@ -136,6 +139,9 @@ export default {
     this.post.PostContent = content;
   },
   },
+  // computed: {
+  //   forums(){return this.$store.state.forums}
+  // },
   
 };
 </script>

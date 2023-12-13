@@ -14,7 +14,7 @@
   </div>
 
   <v-slide-group show-arrows>
-    <v-slide-group-item v-for="post in postFilter" :key="post.id">
+    <v-slide-group-item v-for="post in postFilter" :key="post.postID">
       <small-post :post="post" class="ma-3" rounded width="250" />
     </v-slide-group-item>
   </v-slide-group>
