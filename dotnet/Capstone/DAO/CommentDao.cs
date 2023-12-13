@@ -147,8 +147,8 @@ namespace Capstone.DAO
         }
         public Comment CreateComment(Comment comment)
         {
-            string query = "INSERT INTO comment (user_id, post_id, comment_content, date_created, forum_id, parent_id) " +
-                        "VALUES (@UserId, @PostId, @CommentContent, @DateCreated, @ForumID, @parent)" +
+            string query = "INSERT INTO comment (user_id, post_id, comment_content, date_created ) " +
+                        "VALUES (@UserId, @PostId, @CommentContent, @DateCreated  )" +
                         "SELECT SCOPE_IDENTITY();";
 
             try
@@ -162,8 +162,8 @@ namespace Capstone.DAO
                     cmd.Parameters.AddWithValue("@PostId", comment.PostID);
                     cmd.Parameters.AddWithValue("@CommentContent", comment.CommentContent);
                     cmd.Parameters.AddWithValue("@DateCreated", comment.DateCreated);
-                    cmd.Parameters.AddWithValue("@ForumID", comment.ForumID);
-                    cmd.Parameters.AddWithValue("@parent", comment.ParentID);
+                   
+                    
 
                     int newCommentId = Convert.ToInt32(cmd.ExecuteScalar());
 
