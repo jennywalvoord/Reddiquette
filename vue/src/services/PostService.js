@@ -18,5 +18,8 @@ export default {
     },
     deletePost(post){
         return axios.delete('/posts:${id}',post);
+    },
+    getPost(id) {
+        return axios.get(`https://localhost:44315/posts/${id}`)
     }
 }

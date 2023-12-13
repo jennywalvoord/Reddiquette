@@ -11,11 +11,11 @@ export default {
     GetAllCommentVotesById(id){
         return axios.get(`/vote/comment/${id}`)
     },
-    CreatePostVote(userId, targetID, increment){
-        return axios.post('/vote/post',userId, targetID, increment)
+    CreatePostVote(vote){
+        return axios.post('/vote/post',vote)
     },
-    CreateCommentVote(userId, targetID, increment){
-        return axios.post('/vote/comment', userId, targetID, increment)
+    CreateCommentVote(vote){
+        return axios.post('/vote/comment', vote)
     },
     UpdateCommentVote(userId, targetID, increment){
         return axios.put(`/vote/comment/${targetID}`, userId, targetID, increment)

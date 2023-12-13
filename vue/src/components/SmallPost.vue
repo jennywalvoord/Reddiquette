@@ -13,7 +13,7 @@
               <div class="text-h6 my-1">
                 {{ post.postTitle }}
               </div>
-              <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ post.dateCreated }}</p>
+              <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ timePassed }}</p>
                 <p class="text-subtitle-2">
                   <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
                     <!-- Clout:
@@ -74,6 +74,23 @@ export default {
   },
   computed: {
     //clout computation goes here?
+    timePassed() {
+      const postedTime = new Date(this.post.dateCreated);
+      let currentTime = new Date();
+      let differenceInTime = (currentTime - postedTime) / 1000;
+      if (Math.round(differenceInTime) === 1) { return "1 second ago" }
+      else if (Math.round(differenceInTime / 60) < 1) { return `${differenceInTime} seconds ago` }
+      else if (Math.round(differenceInTime / 60) == 1) { return "1 minute ago" }
+      else if (Math.round(differenceInTime / 60) < 60) { return `${Math.round(differenceInTime / 60)} minutes ago` }
+      else if (Math.round(differenceInTime / (60 * 60)) == 1) { return "1 hour ago" }
+      else if (Math.round(differenceInTime / (60 * 60)) < 24) { return `${Math.round(differenceInTime / (3600))} hours ago` }
+      else if (Math.round(differenceInTime / (60 * 60 * 24)) == 1) { return "1 day ago" }
+      else if (Math.round(differenceInTime / (60 * 60 * 24) < 30)) { return `${Math.round(differenceInTime / (60 * 60 * 24))} days ago` }
+      else if (Math.round(differenceInTime / (60 * 60 * 24 * 30) == 1)) { return "1 month ago" }
+      else if (Math.round(differenceInTime / (60 * 60 * 24 * 30) < 12)) { return `${Math.round(differenceInTime / (60 * 60 * 24 * 30))} months ago` }
+      else if (Math.round(differenceInTime / (60 * 60 * 24 * 365) == 1)) { return "1 year ago" }
+      else return `${Math.round(differenceInTime / (60 * 60 * 24 * 365))} years ago`
+    },
   },
   methods: {
     truncateText(text, limit) {
@@ -93,7 +110,7 @@ export default {
         }
       }
       else if (this.isDownvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.id, 1)
+        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
         if (response.status >= 200 && response.status < 300)
         {
           this.updateVotes();
@@ -102,7 +119,7 @@ export default {
         }
       }
       else {
-        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.post.id, 1)
+        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.post.postID, 1)
         if (response.status >= 200 && response.status < 300)
         {
           this.updateVotes();
@@ -121,7 +138,7 @@ export default {
         }
       }
       else if (this.isUpvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.id, 1)
+        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
         if (response.status >= 200 && response.status < 300)
         {
           this.updateVotes();
@@ -130,7 +147,7 @@ export default {
         }
       }
       else {
-        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.post.id, 1)
+        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.post.postID, 1)
         if (response.status >= 200 && response.status < 300)
         {
           this.updateVotes();
@@ -140,7 +157,7 @@ export default {
       }
     },
     updateVotes() {
-      VoteService.GetAllPostVotesbyId(this.post.id)
+      VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
         this.storedDownvotes = response.data.downvotes
@@ -152,13 +169,13 @@ export default {
     },
   },
   mounted() {
-    VoteService.GetAllPostVotesbyId(this.post.id)
+    VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
         this.storedDownvotes = response.data.downvotes;
     });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
         .then(response => {
           if (response.data.Increment === 1) {this.isUpvoted = true;}
           else if (response.data.Increment === -1) {this.isDownvoted = true;}
@@ -166,13 +183,13 @@ export default {
     }
   },
   // created() {
-  //   VoteService.GetAllPostVotesbyId(this.post.id)
+  //   VoteService.GetAllPostVotesbyId(this.post.postID)
   //     .then(response => {
-  //       this.upvotes = response.data.upvotes;
-  //       this.downvotes = response.data.downvotes
+  //       this.storedUpvotes = response.data.upvotes;
+  //       this.storedDownvotes = response.data.downvotes
   //   });
   //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+  //     VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
   //       .then(response => {
   //         if (response.data.Increment === 1) {this.isUpvoted = true;}
   //         else if (response.data.Increment === -1) {this.isDownvoted = true;}

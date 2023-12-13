@@ -70,15 +70,21 @@ namespace Capstone.Controllers
         }
 
         [HttpPost("/vote/post")]
-        public Vote CreatePostVote(int userId, int targetID, int increment)
+        public Vote CreatePostVote(Vote vote)
         {
-                var createdVote = votesDao.CreatePostVote(userId, targetID, increment);
-                return createdVote;
+            var userId = vote.UserID;
+            var targetID = vote.TargetID;
+            var increment = vote.Increment;
+            var createdVote = votesDao.CreatePostVote(userId, targetID, increment);
+            return createdVote;
         }
 
         [HttpPost("/vote/comment")]
-        public Vote CreateCommentVote(int userId, int targetID, int increment)
+        public Vote CreateCommentVote(Vote vote)
         {
+            var userId = vote.UserID;
+            var targetID = vote.TargetID;
+            var increment = vote.Increment;
             var createdVote = votesDao.CreateCommentVote(userId, targetID, increment);
             return createdVote;
         }

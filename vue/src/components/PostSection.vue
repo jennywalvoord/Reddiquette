@@ -1,16 +1,16 @@
 <template>
   <v-content class="post-section">
     <v-sheet class="citation">
-      <h3>{{ getForumTitle(post.forumId) }}</h3>
+      <h3>{{ getForumTitle }}</h3>
       <v-row class="d-flex ">
         <v-col>
-          <h6>Posted by: {{ getUserName(post.userID) }}</h6>
+          <h6>Posted by: {{ getUserName }}</h6>
         </v-col>
         <v-col>
           <h6>Posted about {{ timePassed }}</h6>
         </v-col>
         <v-col>
-          <h6>Accumulated Clout: {{ this.clout }}</h6>
+          <h6>Accumulated Clout: </h6>
         </v-col>
       </v-row>
     </v-sheet>
@@ -26,35 +26,13 @@
         <div class="comments-section">
           <v-chip-group class="ma-2">
             <v-chip class="green" label size="small" @click="upVote">
-              <i class="fa-solid fa-up-long pr-2"></i>{{ this.upvotes }} Upvotes
+              <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvotes
             </v-chip>
 
             <v-chip class="red" label size="small" @click="downVote">
-              <i class="fa-solid fa-down-long pr-2"></i>{{ this.downvotes }} Downvotes
+              <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
           </v-chip-group>
-            <!-- <v-chip-group class="ma-2">  -->
-            <!-- <v-chip class="green" label size="small" @click="upVote">
-              <i class="fa-solid fa-up-long pr-2"></i>{{ post.upVote }} Upvotes
-             </v-chip>
-
-            <v-chip class="red" label size="small" @click="downVote"> -->
-            <!-- <i class="fa-solid fa-down-long pr-2"></i>{{ post.downVote }} Downvotes -->
-            <!-- </v-chip> -->
-            <!--wondering about the function of this 'comment' chip...if a user wants to comment, they would click into the RTE and click the button to post the comment.
-            Seems that we should make this chip only visible on homeview-->
-            <!-- <v-chip class="grey" label size="small" @click=null>
-              <i class="fa-regular fa-comment pr-2"></i>Comment
-            </v-chip> -->
-
-
-
-            <!-- </v-chip-group>
-          <div class="replies">
-              < <p>
-               {{ getReply(post.postID) }}
-              </p> -->
-            <!-- </div> -->
         </div>
       </v-container>
     </v-card>
@@ -81,8 +59,8 @@ export default {
       commentText: '',
       isUpvoted: false,
       isDownvoted: false,
-      upvotes: null,
-      downvotes: null,
+      storedUpvotes: 0,
+      storedDownvotes: 0,
     };
   },
   methods: {
@@ -92,35 +70,27 @@ export default {
         body: this.commentText,
       }
     },
-    getForumTitle(forumId) {
-      const forum = this.$store.state.forums.find((forum) => forum.forumId === forumId);
-      return forum ? forum.title : 'Forum Not Found';
-    },
-    getUserName(userId) {
-      const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
-      return user ? user.userName : 'User Name Not Found';
-    },
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';
     // },
     updateVotes() {
-      VoteService.GetAllPostVotesbyId(this.$route.params.id)
+      VoteService.GetAllPostVotesbyId(this.post.postID)
         .then(response => {
-          this.upvotes = response.data.Upvotes;
-          this.downvotes = response.data.Downvotes
+          this.storedUpvotes = response.data.Upvotes;
+          this.storedDownvotes = response.data.Downvotes
         });
     },
     async upVote() {
       if (this.isUpvoted) {
-        const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.user.userId,)
+        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
         if (response.status >= 200 && response.status < 300) {
           this.updateVotes();
           this.isUpvoted = false;
         }
       }
       else if (this.isDownvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
         if (response.status >= 200 && response.status < 300) {
           this.updateVotes();
           this.isDownvoted = false;
@@ -128,7 +98,12 @@ export default {
         }
       }
       else {
-        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        const vote = {
+          userId: this.$store.user.userId,
+          targetID: this.post.postID,
+          increment: 1
+        }
+        const response = await VoteService.CreatePostVote(vote)
         if (response.status >= 200 && response.status < 300) {
           this.updateVotes();
           this.isUpvoted = true;
@@ -138,14 +113,14 @@ export default {
     },
     async downVote() {
       if (this.isDownvoted) {
-        const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.user.userId,)
+        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
         if (response.status >= 200 && response.status < 300) {
           this.updateVotes();
           this.isUpvoted = false;
         }
       }
       else if (this.isUpvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
         if (response.status >= 200 && response.status < 300) {
           this.updateVotes();
           this.isDownvoted = true;
@@ -153,7 +128,12 @@ export default {
         }
       }
       else {
-        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        const vote = {
+          userId: this.$store.user.userId,
+          targetID: this.post.postID,
+          increment: -1
+        }
+        const response = await VoteService.CreatePostVote(vote)
         if (response.status >= 200 && response.status < 300) {
           this.updateVotes();
           this.isDownvoted = true;
@@ -163,7 +143,6 @@ export default {
     },
   },
   computed: {
-    clout: (this.upvotes - this.downvotes),
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);
       let currentTime = new Date();
@@ -180,17 +159,26 @@ export default {
       else if (Math.round(differenceInTime / (60 * 60 * 24 * 30) < 12)) { return `${Math.round(differenceInTime / (60 * 60 * 24 * 30))} months ago` }
       else if (Math.round(differenceInTime / (60 * 60 * 24 * 365) == 1)) { return "1 year ago" }
       else return `${Math.round(differenceInTime / (60 * 60 * 24 * 365))} years ago`
-
+    },
+    getForumTitle() {
+      const forumId = this.post.forumId;
+      const forum = this.$store.state.forums.find((forum) => forum.forumId === forumId);
+      return forum ? forum.forumTitle : 'Forum Not Found';
+    },
+    getUserName() {
+      const userId = this.post.userID;
+      const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
+      return user ? user.userName : 'User Name Not Found';
     },
   },
   mounted() {
-    VoteService.GetAllPostVotesbyId(this.$route.params.id)
+    VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
-        this.upvotes = response.data.Upvotes;
-        this.downvotes = response.data.Downvotes
+        this.storedUpvotes = response.data.upvotes;
+        this.storedDownvotes = response.data.upvotes
       });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
         .then(response => {
           if (response.data.Increment === 1) { this.isUpvoted = true; }
           else if (response.data.Increment === -1) { this.isDownvoted = true; }
