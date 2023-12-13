@@ -10,6 +10,9 @@
         <v-col>
           <h6>Posted about  {{ timePassed }}</h6>
         </v-col>
+        <v-col>
+          <h6>Accumulated Clout: {{ this.clout }}</h6>
+        </v-col>
       </v-row>
     </v-sheet>
     <v-card class="postDetails">
@@ -24,11 +27,11 @@
         <div class="comments-section">
           <v-chip-group class="ma-2">
             <v-chip class="green" label size="small" @click="upVote">
-              <i class="fa-solid fa-up-long pr-2"></i>{{ post.upVote }} Upvotes
+              <i class="fa-solid fa-up-long pr-2"></i>{{ this.upvotes }} Upvotes
             </v-chip>
 
             <v-chip class="red" label size="small" @click="downVote">
-              <i class="fa-solid fa-down-long pr-2"></i>{{ post.downVote }} Downvotes
+              <i class="fa-solid fa-down-long pr-2"></i>{{ this.downvotes }} Downvotes
             </v-chip>
             <!--wondering about the function of this 'comment' chip...if a user wants to comment, they would click into the RTE and click the button to post the comment.
             Seems that we should make this chip only visible on homeview-->
@@ -58,6 +61,7 @@
 <script>
 import Tiptap from '../components/Tiptap.vue'
 import { storeKey } from 'vuex';
+import VoteService from '../services/VoteService';
 
 export default {
   props: ["post", "reply"],
@@ -67,6 +71,10 @@ export default {
   data() {
     return {
       commentText: '',
+      isUpvoted: false,
+      isDownvoted: false,
+      upvotes: null,
+      downvotes: null,
     };
   },
   methods: {
@@ -88,24 +96,72 @@ export default {
       const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
       return reply ? reply.body : 'No Comments Yet!';
     },
-    upVote() {
-      if (!this.isUpvoted) {
-        this.$store.dispatch('upVotePost', this.post.id);
-        this.isUpvoted = true;
-        this.updateClout();
-        this.updateLocalStorage();
+    updateVotes() {
+      VoteService.GetAllPostVotesbyId(this.$route.params.id)
+      .then(response => {
+        this.upvotes = response.data.Upvotes;
+        this.downvotes = response.data.Downvotes
+    });
+    },
+    async upVote() {
+      if (this.isUpvoted) {
+        const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.user.userId,)
+        if (response.status >= 200 && response.status < 300)
+        {
+          this.updateVotes();
+          this.isUpvoted = false;
+        }
+      }
+      else if (this.isDownvoted) {
+        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        if (response.status >= 200 && response.status < 300)
+        {
+          this.updateVotes();
+          this.isDownvoted = false;
+          this.isUpvoted = true;
+        }
+      }
+      else {
+        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        if (response.status >= 200 && response.status < 300)
+        {
+          this.updateVotes();
+          this.isUpvoted = true;
+        }
+        //TODO: write catch eventually
       }
     },
-    downVote() {
-      if (!this.isDownvoted) {
-        this.$store.dispatch('downVotePost', this.post.id);
-        this.isDownvoted = true;
-        this.updateClout();
-        this.updateLocalStorage();
+    async downVote() {
+      if (this.isDownvoted) {
+        const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.user.userId,)
+        if (response.status >= 200 && response.status < 300)
+        {
+          this.updateVotes();
+          this.isUpvoted = false;
+        }
+      }
+      else if (this.isUpvoted) {
+        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        if (response.status >= 200 && response.status < 300)
+        {
+          this.updateVotes();
+          this.isDownvoted = true;
+          this.isUpvoted = false;
+        }
+      }
+      else {
+        const response = await VoteService.CreatePostVote(this.$store.user.userId, this.$route.params.id, 1)
+        if (response.status >= 200 && response.status < 300)
+        {
+          this.updateVotes();
+          this.isDownvoted = true;
+        }
+        //TODO: write catch eventually
       }
     },
   },
   computed: {
+    clout: (this.upvotes - this.downvotes),
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);
       let currentTime = new Date();
@@ -124,7 +180,43 @@ export default {
       else  return `${Math.round(differenceInTime/(60*60*24*365))} years ago`
 
     },
-  }
+  },
+  mounted() {
+    VoteService.GetAllPostVotesbyId(this.$route.params.id)
+      .then(response => {
+        this.upvotes = response.data.Upvotes;
+        this.downvotes = response.data.Downvotes
+    });
+    if (this.$store.state.isAuthenticated) {
+      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+        .then(response => {
+          if (response.data.Increment === 1) {this.isUpvoted = true;}
+          else if (response.data.Increment === -1) {this.isDownvoted = true;}
+        })
+    }
+  },
+  // created() {
+  //   VoteService.GetAllPostVotesbyId(this.$route.params.id)
+  //     .then(response => {
+  //       this.upvotes = response.data.Upvotes;
+  //       this.downvotes = response.data.Downvotes
+  //   });
+  //   if (this.$store.state.isAuthenticated) {
+  //     VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+  //       .then(response => {
+  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
+  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
+  //       })
+  //   }
+  // },
+  actions: {
+    upVotePost () {
+      this.upVote();
+    },
+    downVotePost() {
+      this.downVote();
+    }
+  },
 }
 
 </script>
