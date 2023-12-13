@@ -9,7 +9,7 @@
                     rounded="lg"
                     class="ma-4 pa-4"
                     >
-                    <post-section  :post="findPost"  />
+                    <post-section />
 
                     </v-sheet>
                 </v-col>
@@ -32,12 +32,6 @@ export default {
         SideBar,
         PostSection,
     },
-    computed: {
-        findPost() {
-            let postId = this.$route.params.id;  
-            let post = this.$store.state.posts.find((p) => p.id == postId);
-            return post;
-        },
-    },
+    
 }
 </script>
