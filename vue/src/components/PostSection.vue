@@ -29,13 +29,15 @@
             <v-chip class="green" label size="small" @click="upVote">
               <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvotes
             </v-chip>
-
             <v-chip class="red" label size="small" @click="downVote">
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
           </v-chip-group>
         </div>
       </v-container>
+      <div class="comments-section">
+        <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      </div>
     </v-card>
     <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
@@ -49,12 +51,14 @@
 import Tiptap from '../components/Tiptap.vue'
 import { storeKey } from 'vuex';
 import VoteService from '../services/VoteService';
+import Comment from '../components/Comment.vue'
 import CommentService from '../services/CommentService';
 
 export default {
   props: ["post", "reply"],
   components: {
-    Tiptap
+    Tiptap,
+    Comment,
   },
   data() {
     const currentDate = new Date();
@@ -72,7 +76,8 @@ export default {
       storedUpvotes: 0,
       storedDownvotes: 0,
       postingErrors: false,
-      postingErrorMsg : 'There were problems creating this comment'
+      postingErrorMsg: 'There were problems creating this comment',
+      comments: []
     };
   },
   methods: {
@@ -181,6 +186,7 @@ export default {
       }
     },
   },
+
   computed: {
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);
@@ -211,6 +217,8 @@ export default {
     },
   },
   mounted() {
+    this.fetchComments(this.post.postID);
+
     VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
