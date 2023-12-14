@@ -60,10 +60,10 @@ export default {
     const currentDate = new Date();
     return {
       comment:{
-        userID: this.$store.state.user.id,
+        userID: this.$store.state.user.userId,
         commentContent: '',
         dateCreated: currentDate.toISOString(),
-        // forumID: this.post.forumId,
+        // forumID: '',
         postID: this.post.postID,
       },
       posts: '',
@@ -79,7 +79,7 @@ export default {
     async createComment() {
     try {
       this.comment.forumID = this.posts.id;
-      this.comment.UserId = this.$store.state.user.userId;
+      this.comment.UserID = this.$store.state.user.userId;
       
       const response = await CommentService.createComment(this.comment);
       if (response.status >= 200 && response.status < 300) {
