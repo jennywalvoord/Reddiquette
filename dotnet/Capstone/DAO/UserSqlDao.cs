@@ -6,6 +6,7 @@ using Capstone.Exceptions;
 using Capstone.Models;
 using Capstone.Security;
 using Capstone.Security.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Capstone.DAO
 {
@@ -22,7 +23,7 @@ namespace Capstone.DAO
         {
             IList<User> users = new List<User>();
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email, avatar FROM users";
 
             try
             {
@@ -52,7 +53,7 @@ namespace Capstone.DAO
         {
             User user = null;
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users WHERE user_id = @user_id";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email, avatar FROM users WHERE user_id = @user_id";
 
             try
             {
@@ -82,7 +83,7 @@ namespace Capstone.DAO
         {
             User user = null;
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users WHERE username = @username OR user_email = @user_email";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email, avatar FROM users WHERE username = @username OR user_email = @user_email";
 
             try
             {
@@ -112,7 +113,7 @@ namespace Capstone.DAO
         {
             User user = null;
 
-            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email FROM users WHERE username = @username ";
+            string sql = "SELECT user_id, username, password_hash, salt, user_role, user_email, avatar FROM users WHERE username = @username ";
 
             try
             {
@@ -185,6 +186,7 @@ namespace Capstone.DAO
             user.Salt = Convert.ToString(reader["salt"]);
             user.Role = Convert.ToString(reader["user_role"]);
             user.Email = Convert.ToString(reader["user_email"]);
+            user.Avatar = Convert.ToString(reader["avatar"]);
             return user;
         }
     }

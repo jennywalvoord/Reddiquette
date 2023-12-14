@@ -34,7 +34,17 @@
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
           </v-chip-group>
+
         </div>
+        <v-snackbar v-model="voteSnackbar" :timeout="timeout">
+          {{ text }}
+
+          <template v-slot:actions>
+            <v-btn color="blue" variant="text" @click="voteSnackbar = false">
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
       </v-container>
       <div class="comments">
         <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
@@ -69,13 +79,16 @@ export default {
         // forumID: this.post.forumId,
         postID: this.post.postID,
       },
+      voteSnackbar: false,
+      text: "You must be logged in to vote.",
+      timeout: 2000,
       posts: '',
       isUpvoted: false,
       isDownvoted: false,
       storedUpvotes: 0,
       storedDownvotes: 0,
       postingErrors: false,
-      postingErrorMsg : 'There were problems creating this comment'
+      postingErrorMsg: 'There were problems creating this comment'
     };
   },
   methods: {
@@ -87,7 +100,11 @@ export default {
         const response = await CommentService.createComment(this.comment);
         if (response.status >= 200 && response.status < 300) {
           this.$router.push({
+<<<<<<< HEAD
+            path: `/posts/ ${this.comment.postID}`,
+=======
             path: `/`,
+>>>>>>> 5285968c165c745562e333d2124135f00dc768f4
             query: { posted: 'success' },
           });
         } else {
@@ -108,6 +125,8 @@ export default {
     updateCommentContent(content) {
       this.comment.commentContent = content;
     },
+<<<<<<< HEAD
+=======
     async fetchComments(postID) {
       try {
         const response = await CommentService.getComments(postID);
@@ -116,6 +135,7 @@ export default {
         console.error('Error fetching comments:', error);
       }
     },
+>>>>>>> 5285968c165c745562e333d2124135f00dc768f4
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';
@@ -163,6 +183,7 @@ export default {
           //TODO: write catch eventually
         }
       }
+      else {this.voteSnackbar = true;}
     },
     async downVote() {
       if (this.$store.state.isAuthenticated) {
@@ -200,6 +221,7 @@ export default {
           //TODO: write catch eventually
         }
       }
+      else {this.voteSnackbar = true;}
     },
   },
   computed: {
@@ -230,13 +252,13 @@ export default {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
     },
-    getUpvotes(){
+    getUpvotes() {
       return this.storedUpvotes;
     },
-    getDownvotes(){
+    getDownvotes() {
       return this.storedDownvotes;
     },
-    getClout(){
+    getClout() {
       const clout = this.storedUpvotes - this.storedDownvotes;
       return clout;
     },
@@ -246,7 +268,7 @@ export default {
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
         this.storedDownvotes = response.data.downvotes;
-    });
+      });
     if (this.$store.state.isAuthenticated) {
       VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
         .then(response => {
@@ -254,7 +276,7 @@ export default {
           else if (response.data.increment === -1) { this.isDownvoted = true; }
         })
     }
-  }, 
+  },
   actions: {
     upVotePost() {
       this.upVote();

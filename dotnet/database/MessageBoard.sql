@@ -21,7 +21,8 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	salt varchar(200) NOT NULL,
 	user_role varchar(50) NOT NULL,
-	user_email varchar(250)NOT NULL
+	user_email varchar(250)NOT NULL,
+	avatar varchar(500) DEFAULT 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png',
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -98,13 +99,13 @@ CREATE TABLE comment_votes(
 --Inserting Users --
 SET IDENTITY_INSERT users ON
 
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (1,'user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'student@techelevator.com');
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (2, 'admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@rediquette.com');
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (3, 'omar', 'CIg+yNbN/5HBMzjqZlmQvyJgxqU=', '47eHKmONCLQ=', 'admin', 'omar@omar.com');
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (4, 'jenny', 'QWBFDVUqqT/lrUtlqXVwSvieIcE=', 'oTId1s8xJRs=', 'admin', 'jenny@jenny.com');
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (5, 'mac','L9PuttSomTIhB+1pNvQQZq4Gz8M=', 'Y0PpDvZ6k3M=', 'admin', 'mac@mac.com');
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (6, 'wayne', 'Q4l+GG376OQMip/n9pN3iaWcov0=', 'py0HLDIdK6Q=', 'admin', 'wayne@wayne.com');
-INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email) VALUES (7, 'john', 'w/dBq/PVRHyI9HJ/6RX04FPFv64=', 'QvRYQP+fnSg=', 'admin', 'john@john.com');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (1,'user','Jg45HuwT7PZkfuKTz6IB90CtWY4=','LHxP4Xh7bN0=','user', 'student@techelevator.com','https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (2, 'admin','YhyGVQ+Ch69n4JMBncM4lNF/i9s=', 'Ar/aB2thQTI=','admin', 'admin@rediquette.com', 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (3, 'omar', 'CIg+yNbN/5HBMzjqZlmQvyJgxqU=', '47eHKmONCLQ=', 'admin', 'omar@omar.com','https://media.licdn.com/dms/image/D5635AQH817eThghZiQ/profile-framedphoto-shrink_800_800/0/1699236482986?e=1703174400&v=beta&t=-kVnA8-6KlJfy2M6l4sH4E3nHxPjFa-km_wnQ82ojn8');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (4, 'jenny', 'QWBFDVUqqT/lrUtlqXVwSvieIcE=', 'oTId1s8xJRs=', 'admin', 'jenny@jenny.com','https://media.licdn.com/dms/image/D5635AQGzXDpk4Od3zw/profile-framedphoto-shrink_400_400/0/1696267799974?e=1703174400&v=beta&t=4YsxSQxthD2ekLfKkyCxn8FcAtIgw9r1VdPAi5nYKLQ');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (5, 'mac','L9PuttSomTIhB+1pNvQQZq4Gz8M=', 'Y0PpDvZ6k3M=', 'admin', 'mac@mac.com','https://media.licdn.com/dms/image/D5635AQEyL_5zRXmYjw/profile-framedphoto-shrink_400_400/0/1700667131713?e=1703174400&v=beta&t=b7QJeOgNvE29wB5V5GvWCG46WuRgtWpN50Gb6e9EMSI');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (6, 'wayne', 'Q4l+GG376OQMip/n9pN3iaWcov0=', 'py0HLDIdK6Q=', 'admin', 'wayne@wayne.com','https://media.licdn.com/dms/image/D4E35AQGtIC0NCeTnJg/profile-framedphoto-shrink_800_800/0/1696805274155?e=1703174400&v=beta&t=lBPuSscHudCXWRlbqCw86TyekekPs-6eQYPSG2TJYio');
+INSERT INTO users (user_id, username, password_hash, salt, user_role, user_email, avatar) VALUES (7, 'john', 'w/dBq/PVRHyI9HJ/6RX04FPFv64=', 'QvRYQP+fnSg=', 'admin', 'john@john.com','https://media.licdn.com/dms/image/D4D35AQFc21uLpgyhJA/profile-framedphoto-shrink_800_800/0/1701134535036?e=1703174400&v=beta&t=tSOBh1rZFXMjoHbf0epYCIHCZR-5uUxSru1IWvjUoFE');
 SET IDENTITY_INSERT users OFF
 
 SET IDENTITY_INSERT forum ON
@@ -157,6 +158,23 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(19, 2, 'Historic Landmarks Destroyed', 'In this solemn discussion, we delve into the pages of history to mourn the loss of once-iconic landmarks that have succumbed to the ravages of time, conflict, or natural disasters. Join us as we remember and honor these architectural marvels, exploring their significance and the cultural heritage they held. Let''s engage in a thoughtful reflection on the fragility of our shared history and the importance of preservation for generations to come.', '"https://picsum.photos/301/407', '09/14/2020 17:52:35', 6),
 		(20, 1, 'Exotic Flight Destinations', 'Unleash Your Wanderlust: Discover Exotic Flight Destinations! Ready to elevate your travel dreams? Explore the extraordinary with our guide to the most exotic flight destinations. From hidden gems nestled in tropical paradises to culturally rich cities off the beaten path, join us as we embark on a journey to uncover the worlds most enchanting and unforgettable places. Get ready to add a touch of exotic allure to your travel bucket list!', 'https://picsum.photos/306/400', '07/04/2022 18:23:46', 5),
 		(21, 4, 'Need Help Dieting?', 'Embarking on a journey to better health through dieting? Whether you''re aiming for weight loss, muscle gain, or simply adopting a healthier lifestyle, our community is here to offer support, tips, and personalized advice. Join us in the quest for a balanced and sustainable diet that aligns with your fitness goals because achieving your best self starts with nourishing your body right!', 'https://www.heartfoundation.org.au/getmedia/70195972-0139-4ce8-a170-ffdf2aa24f60/200615-Healthy-Eating-Gif3.gif', '08/14/2022 19:36:25', 4),
+<<<<<<< HEAD
+		(22, 7, 'Hidden Gems in Local Eateries', 'Explore the culinary scene in your city! Recommend hidden gem restaurants, share your recent dining experiences, and lets create a Foodie Haven guide to the best local spots.', 'https://picsum.photos/301/400', '02/14/2023 08:00:00', 8),
+		(23, 7, 'Delicious Dessert Discoveries', 'Indulge your sweet tooth! Share your favorite dessert recipes, explore local bakeries, and lets compile a delectable list of must-try treats.', 'https://picsum.photos/302/400', '2023-03-02 15:30:00', 8),
+		(24, 7, 'Spicy Adventures: Hot Pepper Challenge', 'Calling all spice enthusiasts! Join in on the hot pepper challenge discussion. Share your spicy recipes, rate your favorite hot sauces, and lets turn up the heat together!', 'https://picsum.photos/303/400', '2023-03-10 12:45:00', 8),
+		(25, 6, 'Optimizing Code Efficiency', 'Share your best practices for optimizing code efficiency! Whether its algorithmic tricks or performance enhancements, lets master the art of writing faster and more efficient code.', 'https://picsum.photos/304/400', '2023-03-20 09:15:00', 9),
+		(26, 6, 'Gadget Recommendations', 'Discover the latest and greatest gadgets! Share your favorite tech devices, accessories, and hidden gems that have revolutionized your daily life.', 'https://picsum.photos/305/400', '2023-04-05 14:30:00', 9),
+		(27, 6, 'Cybersecurity Essentials', 'Discuss essential cybersecurity tips and tricks. Share your insights on protecting systems, data, and personal information in an increasingly connected world.', 'https://picsum.photos/306/400', '2023-04-15 11:45:00', 9),
+		(28, 5, 'Fantasy Favorites', 'Embark on a journey to magical realms! Share your favorite fantasy books, discuss world-building techniques, and connect with fellow fantasy enthusiasts.', 'https://picsum.photos/307/400', '2023-05-01 10:00:00', 10),
+		(29, 5, 'Classic Literature Rediscovered', 'Delve into timeless classics! Recommend must-read literature, explore the profound themes in classic novels, and join the discussion on the enduring impact of these literary masterpieces.', 'https://picsum.photos/308/400', '2023-05-12 13:20:00', 10),
+		(30, 5, 'Sci-Fi Saga Discussion', 'Calling all science fiction enthusiasts! Share your favorite sci-fi series, explore futuristic worlds, and discuss the influence of science fiction on literature and beyond.', 'https://picsum.photos/309/400', '2023-05-25 15:45:00', 10),
+		(31, 7, 'Epic Boss Battles', 'Share your most memorable boss battles! Discuss strategies, challenges, and the adrenaline-pumping moments that make gaming unforgettable.', 'https://picsum.photos/310/400', '2023-06-08 12:30:00', 11),
+		(32, 4, 'Indie Gems Spotlight', 'Explore the world of indie games! Recommend hidden gems, discuss unique gameplay mechanics, and support the thriving indie gaming community.', 'https://picsum.photos/311/400', '2023-06-20 14:15:00', 11),
+		(33, 4, 'Multiplayer Madness', 'Dive into the world of multiplayer gaming! Share your favorite multiplayer experiences, discuss team strategies, and connect with fellow gamers for epic online adventures.', 'https://picsum.photos/312/400', '2023-07-02 16:45:00', 11),
+		(34, 7, 'Guided Meditation Recommendations', 'Share your favorite guided meditations! Whether its for relaxation, focus, or mindfulness, lets create a collection of soothing meditation recommendations.', 'https://picsum.photos/313/400', '2023-07-15 10:30:00', 12),
+		(35, 3, 'Mindful Living Tips', 'Discuss practical tips for incorporating mindfulness into daily life. Share your experiences, challenges, and success stories on the journey to mindful living.', 'https://picsum.photos/314/400', '2023-07-28 12:15:00', 12),
+		(36, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://picsum.photos/315/400', '2023-08-05 14:45:00', 12)
+=======
 		(48, 7, 'Hidden Gems in Local Eateries', 'Explore the culinary scene in your city! Recommend hidden gem restaurants, share your recent dining experiences, and lets create a Foodie Haven guide to the best local spots.', 'https://picsum.photos/301/400', '02/14/2022 08:00:00', 8),
 		(49, 7, 'Delicious Dessert Discoveries', 'Indulge your sweet tooth! Share your favorite dessert recipes, explore local bakeries, and lets compile a delectable list of must-try treats.', 'https://picsum.photos/302/400', '2022-03-02 15:30:00', 8),
 		(50, 7, 'Spicy Adventures: Hot Pepper Challenge', 'Calling all spice enthusiasts! Join in on the hot pepper challenge discussion. Share your spicy recipes, rate your favorite hot sauces, and lets turn up the heat together!', 'https://picsum.photos/303/400', '2022-03-10 12:45:00', 8),
@@ -172,6 +190,7 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(60, 7, 'Guided Meditation Recommendations', 'Share your favorite guided meditations! Whether its for relaxation, focus, or mindfulness, lets create a collection of soothing meditation recommendations.', 'https://picsum.photos/313/400', '2022-07-15 10:30:00', 12),
 		(61, 3, 'Mindful Living Tips', 'Discuss practical tips for incorporating mindfulness into daily life. Share your experiences, challenges, and success stories on the journey to mindful living.', 'https://picsum.photos/314/400', '2022-07-28 12:15:00', 12),
 		(62, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://picsum.photos/315/400', '2022-08-05 14:45:00', 12)
+>>>>>>> 5285968c165c745562e333d2124135f00dc768f4
 	SET IDENTITY_INSERT posts OFF;
 
 SET IDENTITY_INSERT posts OFF;
