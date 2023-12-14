@@ -25,7 +25,7 @@
       
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
       
-      <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg">
+      <v-list-item prepend-avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png">
         <v-list-item-content>
           <v-list-item-title>{{ displayedUsername }}</v-list-item-title>
           <v-list-item-subtitle>
@@ -58,7 +58,6 @@ export default {
     this.$store.commit("SET_COMMENTS", response.data);
     }  
     );
-    
   }, 
   name: 'App',
   components: {},
