@@ -20,18 +20,15 @@
         </router-link></v-list-item>
         
       </v-list>
-       
+
     </v-navigation-drawer>
   </v-content>
-  
 
-  <v-content >
-      <div >
-        
-  </div>
+  <v-content>
+    <div>
+
+    </div>
   </v-content>
-  
-  
 </template>
 <script>
 // import ForumService from '../services/ForumService';
@@ -48,14 +45,12 @@ export default {
   computed:
   {
     activeForums() {
-      console.log("Active Forums")
       const allForums = this.$store.state.forums;
       const allPosts = this.$store.state.posts;
       const forumIdsWithRecentPosts = Array.from(new Set(allPosts.map(post => post.forumId)));
       const activeForums = allForums
         .filter(forum => forumIdsWithRecentPosts.includes(forum.forumId))
         .sort((a, b) => {return new Date(b.dateCreated) - new Date(a.dateCreated)[0]})
-          .slice(0, 5);
           return activeForums;
       },
   }
@@ -65,7 +60,6 @@ export default {
 .content-title {
   margin-top: 50px;
 }
-
 a {
   text-decoration: none;
 }

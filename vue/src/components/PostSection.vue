@@ -10,7 +10,8 @@
           <div class="my-4 text-subtitle-2">Posted about {{ timePassed }}</div>
         </v-col>
         <v-col md="4">
-          <div class="my-4 text-subtitle-2">Accumulated Clout: </div>
+          <div class="my-4 text-subtitle-2">Accumulated Clout: {{ getClout }}</div>
+        
         </v-col>
       </v-row>
     </v-sheet>
@@ -34,10 +35,22 @@
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
           </v-chip-group>
+
         </div>
+        <v-snackbar v-model="voteSnackbar" :timeout="timeout">
+          {{ text }}
+
+          <template v-slot:actions>
+            <v-btn color="blue" variant="text" @click="voteSnackbar = false">
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
       </v-container>
+      <div v-if="comments" class="comments">
+        <Comment  v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      </div>
     </v-card>
-    <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
     <div class="d-flex w-66 pa-5 ml-10 comment-button ">
       <v-btn @click="createComment" block size="x-large">Make a Comment</v-btn>
@@ -46,69 +59,80 @@
 </template>
     
 <script>
-import Tiptap from '../components/Tiptap.vue'
-import { storeKey } from 'vuex';
+
 import VoteService from '../services/VoteService';
 import CommentService from '../services/CommentService';
+import Comment from '../components/Comment.vue'
+// import {storeKey } from 'vuex';
 
 export default {
   props: ["post", "reply"],
   components: {
-    Tiptap
+   Comment
   },
   data() {
+
     const currentDate = new Date();
     return {
-      comment:{
-        userID: this.$store.state.user.userId,
+      comments: null,
+      comment: {
+        userID: this.$store.state.user.id,
         commentContent: '',
         dateCreated: currentDate.toISOString(),
-        // forumID: '',
+        // forumID: this.post.forumId,
+        // forumID: this.post.forumId,
         postID: this.post.postID,
       },
+      voteSnackbar: false,
+      text: "You must be logged in to vote.",
+      timeout: 2000,
       posts: '',
       isUpvoted: false,
       isDownvoted: false,
       storedUpvotes: 0,
       storedDownvotes: 0,
       postingErrors: false,
-      postingErrorMsg : 'There were problems creating this comment'
+      postingErrorMsg: 'There were problems creating this comment'
     };
   },
   methods: {
     async createComment() {
-    try {
-      this.comment.forumID = this.posts.id;
-      this.comment.UserID = this.$store.state.user.userId;
-      
-      const response = await CommentService.createComment(this.comment);
-      if (response.status >= 200 && response.status < 300) {
-        this.$router.push({
-          path: `/posts/ ${this.comment.postID}`,
-          query: { posted: 'success' },
-        });
-      } else {
-        // Handle unexpected response status
-        console.error('Unexpected response status:', response.status);
-      }
-    } catch (error) {
-      this.postingErrors = true;
-      const response = error.response;
-      if (response && response.status === 400) {
-        this.postingErrorMsg = 'Bad Request: Validation Errors';
-      } else {
-        // Handle other errors
-        console.error('Error creating post:', error);
-      }
-    }
-  },
-  updateCommentContent(content) {
-    this.comment.commentContent = content;
-  },
-  
-  
-  
+      try {
+        this.comment.forumID = this.posts.id;
+        this.comment.UserId = this.$store.state.user.userId;
 
+        const response = await CommentService.createComment(this.comment);
+        if (response.status >= 200 && response.status < 300) {
+          this.$router.push({
+            path: `/`,
+            query: { posted: 'success' },
+          });
+        } else {
+          // Handle unexpected response status
+          console.error('Unexpected response status:', response.status);
+        }
+      } catch (error) {
+        this.postingErrors = true;
+        const response = error.response;
+        if (response && response.status === 400) {
+          this.postingErrorMsg = 'Bad Request: Validation Errors';
+        } else {
+          // Handle other errors
+          console.error('Error creating post:', error);
+        }
+      }
+    },
+    updateCommentContent(content) {
+      this.comment.commentContent = content;
+    },
+    async fetchComments(postID) {
+      try {
+        const response = await CommentService.getComments(postID);
+        this.comments = response.data.filter(comment => comment.postID === postID);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    },
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';
@@ -121,64 +145,80 @@ export default {
         });
     },
     async upVote() {
-      if (this.isUpvoted) {
-        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = false;
+      if (this.$store.state.isAuthenticated) {
+        if (this.isUpvoted) {
+          const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.state.user.userId,)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = false;
+          }
+        }
+        else if (this.isDownvoted) {
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: 1
+          }
+          const response = await VoteService.UpdatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = false;
+            this.isUpvoted = true;
+          }
+        }
+        else {
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: 1
+          }
+          const response = await VoteService.CreatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = true;
+          }
+          //TODO: write catch eventually
         }
       }
-      else if (this.isDownvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = false;
-          this.isUpvoted = true;
-        }
-      }
-      else {
-        const vote = {
-          userId: this.$store.user.userId,
-          targetID: this.post.postID,
-          increment: 1
-        }
-        const response = await VoteService.CreatePostVote(vote)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = true;
-        }
-        //TODO: write catch eventually
-      }
+      else {this.voteSnackbar = true;}
     },
     async downVote() {
-      if (this.isDownvoted) {
-        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = false;
+      if (this.$store.state.isAuthenticated) {
+        if (this.isDownvoted) {
+          const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.state.user.userId,)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = false;
+          }
+        }
+        else if (this.isUpvoted) {
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: -1
+          }
+          const response = await VoteService.UpdatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = true;
+            this.isUpvoted = false;
+          }
+        }
+        else {
+          const vote = {
+            userId: this.$store.state.user.userId,
+            targetID: this.$route.params.id,
+            increment: -1
+          }
+          const response = await VoteService.CreatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = true;
+          }
+          //TODO: write catch eventually
         }
       }
-      else if (this.isUpvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = true;
-          this.isUpvoted = false;
-        }
-      }
-      else {
-        const vote = {
-          userId: this.$store.user.userId,
-          targetID: this.post.postID,
-          increment: -1
-        }
-        const response = await VoteService.CreatePostVote(vote)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = true;
-        }
-        //TODO: write catch eventually
-      }
+      else {this.voteSnackbar = true;}
     },
   },
   computed: {
@@ -209,35 +249,32 @@ export default {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
     },
+    getUpvotes() {
+      return this.storedUpvotes;
+    },
+    getDownvotes() {
+      return this.storedDownvotes;
+    },
+    getClout() {
+      const clout = this.storedUpvotes - this.storedDownvotes;
+      return clout;
+    },
   },
-  mounted() {
-    VoteService.GetAllPostVotesbyId(this.post.postID)
+  created() {
+    this.fetchComments(this.post.postID);
+    VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
-        this.storedDownvotes = response.data.upvotes
+        this.storedDownvotes = response.data.downvotes;
       });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
         .then(response => {
-          if (response.data.Increment === 1) { this.isUpvoted = true; }
-          else if (response.data.Increment === -1) { this.isDownvoted = true; }
+          if (response.data.increment === 1) { this.isUpvoted = true; }
+          else if (response.data.increment === -1) { this.isDownvoted = true; }
         })
     }
   },
-  // created() {
-  //   VoteService.GetAllPostVotesbyId(this.$route.params.id)
-  //     .then(response => {
-  //       this.upvotes = response.data.Upvotes;
-  //       this.downvotes = response.data.Downvotes
-  //   });
-  //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
-  //       .then(response => {
-  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
-  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
-  //       })
-  //   }
-  // },
   actions: {
     upVotePost() {
       this.upVote();

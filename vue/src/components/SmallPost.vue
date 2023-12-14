@@ -14,18 +14,18 @@
                 {{ getForumTitle(post.forumId) }}
               </div>
               <v-img :width="280" :height="120" cover v-bind:src="post.imagePath"></v-img>
-              
+
               <div class="text-h6 my-1 post-title">
                 {{ post.postTitle }}
               </div>
               <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ timePassed }}</p>
-                <p class="text-subtitle-2">
-                  <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
-                    <!-- Clout:
+              <p class="text-subtitle-2">
+                <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
+                <!-- Clout:
                   </span> -->
-                  <!-- {{ post.clout }} -->
-                </p>
-              <v-card value="rounded" color="grey-lighten-2" flat height="150" class="overflow-hidden">
+                <!-- {{ post.clout }} -->
+              </p>
+              <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
                 <v-card-text>
                   {{ truncateText(post.postContent, 150) }}
                 </v-card-text>
@@ -34,15 +34,11 @@
 
               <v-chip-group v-model="selection" selected-class="text-deep-orange-accent-4">
                 <v-chip class="green" label size="x-small" @click="upVote">
-                  <i class="fa-solid fa-up-long pr-2"></i>Upvote
+                  <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvote
                 </v-chip>
 
                 <v-chip class="red" label size="x-small" @click="downVote">
-                  <i class="fa-solid fa-down-long pr-2"></i>Downvote
-                </v-chip>
-
-                <v-chip class="grey" label size="x-small" @click=null>
-                  <i class="fa-regular fa-comment pr-2"></i>Comment
+                  <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvote
                 </v-chip>
               </v-chip-group>
             </div>
@@ -90,6 +86,12 @@ export default {
       else if (Math.round(differenceInTime / (60 * 60 * 24 * 30) < 12)) { return `${Math.round(differenceInTime / (60 * 60 * 24 * 30))} months ago` }
       else if (Math.round(differenceInTime / (60 * 60 * 24 * 365) == 1)) { return "1 year ago" }
       else return `${Math.round(differenceInTime / (60 * 60 * 24 * 365))} years ago`
+    },
+    getUpvotes(){
+      return this.storedUpvotes;
+    },
+    getDownvotes(){
+      return this.storedDownvotes;
     },
   },
   methods: {
@@ -172,7 +174,7 @@ export default {
     VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
-        this.storedDownvotes = response.data.downvotes;
+        this.storedDownvotes = response.data.downvotes
     });
     if (this.$store.state.isAuthenticated) {
       VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
@@ -182,20 +184,6 @@ export default {
         })
     }
   },
-  // created() {
-  //   VoteService.GetAllPostVotesbyId(this.post.postID)
-  //     .then(response => {
-  //       this.storedUpvotes = response.data.upvotes;
-  //       this.storedDownvotes = response.data.downvotes
-  //   });
-  //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
-  //       .then(response => {
-  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
-  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
-  //       })
-  //   }
-  // },
   actions: {
     upVotePost () {
       this.upVote();

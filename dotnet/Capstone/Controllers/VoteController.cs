@@ -18,7 +18,11 @@ namespace Capstone.Controllers
         {
             this.votesDao = votesDao;
         }
-
+        /// <summary>
+        /// Takes in a post id and returns an object containing the upvotes and downvotes
+        /// </summary>
+        /// <param name="targetId">postID</param>
+        /// <returns></returns>
         [HttpGet("/vote/post/{targetID}")]
         public IActionResult GetAllPostVotesById(int targetId)
         {
@@ -36,7 +40,11 @@ namespace Capstone.Controllers
                 return StatusCode(404, $"Failed to retrieve votes: {e.Message}");
             }
         }
-
+        /// <summary>
+        /// Takes in a comment id and returns an object containing the upvotes and downvotes
+        /// </summary>
+        /// <param name="targetId">commentID</param>
+        /// <returns></returns>
         [HttpGet("/vote/comment/{targetID}")]
         public IActionResult GetAllCommentVotesById(int targetID)
         {
@@ -90,15 +98,21 @@ namespace Capstone.Controllers
         }
 
         [HttpPut("/vote/comment/{targetID}")]
-        public Vote UpdateCommentVote(int userId, int targetID, int increment)
+        public Vote UpdateCommentVote(Vote vote)
         {
+            var userId = vote.UserID;
+            var targetID = vote.TargetID;
+            var increment = vote.Increment;
             var updatedVote = votesDao.UpdateCommentVote(userId,targetID, increment);
             return updatedVote;
         }
 
         [HttpPut("/vote/post/{targetID}")]
-        public Vote UpdatePostVote(int userId, int targetID, int increment)
+        public Vote UpdatePostVote(Vote vote)
         {
+            var userId = vote.UserID;
+            var targetID = vote.TargetID;
+            var increment = vote.Increment;
             var updatedVote = votesDao.UpdatePostVote(userId, targetID, increment);
             return updatedVote;
         }
