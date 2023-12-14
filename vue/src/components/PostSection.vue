@@ -29,13 +29,15 @@
             <v-chip class="green" label size="small" @click="upVote">
               <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvotes
             </v-chip>
-
             <v-chip class="red" label size="small" @click="downVote">
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
           </v-chip-group>
         </div>
       </v-container>
+      <div class="comments-section">
+        <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      </div>
     </v-card>
     <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
@@ -48,21 +50,23 @@
 <script>
 import Tiptap from '../components/Tiptap.vue'
 import VoteService from '../services/VoteService';
+import Comment from '../components/Comment.vue'
 import CommentService from '../services/CommentService';
 
 export default {
   props: ["post", "reply"],
   components: {
-    Tiptap
+    Tiptap,
+    Comment,
   },
   data() {
     const currentDate = new Date();
     return {
       comment:{
-        userID: this.$store.state.user.id,
+        userID: this.$store.state.user.userId,
         commentContent: '',
         dateCreated: currentDate.toISOString(),
-        // forumID: this.post.forumId,
+        // forumID: '',
         postID: this.post.postID,
       },
       posts: '',
@@ -71,14 +75,15 @@ export default {
       storedUpvotes: 0,
       storedDownvotes: 0,
       postingErrors: false,
-      postingErrorMsg : 'There were problems creating this comment'
+      postingErrorMsg: 'There were problems creating this comment',
+      comments: []
     };
   },
   methods: {
     async createComment() {
     try {
       this.comment.forumID = this.posts.id;
-      this.comment.UserId = this.$store.state.user.userId;
+      this.comment.UserID = this.$store.state.user.userId;
       
       const response = await CommentService.createComment(this.comment);
       if (response.status >= 200 && response.status < 300) {
@@ -194,6 +199,7 @@ export default {
       }
     },
   },
+
   computed: {
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);
@@ -233,8 +239,15 @@ export default {
       return clout;
     },
   },
+<<<<<<< HEAD
   created() {
     VoteService.GetAllPostVotesbyId(this.$route.params.id)
+=======
+  mounted() {
+    this.fetchComments(this.post.postID);
+
+    VoteService.GetAllPostVotesbyId(this.post.postID)
+>>>>>>> 0fbd9436f964593dc083c3b59f4475cdccd38f53
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
         this.storedDownvotes = response.data.downvotes;
