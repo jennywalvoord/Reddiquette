@@ -1,6 +1,6 @@
 <template>
-  <v-content class="post-section">
-    <v-sheet class="citation">
+  <v-content class="section">
+    <v-sheet class="citation" >
       <v-text class="text-h4">{{ getForumTitle }}</v-text>
       <v-row dense class="mx-auto">
         <v-col md="4">
@@ -15,10 +15,10 @@
         </v-col>
       </v-row>
     </v-sheet>
-    <v-card class="postDetails">
+    <v-card style="padding: 24px" class="postDetails">
       <v-container>
         <div class="d-flex flex-column">
-          <v-card-title flat class="d-flex justify-center">{{ post.postTitle }}</v-card-title>
+          <v-card-title flat class="d-flex justify-center post-title">{{ post.postTitle }}</v-card-title>
           <div class="d-flex">
             <v-img class="float-left" :width="300" :height="200" aspect-ratio="16/9" cover :src="post.imagePath"></v-img>
             <v-card-text class="d-flex w-66 ">{{ post.postContent }} </v-card-text>
@@ -288,6 +288,10 @@ export default {
 </script>
     
 <style>
+.section {
+  
+  max-width: 600px;
+}
 .post-content {
   width: 80%;
 }
@@ -302,6 +306,11 @@ export default {
 
   /* Adjust as needed */
 }
+.post-title {
+    height: 60px; /* Set your desired fixed height */
+    
+    overflow: hidden; /* Handle overflow by hiding it */
+  }
 
 /* .citation {
   margin: 2.5% auto auto auto;
