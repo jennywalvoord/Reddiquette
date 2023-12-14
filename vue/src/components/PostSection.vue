@@ -84,7 +84,7 @@ export default {
       const response = await CommentService.createComment(this.comment);
       if (response.status >= 200 && response.status < 300) {
         this.$router.push({
-          path: `/posts/ ${this.comment.postID}`,
+          path: '/',
           query: { posted: 'success' },
         });
       } else {
