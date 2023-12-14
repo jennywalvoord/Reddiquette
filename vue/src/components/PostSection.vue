@@ -24,11 +24,11 @@
           </div>
         </div>
         <div class="comments-section">
+          <v-textarea v-model="comment.commentContent" color="#FF4500" label="Post content"></v-textarea>
           <v-chip-group class="ma-2">
             <v-chip class="green" label size="small" @click="upVote">
               <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvotes
             </v-chip>
-
             <v-chip class="red" label size="small" @click="downVote">
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
@@ -42,9 +42,8 @@
     <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
     <div class="d-flex w-66 pa-5 ml-10 comment-button ">
-      <v-btn @click="postComment" block size="x-large">Make a Comment</v-btn>
+      <v-btn @click="createComment" block size="x-large">Make a Comment</v-btn>
     </div>
-
   </v-content>
 </template>
     
@@ -62,26 +61,59 @@ export default {
     Comment,
   },
   data() {
+    const currentDate = new Date();
     return {
-      commentText: '',
+      comment: {
+        userID: this.$store.state.user.id,
+        commentContent: '',
+        dateCreated: currentDate.toISOString(),
+        // forumID: this.post.forumId,
+        postID: this.post.postID,
+      },
+      posts: '',
       isUpvoted: false,
       isDownvoted: false,
       storedUpvotes: 0,
       storedDownvotes: 0,
+      postingErrors: false,
+      postingErrorMsg: 'There were problems creating this comment',
       comments: []
     };
   },
   methods: {
-    async postComment() {
-      const comment = {
-        postId: this.post.postID,
-        body: this.commentText,
+    async createComment() {
+      try {
+        this.comment.forumID = this.posts.id;
+        this.comment.UserId = this.$store.state.user.userId;
+
+        const response = await CommentService.createComment(this.comment);
+        if (response.status >= 200 && response.status < 300) {
+          this.$router.push({
+            path: `/posts/ ${this.comment.postID}`,
+            query: { posted: 'success' },
+          });
+        } else {
+          // Handle unexpected response status
+          console.error('Unexpected response status:', response.status);
+        }
+      } catch (error) {
+        this.postingErrors = true;
+        const response = error.response;
+        if (response && response.status === 400) {
+          this.postingErrorMsg = 'Bad Request: Validation Errors';
+        } else {
+          // Handle other errors
+          console.error('Error creating post:', error);
+        }
       }
+    },
+    updateCommentContent(content) {
+      this.comment.commentContent = content;
     },
     async fetchComments(postID) {
       try {
         const response = await CommentService.getComments(postID);
-        this.comments = response.data.filter(comment => comment.postID ===postID);
+        this.comments = response.data.filter(comment => comment.postID === postID);
       } catch (error) {
         console.error('Error fetching comments:', error);
       }
@@ -158,6 +190,7 @@ export default {
       }
     },
   },
+
   computed: {
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);
@@ -188,7 +221,7 @@ export default {
     },
   },
   mounted() {
-        this.fetchComments(this.post.postID);
+    this.fetchComments(this.post.postID);
 
     VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
