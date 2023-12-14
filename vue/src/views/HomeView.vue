@@ -26,14 +26,8 @@
           </v-col>
         </v-row>
       </v-container>
-
-      
     </v-main>
-    
     <side-bar />
-
-    
-   
 </template>
 
 
@@ -71,7 +65,6 @@ export default {
   //   }  
   //   );
   // },     
-  
 };
 </script> 
 
