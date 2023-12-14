@@ -4,10 +4,10 @@
       <v-col cols="auto">
         <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
           <v-card 
-        class="mx-auto" 
-        max-width="280"
-        link 
-        >
+            class="mx-auto" 
+            max-width="280"
+            link 
+            >
           <v-card-item>
             <div>
               <div class="text-overline mb-1" style="color: #ff4500;">
@@ -18,19 +18,19 @@
               <div class="text-h6 my-1 post-title">
                 {{ post.postTitle }}
               </div>
-              <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ timePassed }}</p>
+              <p class="text-subtitle-2 mb-2"><span class="font-weight-bold">Date posted: </span>{{ timePassed }}</p>
               <p class="text-subtitle-2">
                 <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
                 <!-- Clout:
                   </span> -->
                 <!-- {{ post.clout }} -->
               </p>
-              <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
+              <v-card value="rounded" color="grey-lighten-4" flat height="150" class="overflow-hidden">
                 <v-card-text>
                   {{ truncateText(post.postContent, 150) }}
                 </v-card-text>
               </v-card>
-              <hr style="border-top: 1px solid #ff4500">
+              <hr style="border-top: 1px solid #ff4500; margin: 16px 0 16px 0">
 
               <v-chip-group v-model="selection" selected-class="text-deep-orange-accent-4">
                 <v-chip class="green" label size="x-small" @click="upVote">
