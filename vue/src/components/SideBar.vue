@@ -5,7 +5,7 @@
       <v-divider></v-divider>
 
       <v-list-item>
-          <h3>Forums</h3>
+          <h3>Browse Forums</h3>
       </v-list-item>
       <v-list>
         <v-list-item
@@ -55,7 +55,6 @@ export default {
       const activeForums = allForums
         .filter(forum => forumIdsWithRecentPosts.includes(forum.forumId))
         .sort((a, b) => {return new Date(b.dateCreated) - new Date(a.dateCreated)[0]})
-        ;
           return activeForums;
       },
   }
