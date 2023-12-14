@@ -100,11 +100,7 @@ export default {
         const response = await CommentService.createComment(this.comment);
         if (response.status >= 200 && response.status < 300) {
           this.$router.push({
-<<<<<<< HEAD
-            path: `/posts/ ${this.comment.postID}`,
-=======
             path: `/`,
->>>>>>> 5285968c165c745562e333d2124135f00dc768f4
             query: { posted: 'success' },
           });
         } else {
@@ -125,8 +121,6 @@ export default {
     updateCommentContent(content) {
       this.comment.commentContent = content;
     },
-<<<<<<< HEAD
-=======
     async fetchComments(postID) {
       try {
         const response = await CommentService.getComments(postID);
@@ -135,7 +129,6 @@ export default {
         console.error('Error fetching comments:', error);
       }
     },
->>>>>>> 5285968c165c745562e333d2124135f00dc768f4
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';
