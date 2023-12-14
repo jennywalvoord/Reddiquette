@@ -47,7 +47,7 @@
         </v-snackbar>
       </v-container>
       <div v-if="comments" class="comments">
-        <comment  v-for="(comment, index) in comments" :key="index" :comment="comment" />
+        <Comment  v-for="(comment, index) in comments" :key="index" :comment="comment" />
       </div>
     </v-card>
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
@@ -61,11 +61,13 @@
 
 import VoteService from '../services/VoteService';
 import CommentService from '../services/CommentService';
+import Comment from '../components/Comment.vue'
+// import {storeKey } from 'vuex';
 
 export default {
   props: ["post", "reply"],
   components: {
-   
+   Comment
   },
   data() {
 
@@ -258,7 +260,7 @@ export default {
     },
   },
   created() {
-    this.fetchComments();
+    this.fetchComments(this.post.postID);
     VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
