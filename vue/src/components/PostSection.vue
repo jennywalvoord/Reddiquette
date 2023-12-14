@@ -122,6 +122,14 @@ export default {
     updateCommentContent(content) {
       this.comment.commentContent = content;
     },
+    async fetchComments(postID) {
+      try {
+        const response = await CommentService.getComments(postID);
+        this.comments = response.data.filter(comment => comment.postID === postID);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    },
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';

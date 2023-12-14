@@ -4,7 +4,6 @@ export default {
 
     getComments() {
         const apiResponse = axios.get('https://localhost:44315/comment');
-        console.log("test");
         console.log(apiResponse);
         return apiResponse;
     },
