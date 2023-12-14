@@ -9,7 +9,7 @@
                     rounded="lg"
                     class="ma-4 pa-4"
                     >
-                    <post-section v-bind:post="findPost"/>
+                    <post-section v-bind:post="this.post"/>
 
                     </v-sheet>
                 </v-col> 
@@ -35,13 +35,18 @@ export default {
         SideBar,
         PostSection,
     },
+    data() {
+        return {
+            post: {}
+        }
+    },
     created() {
     ForumService.getForums().then(response => {
     this.$store.commit("SET_FORUMS", response.data);
     }  
     );
-    PostService.getPosts().then(response =>{
-    this.$store.commit("SET_POSTS", response.data);
+    PostService.getPost(this.$route.params.id).then(response =>{
+    this.post = response.data;
     }  
     );
     CommentService.getComments().then(response =>{
@@ -50,11 +55,6 @@ export default {
     );
   },
     computed: {
-        findPost() {
-            let postId = this.$route.params.id;  
-            let post = this.$store.state.posts.find((p) => p.postID == postId);
-            return post;
-        },
     //     findReply() {
     //         let replyId = this.$route.params.id;  
     //         let reply = this.$store.state.Reply.filter((p) => p.id == replyId);
