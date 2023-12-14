@@ -24,8 +24,7 @@
       </v-row> -->
       
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
-      
-      <v-list-item prepend-avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png">
+      <v-list-item :prepend-avatar="displayAvatar">
         <v-list-item-content>
           <v-list-item-title>{{ displayedUsername }}</v-list-item-title>
           <v-list-item-subtitle>
@@ -44,6 +43,7 @@
 import ForumService from '../src/services/ForumService';
 import PostService from '../src/services/PostService';
 import CommentService from '../src/services/CommentService';
+
 export default {
   created() {
     ForumService.getForums().then(response => {
@@ -60,14 +60,14 @@ export default {
     );
   }, 
   name: 'App',
-  components: {},
+  components: {
+  },
   data() {
     return {
 
     }
     
   },
-  
   computed: {
     isLoggedIn() {
       return !!this.$store.state.token;
@@ -81,6 +81,13 @@ export default {
         return this.user.username;
       } else {
         return 'Anonymous';
+      }
+    },
+    displayAvatar(){
+      if (this.user && this.user.avatar) {
+        return this.user.avatar;
+      } else {
+        return 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png';
       }
     }
   }
