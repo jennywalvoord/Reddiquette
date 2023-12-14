@@ -11,7 +11,7 @@
       <v-app-bar-title class="font-weight-bold" :style="{ color: '#ff4500' }">ReddiQuette</v-app-bar-title>
       
       <!-- Centered search bar -->
-      <v-row align="center" class="mx-auto">
+      <!-- <v-row align="center" class="mx-auto">
         <v-col cols="12">
           <v-text-field
             v-model="search"
@@ -21,7 +21,7 @@
             hide-details
           ></v-text-field>
         </v-col>
-      </v-row>
+      </v-row> -->
       
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
       

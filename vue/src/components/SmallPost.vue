@@ -28,15 +28,11 @@
               <v-divider class="ma-4"></v-divider>
               <v-chip-group v-model="selection" selected-class="text-deep-orange-accent-4">
                 <v-chip class="green" label size="x-small" @click="upVote">
-                  <i class="fa-solid fa-up-long pr-2"></i>Upvote
+                  <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvote
                 </v-chip>
 
                 <v-chip class="red" label size="x-small" @click="downVote">
-                  <i class="fa-solid fa-down-long pr-2"></i>Downvote
-                </v-chip>
-
-                <v-chip class="grey" label size="x-small" @click=null>
-                  <i class="fa-regular fa-comment pr-2"></i>Comment
+                  <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvote
                 </v-chip>
               </v-chip-group>
             </div>
@@ -90,6 +86,12 @@ export default {
       else if (Math.round(differenceInTime / (60 * 60 * 24 * 30) < 12)) { return `${Math.round(differenceInTime / (60 * 60 * 24 * 30))} months ago` }
       else if (Math.round(differenceInTime / (60 * 60 * 24 * 365) == 1)) { return "1 year ago" }
       else return `${Math.round(differenceInTime / (60 * 60 * 24 * 365))} years ago`
+    },
+    getUpvotes(){
+      return this.storedUpvotes;
+    },
+    getDownvotes(){
+      return this.storedDownvotes;
     },
   },
   methods: {
@@ -168,20 +170,20 @@ export default {
       return forum ? forum.forumTitle : 'Forum Not Found';
     },
   },
-  mounted() {
-    VoteService.GetAllPostVotesbyId(this.post.postID)
+  created() {
+    VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
         this.storedDownvotes = response.data.downvotes;
     });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
         .then(response => {
-          if (response.data.Increment === 1) {this.isUpvoted = true;}
-          else if (response.data.Increment === -1) {this.isDownvoted = true;}
+          if (response.data.increment === 1) { this.isUpvoted = true; }
+          else if (response.data.increment === -1) { this.isDownvoted = true; }
         })
     }
-  },
+  }, 
   // created() {
   //   VoteService.GetAllPostVotesbyId(this.post.postID)
   //     .then(response => {

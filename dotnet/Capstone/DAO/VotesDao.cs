@@ -59,25 +59,24 @@ namespace Capstone.DAO
             return votes;
         }
 
-        public Vote GetPostVoteById(int userId, int postId)
+        public Vote GetPostVoteById(int postId, int userId)
         {
-            Vote vote = null;
+            Vote vote = new Vote();
             string sql = "SELECT * FROM post_votes WHERE user_id = @userId AND target_id = @targetId";
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@userId", userId);
-                    cmd.Parameters.AddWithValue("@targetId", postId);
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        vote = MapRowToVote(reader);
-                    }
+                    SqlCommand command = new SqlCommand(sql, conn);
+                    command.Parameters.AddWithValue("@userId", userId);
+                    command.Parameters.AddWithValue("@targetId", postId);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                        while (reader.Read())
+                        {
+                            vote = MapRowToVote(reader);
+                        }
                 }
             }
             catch (SqlException ex)
@@ -298,7 +297,7 @@ namespace Capstone.DAO
                 {
                     try
                     {
-                        DeleteIfExistsWithTransaction(transaction, "post_votes", "user_id = @userId AND post_id = @targetId", targetId, userId);
+                        DeleteIfExistsWithTransaction(transaction, "post_votes", "user_id = @userId AND target_id = @targetId", targetId, userId);
                         transaction.Commit();
                     }
                     catch (Exception ex)

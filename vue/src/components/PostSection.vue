@@ -10,7 +10,7 @@
           <h6>Posted about {{ timePassed }}</h6>
         </v-col>
         <v-col>
-          <h6>Accumulated Clout: </h6>
+          <h6>Accumulated Clout: {{ getClout }} </h6>
         </v-col>
       </v-row>
     </v-sheet>
@@ -46,7 +46,6 @@
     
 <script>
 import Tiptap from '../components/Tiptap.vue'
-import { storeKey } from 'vuex';
 import VoteService from '../services/VoteService';
 
 export default {
@@ -84,14 +83,19 @@ export default {
     async upVote() {
       if (this.$store.state.isAuthenticated) {
         if (this.isUpvoted) {
-          const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
+          const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.state.user.userId,)
           if (response.status >= 200 && response.status < 300) {
             this.updateVotes();
             this.isUpvoted = false;
           }
         }
         else if (this.isDownvoted) {
-          const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: 1
+          }
+          const response = await VoteService.UpdatePostVote(vote)
           if (response.status >= 200 && response.status < 300) {
             this.updateVotes();
             this.isDownvoted = false;
@@ -100,8 +104,8 @@ export default {
         }
         else {
           const vote = {
-            UserID: this.$store.user.userId,
-            TargetID: this.post.postID,
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
             Increment: 1
           }
           const response = await VoteService.CreatePostVote(vote)
@@ -116,14 +120,19 @@ export default {
     async downVote() {
       if (this.$store.state.isAuthenticated) {
         if (this.isDownvoted) {
-          const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
+          const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.state.user.userId,)
           if (response.status >= 200 && response.status < 300) {
             this.updateVotes();
             this.isUpvoted = false;
           }
         }
         else if (this.isUpvoted) {
-          const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: -1
+          }
+          const response = await VoteService.UpdatePostVote(vote)
           if (response.status >= 200 && response.status < 300) {
             this.updateVotes();
             this.isDownvoted = true;
@@ -132,8 +141,8 @@ export default {
         }
         else {
           const vote = {
-            userId: this.$store.user.userId,
-            targetID: this.post.postID,
+            userId: this.$store.state.user.userId,
+            targetID: this.$route.params.id,
             increment: -1
           }
           const response = await VoteService.CreatePostVote(vote)
@@ -174,35 +183,31 @@ export default {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
     },
+    getUpvotes(){
+      return this.storedUpvotes;
+    },
+    getDownvotes(){
+      return this.storedDownvotes;
+    },
+    getClout(){
+      const clout = this.storedUpvotes - this.storedDownvotes;
+      return clout;
+    },
   },
-  mounted() {
-    VoteService.GetAllPostVotesbyId(this.post.postID)
+  created() {
+    VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
-        this.storedDownvotes = response.data.upvotes
-      });
+        this.storedDownvotes = response.data.downvotes;
+    });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
         .then(response => {
-          if (response.data.Increment === 1) { this.isUpvoted = true; }
-          else if (response.data.Increment === -1) { this.isDownvoted = true; }
+          if (response.data.increment === 1) { this.isUpvoted = true; }
+          else if (response.data.increment === -1) { this.isDownvoted = true; }
         })
     }
-  },
-  // created() {
-  //   VoteService.GetAllPostVotesbyId(this.$route.params.id)
-  //     .then(response => {
-  //       this.upvotes = response.data.Upvotes;
-  //       this.downvotes = response.data.Downvotes
-  //   });
-  //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
-  //       .then(response => {
-  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
-  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
-  //       })
-  //   }
-  // },
+  }, 
   actions: {
     upVotePost() {
       this.upVote();
