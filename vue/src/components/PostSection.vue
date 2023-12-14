@@ -10,7 +10,7 @@
           <h6>Posted about {{ timePassed }}</h6>
         </v-col>
         <v-col>
-          <h6>Accumulated Clout: </h6>
+          <h6>Accumulated Clout: {{ getClout }} </h6>
         </v-col>
       </v-row>
     </v-sheet>
@@ -29,6 +29,7 @@
             <v-chip class="green" label size="small" @click="upVote">
               <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvotes
             </v-chip>
+
             <v-chip class="red" label size="small" @click="downVote">
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
@@ -49,16 +50,13 @@
     
 <script>
 import Tiptap from '../components/Tiptap.vue'
-import { storeKey } from 'vuex';
 import VoteService from '../services/VoteService';
-import Comment from '../components/Comment.vue'
 import CommentService from '../services/CommentService';
 
 export default {
   props: ["post", "reply"],
   components: {
-    Tiptap,
-    Comment,
+    Tiptap
   },
   data() {
     const currentDate = new Date();
@@ -68,6 +66,7 @@ export default {
         commentContent: '',
         dateCreated: currentDate.toISOString(),
         // forumID: this.post.forumId,
+        // forumID: this.post.forumId,
         postID: this.post.postID,
       },
       posts: '',
@@ -76,8 +75,7 @@ export default {
       storedUpvotes: 0,
       storedDownvotes: 0,
       postingErrors: false,
-      postingErrorMsg: 'There were problems creating this comment',
-      comments: []
+      postingErrorMsg : 'There were problems creating this comment'
     };
   },
   methods: {
@@ -130,67 +128,80 @@ export default {
         });
     },
     async upVote() {
-      if (this.isUpvoted) {
-        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = false;
+      if (this.$store.state.isAuthenticated) {
+        if (this.isUpvoted) {
+          const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.state.user.userId,)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = false;
+          }
         }
-      }
-      else if (this.isDownvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = false;
-          this.isUpvoted = true;
+        else if (this.isDownvoted) {
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: 1
+          }
+          const response = await VoteService.UpdatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = false;
+            this.isUpvoted = true;
+          }
         }
-      }
-      else {
-        const vote = {
-          userId: this.$store.user.userId,
-          targetID: this.post.postID,
-          increment: 1
+        else {
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: 1
+          }
+          const response = await VoteService.CreatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = true;
+          }
+          //TODO: write catch eventually
         }
-        const response = await VoteService.CreatePostVote(vote)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = true;
-        }
-        //TODO: write catch eventually
       }
     },
     async downVote() {
-      if (this.isDownvoted) {
-        const response = await VoteService.DeletePostVote(this.post.postID, this.$store.user.userId,)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isUpvoted = false;
+      if (this.$store.state.isAuthenticated) {
+        if (this.isDownvoted) {
+          const response = await VoteService.DeletePostVote(this.$route.params.id, this.$store.state.user.userId,)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isUpvoted = false;
+          }
         }
-      }
-      else if (this.isUpvoted) {
-        const response = await VoteService.UpdatePostVote(this.$store.user.userId, this.post.postID, 1)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = true;
-          this.isUpvoted = false;
+        else if (this.isUpvoted) {
+          const vote = {
+            UserID: this.$store.state.user.userId,
+            TargetID: this.$route.params.id,
+            Increment: -1
+          }
+          const response = await VoteService.UpdatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = true;
+            this.isUpvoted = false;
+          }
         }
-      }
-      else {
-        const vote = {
-          userId: this.$store.user.userId,
-          targetID: this.post.postID,
-          increment: -1
+        else {
+          const vote = {
+            userId: this.$store.state.user.userId,
+            targetID: this.$route.params.id,
+            increment: -1
+          }
+          const response = await VoteService.CreatePostVote(vote)
+          if (response.status >= 200 && response.status < 300) {
+            this.updateVotes();
+            this.isDownvoted = true;
+          }
+          //TODO: write catch eventually
         }
-        const response = await VoteService.CreatePostVote(vote)
-        if (response.status >= 200 && response.status < 300) {
-          this.updateVotes();
-          this.isDownvoted = true;
-        }
-        //TODO: write catch eventually
       }
     },
   },
-
   computed: {
     timePassed() {
       const postedTime = new Date(this.post.dateCreated);
@@ -219,37 +230,31 @@ export default {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
     },
+    getUpvotes(){
+      return this.storedUpvotes;
+    },
+    getDownvotes(){
+      return this.storedDownvotes;
+    },
+    getClout(){
+      const clout = this.storedUpvotes - this.storedDownvotes;
+      return clout;
+    },
   },
-  mounted() {
-    this.fetchComments(this.post.postID);
-
-    VoteService.GetAllPostVotesbyId(this.post.postID)
+  created() {
+    VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
-        this.storedDownvotes = response.data.upvotes
-      });
+        this.storedDownvotes = response.data.downvotes;
+    });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
         .then(response => {
-          if (response.data.Increment === 1) { this.isUpvoted = true; }
-          else if (response.data.Increment === -1) { this.isDownvoted = true; }
+          if (response.data.increment === 1) { this.isUpvoted = true; }
+          else if (response.data.increment === -1) { this.isDownvoted = true; }
         })
     }
-  },
-  // created() {
-  //   VoteService.GetAllPostVotesbyId(this.$route.params.id)
-  //     .then(response => {
-  //       this.upvotes = response.data.Upvotes;
-  //       this.downvotes = response.data.Downvotes
-  //   });
-  //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
-  //       .then(response => {
-  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
-  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
-  //       })
-  //   }
-  // },
+  }, 
   actions: {
     upVotePost() {
       this.upVote();
