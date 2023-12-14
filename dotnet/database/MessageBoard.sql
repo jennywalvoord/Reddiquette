@@ -158,7 +158,6 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(19, 2, 'Historic Landmarks Destroyed', 'In this solemn discussion, we delve into the pages of history to mourn the loss of once-iconic landmarks that have succumbed to the ravages of time, conflict, or natural disasters. Join us as we remember and honor these architectural marvels, exploring their significance and the cultural heritage they held. Let''s engage in a thoughtful reflection on the fragility of our shared history and the importance of preservation for generations to come.', '"https://picsum.photos/301/407', '09/14/2020 17:52:35', 6),
 		(20, 1, 'Exotic Flight Destinations', 'Unleash Your Wanderlust: Discover Exotic Flight Destinations! Ready to elevate your travel dreams? Explore the extraordinary with our guide to the most exotic flight destinations. From hidden gems nestled in tropical paradises to culturally rich cities off the beaten path, join us as we embark on a journey to uncover the worlds most enchanting and unforgettable places. Get ready to add a touch of exotic allure to your travel bucket list!', 'https://picsum.photos/306/400', '07/04/2022 18:23:46', 5),
 		(21, 4, 'Need Help Dieting?', 'Embarking on a journey to better health through dieting? Whether you''re aiming for weight loss, muscle gain, or simply adopting a healthier lifestyle, our community is here to offer support, tips, and personalized advice. Join us in the quest for a balanced and sustainable diet that aligns with your fitness goals because achieving your best self starts with nourishing your body right!', 'https://www.heartfoundation.org.au/getmedia/70195972-0139-4ce8-a170-ffdf2aa24f60/200615-Healthy-Eating-Gif3.gif', '08/14/2022 19:36:25', 4),
-<<<<<<< HEAD
 		(22, 7, 'Hidden Gems in Local Eateries', 'Explore the culinary scene in your city! Recommend hidden gem restaurants, share your recent dining experiences, and lets create a Foodie Haven guide to the best local spots.', 'https://picsum.photos/301/400', '02/14/2023 08:00:00', 8),
 		(23, 7, 'Delicious Dessert Discoveries', 'Indulge your sweet tooth! Share your favorite dessert recipes, explore local bakeries, and lets compile a delectable list of must-try treats.', 'https://picsum.photos/302/400', '2023-03-02 15:30:00', 8),
 		(24, 7, 'Spicy Adventures: Hot Pepper Challenge', 'Calling all spice enthusiasts! Join in on the hot pepper challenge discussion. Share your spicy recipes, rate your favorite hot sauces, and lets turn up the heat together!', 'https://picsum.photos/303/400', '2023-03-10 12:45:00', 8),
@@ -173,8 +172,7 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(33, 4, 'Multiplayer Madness', 'Dive into the world of multiplayer gaming! Share your favorite multiplayer experiences, discuss team strategies, and connect with fellow gamers for epic online adventures.', 'https://picsum.photos/312/400', '2023-07-02 16:45:00', 11),
 		(34, 7, 'Guided Meditation Recommendations', 'Share your favorite guided meditations! Whether its for relaxation, focus, or mindfulness, lets create a collection of soothing meditation recommendations.', 'https://picsum.photos/313/400', '2023-07-15 10:30:00', 12),
 		(35, 3, 'Mindful Living Tips', 'Discuss practical tips for incorporating mindfulness into daily life. Share your experiences, challenges, and success stories on the journey to mindful living.', 'https://picsum.photos/314/400', '2023-07-28 12:15:00', 12),
-		(36, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://picsum.photos/315/400', '2023-08-05 14:45:00', 12)
-=======
+		(36, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://picsum.photos/315/400', '2023-08-05 14:45:00', 12),
 		(48, 7, 'Hidden Gems in Local Eateries', 'Explore the culinary scene in your city! Recommend hidden gem restaurants, share your recent dining experiences, and lets create a Foodie Haven guide to the best local spots.', 'https://picsum.photos/301/400', '02/14/2022 08:00:00', 8),
 		(49, 7, 'Delicious Dessert Discoveries', 'Indulge your sweet tooth! Share your favorite dessert recipes, explore local bakeries, and lets compile a delectable list of must-try treats.', 'https://picsum.photos/302/400', '2022-03-02 15:30:00', 8),
 		(50, 7, 'Spicy Adventures: Hot Pepper Challenge', 'Calling all spice enthusiasts! Join in on the hot pepper challenge discussion. Share your spicy recipes, rate your favorite hot sauces, and lets turn up the heat together!', 'https://picsum.photos/303/400', '2022-03-10 12:45:00', 8),
@@ -190,7 +188,6 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(60, 7, 'Guided Meditation Recommendations', 'Share your favorite guided meditations! Whether its for relaxation, focus, or mindfulness, lets create a collection of soothing meditation recommendations.', 'https://picsum.photos/313/400', '2022-07-15 10:30:00', 12),
 		(61, 3, 'Mindful Living Tips', 'Discuss practical tips for incorporating mindfulness into daily life. Share your experiences, challenges, and success stories on the journey to mindful living.', 'https://picsum.photos/314/400', '2022-07-28 12:15:00', 12),
 		(62, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://picsum.photos/315/400', '2022-08-05 14:45:00', 12)
->>>>>>> 5285968c165c745562e333d2124135f00dc768f4
 	SET IDENTITY_INSERT posts OFF;
 
 SET IDENTITY_INSERT posts OFF;
@@ -320,6 +317,3 @@ VALUES (3, 1, 'Great post very informative !', CURRENT_TIMESTAMP, 1),
     (6, 4, 'Awesome content, thank you!', CURRENT_TIMESTAMP, 5),
     (5, 2, 'This post deserves more attention.', CURRENT_TIMESTAMP, 6),
     (4, 1, 'I shared this with my colleagues. Great work!', CURRENT_TIMESTAMP, 2);
-
-
--- Inserting
