@@ -26,8 +26,8 @@ namespace Capstone.Models
         public DateTime DateCreated { get; set; }
 
         // ID of the forum where the post belongs
-        [Required(ErrorMessage ="Forum Id is required")]
-        public int ForumID { get; set; }
+        
+        public int? ForumID { get; set; }
         // ID of the comment being replied to
         public int? ParentID { get; set; }
     }

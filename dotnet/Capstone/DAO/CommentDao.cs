@@ -47,6 +47,7 @@ namespace Capstone.DAO
                             UserID = Convert.ToInt32(reader["user_id"]),
                             CommentContent = reader["comment_content"].ToString(),
                             DateCreated = Convert.ToDateTime(reader["date_created"]),
+                            ForumID = reader["forum_id"] != DBNull.Value ? Convert.ToInt32(reader["forum_id"]) : (int?)null,
                             ParentID = reader["parent_id"] != DBNull.Value ? Convert.ToInt32(reader["parent_id"]) : (int?)null
                         };,
                         ForumId = reader["forum_id"] != DBNull.Value ? Convert.ToInt32(reader["forum_id"]) : (int?)null
