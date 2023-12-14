@@ -2,14 +2,14 @@ import axios from 'axios';
 
 // TODO: figure out what the path needs to be
 export default {
-    GetAllPostVotesbyId(id){
-        return axios.get(`/vote/post/${id}`)
+    GetAllPostVotesbyId(targetID){
+        return axios.get(`/vote/post/${targetID}`)
     },
-    GetPostVoteByID(postId, userId) {
-        return axios.get(`/vote/post/${postId}/user/${userId}`)
+    GetPostVoteByID(targetID, userId) {
+        return axios.get(`/vote/post/${targetID}/user/${userId}`)
     },
-    GetAllCommentVotesById(id){
-        return axios.get(`/vote/comment/${id}`)
+    GetAllCommentVotesById(targetID){
+        return axios.get(`/vote/comment/${targetID}`)
     },
     CreatePostVote(vote){
         return axios.post('/vote/post',vote)
