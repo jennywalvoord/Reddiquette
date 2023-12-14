@@ -9,7 +9,7 @@
                     rounded="lg"
                     class="ma-4 pa-4"
                     >
-                    <post-section v-bind:post="this.post"/>
+                    <post-section v-bind:post="this.post" v-if="post"/>
 
                     </v-sheet>
                 </v-col> 
@@ -37,7 +37,7 @@ export default {
     },
     data() {
         return {
-            post: {}
+            post: null
         }
     },
     created() {

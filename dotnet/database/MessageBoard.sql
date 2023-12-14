@@ -263,21 +263,8 @@ VALUES
 (5, 18, 1),
 (6, 19, -1),
 (7, 20, 1),
-(1, 21, 1),
-(2, 22, -1),
-(3, 23, 1),
-(4, 24, 1),
-(5, 25, 1),
-(6, 26, -1),
-(7, 27, 1),
-(1, 28, 1),
-(2, 29, -1),
-(3, 30, 1),
-(4, 31, 1),
-(5, 32, 1),
-(6, 33, -1),
-(7, 34, 1),
-(1, 35, 1);
+(1, 21, 1)
+
 
 INSERT INTO comment (user_id, post_id, comment_content, date_created, forum_id)
 VALUES (3, 1, 'Great post very informative !', CURRENT_TIMESTAMP, 1),

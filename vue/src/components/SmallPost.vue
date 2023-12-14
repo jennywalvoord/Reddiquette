@@ -171,33 +171,33 @@ export default {
     },
   },
   created() {
-    VoteService.GetAllPostVotesbyId(this.$route.params.id)
+    // VoteService.GetAllPostVotesbyId(this.$route.params.id)
+    //   .then(response => {
+    //     this.storedUpvotes = response.data.upvotes;
+    //     this.storedDownvotes = response.data.downvotes;
+    // });
+    // if (this.$store.state.isAuthenticated) {
+    //   VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+    //     .then(response => {
+    //       if (response.data.increment === 1) { this.isUpvoted = true; }
+    //       else if (response.data.increment === -1) { this.isDownvoted = true; }
+    //     })
+    // }
+  }, 
+  mounted() {
+    VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
-        this.storedDownvotes = response.data.downvotes;
+        this.storedDownvotes = response.data.downvotes
     });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
         .then(response => {
-          if (response.data.increment === 1) { this.isUpvoted = true; }
-          else if (response.data.increment === -1) { this.isDownvoted = true; }
+          if (response.data.Increment === 1) {this.isUpvoted = true;}
+          else if (response.data.Increment === -1) {this.isDownvoted = true;}
         })
     }
-  }, 
-  // created() {
-  //   VoteService.GetAllPostVotesbyId(this.post.postID)
-  //     .then(response => {
-  //       this.storedUpvotes = response.data.upvotes;
-  //       this.storedDownvotes = response.data.downvotes
-  //   });
-  //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
-  //       .then(response => {
-  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
-  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
-  //       })
-  //   }
-  // },
+  },
   actions: {
     upVotePost () {
       this.upVote();

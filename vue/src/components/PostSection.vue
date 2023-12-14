@@ -36,8 +36,8 @@
           </v-chip-group>
         </div>
       </v-container>
-      <div class="comments">
-        <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      <div v-if="comments" class="comments">
+        <comment  v-for="(comment, index) in comments" :key="index" :comment="comment" />
       </div>
     </v-card>
     <tiptap v-model="commentText" :enableEditing="true" />
@@ -59,8 +59,10 @@ export default {
     Tiptap
   },
   data() {
+
     const currentDate = new Date();
     return {
+      comments: null,
       comment: {
         userID: this.$store.state.user.id,
         commentContent: '',
@@ -242,6 +244,7 @@ export default {
     },
   },
   created() {
+    this.fetchComments();
     VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
