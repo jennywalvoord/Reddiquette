@@ -35,7 +35,7 @@
           </v-chip-group>
         </div>
       </v-container>
-      <div class="comments-section">
+      <div class="comments">
         <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
       </div>
     </v-card>
@@ -63,11 +63,11 @@ export default {
   data() {
     const currentDate = new Date();
     return {
-      comment:{
-        userID: this.$store.state.user.userId,
+      comment: {
+        userID: this.$store.state.user.id,
         commentContent: '',
         dateCreated: currentDate.toISOString(),
-        // forumID: '',
+        // forumID: this.post.forumId,
         postID: this.post.postID,
       },
       posts: '',
@@ -82,38 +82,42 @@ export default {
   },
   methods: {
     async createComment() {
-    try {
-      this.comment.forumID = this.posts.id;
-      this.comment.UserID = this.$store.state.user.userId;
-      
-      const response = await CommentService.createComment(this.comment);
-      if (response.status >= 200 && response.status < 300) {
-        this.$router.push({
-          path: `/posts/ ${this.comment.postID}`,
-          query: { posted: 'success' },
-        });
-      } else {
-        // Handle unexpected response status
-        console.error('Unexpected response status:', response.status);
-      }
-    } catch (error) {
-      this.postingErrors = true;
-      const response = error.response;
-      if (response && response.status === 400) {
-        this.postingErrorMsg = 'Bad Request: Validation Errors';
-      } else {
-        // Handle other errors
-        console.error('Error creating post:', error);
-      }
-    }
-  },
-  updateCommentContent(content) {
-    this.comment.commentContent = content;
-  },
-  
-  
-  
+      try {
+        this.comment.forumID = this.posts.id;
+        this.comment.UserId = this.$store.state.user.userId;
 
+        const response = await CommentService.createComment(this.comment);
+        if (response.status >= 200 && response.status < 300) {
+          this.$router.push({
+            path: `/`,
+            query: { posted: 'success' },
+          });
+        } else {
+          // Handle unexpected response status
+          console.error('Unexpected response status:', response.status);
+        }
+      } catch (error) {
+        this.postingErrors = true;
+        const response = error.response;
+        if (response && response.status === 400) {
+          this.postingErrorMsg = 'Bad Request: Validation Errors';
+        } else {
+          // Handle other errors
+          console.error('Error creating post:', error);
+        }
+      }
+    },
+    updateCommentContent(content) {
+      this.comment.commentContent = content;
+    },
+    async fetchComments(postID) {
+      try {
+        const response = await CommentService.getComments(postID);
+        this.comments = response.data.filter(comment => comment.postID === postID);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    },
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';

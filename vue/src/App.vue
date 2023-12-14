@@ -58,10 +58,7 @@ export default {
     this.$store.commit("SET_COMMENTS", response.data);
     }  
     );
-    const script = document.createElement('script');
-    script.src = 'https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js';
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
+    
   }, 
   name: 'App',
   components: {},
