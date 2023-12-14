@@ -30,7 +30,7 @@ export default {
     props: ["comment", "post"],
     data() {
         return {
-            comments: [],
+            comments: null,
         };
     },
     methods: {

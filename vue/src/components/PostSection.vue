@@ -61,17 +61,18 @@
 
 import VoteService from '../services/VoteService';
 import CommentService from '../services/CommentService';
+import Comment from '../components/Comment.vue'
 
 export default {
   props: ["post", "reply"],
   components: {
-   
+   Comment
   },
   data() {
 
     const currentDate = new Date();
     return {
-      comments: null,
+      
       comment: {
         userID: this.$store.state.user.id,
         commentContent: '',
