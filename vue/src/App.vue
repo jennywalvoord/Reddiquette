@@ -25,7 +25,7 @@
       
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
       
-      <v-list-item prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg">
+      <v-list-item prepend-avatar="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Windows_10_Default_Profile_Picture.svg/1024px-Windows_10_Default_Profile_Picture.svg.png">
         <v-list-item-content>
           <v-list-item-title>{{ displayedUsername }}</v-list-item-title>
           <v-list-item-subtitle>
@@ -58,10 +58,6 @@ export default {
     this.$store.commit("SET_COMMENTS", response.data);
     }  
     );
-    const script = document.createElement('script');
-    script.src = 'https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js';
-    script.type = 'text/javascript';
-    document.body.appendChild(script);
   }, 
   name: 'App',
   components: {},

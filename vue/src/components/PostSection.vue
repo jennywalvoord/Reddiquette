@@ -34,7 +34,17 @@
               <i class="fa-solid fa-down-long pr-2"></i>{{ this.storedDownvotes }} Downvotes
             </v-chip>
           </v-chip-group>
+
         </div>
+        <v-snackbar v-model="voteSnackbar" :timeout="timeout">
+          {{ text }}
+
+          <template v-slot:actions>
+            <v-btn color="blue" variant="text" @click="voteSnackbar = false">
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
       </v-container>
     </v-card>
     <tiptap v-model="commentText" :enableEditing="true" />
@@ -58,56 +68,55 @@ export default {
   data() {
     const currentDate = new Date();
     return {
-      comment:{
+      comment: {
         userID: this.$store.state.user.id,
         commentContent: '',
         dateCreated: currentDate.toISOString(),
         // forumID: this.post.forumId,
         postID: this.post.postID,
       },
+      voteSnackbar: false,
+      text: "You must be logged in to vote.",
+      timeout: 2000,
       posts: '',
       isUpvoted: false,
       isDownvoted: false,
       storedUpvotes: 0,
       storedDownvotes: 0,
       postingErrors: false,
-      postingErrorMsg : 'There were problems creating this comment'
+      postingErrorMsg: 'There were problems creating this comment'
     };
   },
   methods: {
     async createComment() {
-    try {
-      this.comment.forumID = this.posts.id;
-      this.comment.UserId = this.$store.state.user.userId;
-      
-      const response = await CommentService.createComment(this.comment);
-      if (response.status >= 200 && response.status < 300) {
-        this.$router.push({
-          path: `/posts/ ${this.comment.postID}`,
-          query: { posted: 'success' },
-        });
-      } else {
-        // Handle unexpected response status
-        console.error('Unexpected response status:', response.status);
-      }
-    } catch (error) {
-      this.postingErrors = true;
-      const response = error.response;
-      if (response && response.status === 400) {
-        this.postingErrorMsg = 'Bad Request: Validation Errors';
-      } else {
-        // Handle other errors
-        console.error('Error creating post:', error);
-      }
-    }
-  },
-  updateCommentContent(content) {
-    this.comment.commentContent = content;
-  },
-  
-  
-  
+      try {
+        this.comment.forumID = this.posts.id;
+        this.comment.UserId = this.$store.state.user.userId;
 
+        const response = await CommentService.createComment(this.comment);
+        if (response.status >= 200 && response.status < 300) {
+          this.$router.push({
+            path: `/posts/ ${this.comment.postID}`,
+            query: { posted: 'success' },
+          });
+        } else {
+          // Handle unexpected response status
+          console.error('Unexpected response status:', response.status);
+        }
+      } catch (error) {
+        this.postingErrors = true;
+        const response = error.response;
+        if (response && response.status === 400) {
+          this.postingErrorMsg = 'Bad Request: Validation Errors';
+        } else {
+          // Handle other errors
+          console.error('Error creating post:', error);
+        }
+      }
+    },
+    updateCommentContent(content) {
+      this.comment.commentContent = content;
+    },
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';
@@ -155,6 +164,7 @@ export default {
           //TODO: write catch eventually
         }
       }
+      else {this.voteSnackbar = true;}
     },
     async downVote() {
       if (this.$store.state.isAuthenticated) {
@@ -192,6 +202,7 @@ export default {
           //TODO: write catch eventually
         }
       }
+      else {this.voteSnackbar = true;}
     },
   },
   computed: {
@@ -222,13 +233,13 @@ export default {
       const user = this.$store.state.postedUsers.find((user) => user.userId === userId);
       return user ? user.userName : 'User Name Not Found';
     },
-    getUpvotes(){
+    getUpvotes() {
       return this.storedUpvotes;
     },
-    getDownvotes(){
+    getDownvotes() {
       return this.storedDownvotes;
     },
-    getClout(){
+    getClout() {
       const clout = this.storedUpvotes - this.storedDownvotes;
       return clout;
     },
@@ -238,7 +249,7 @@ export default {
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
         this.storedDownvotes = response.data.downvotes;
-    });
+      });
     if (this.$store.state.isAuthenticated) {
       VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
         .then(response => {
@@ -246,7 +257,7 @@ export default {
           else if (response.data.increment === -1) { this.isDownvoted = true; }
         })
     }
-  }, 
+  },
   actions: {
     upVotePost() {
       this.upVote();
