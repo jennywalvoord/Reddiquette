@@ -55,7 +55,7 @@ CREATE TABLE comment(
 	post_id int NOT NULL,
 	comment_content NVARCHAR(MAX),
 	date_created DATETIME NOT NULL,
-	forum_id int NOT NULL,
+	forum_id int NULL,
 	parent_id int NULL,
 	CONSTRAINT PK_comment PRIMARY KEY(comment_id),
 	CONSTRAINT FK_UsersComment FOREIGN KEY(user_id) REFERENCES users(user_id),
