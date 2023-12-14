@@ -46,11 +46,10 @@
           </template>
         </v-snackbar>
       </v-container>
-      <div class="comments">
-        <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      <div v-if="comments" class="comments">
+        <comment  v-for="(comment, index) in comments" :key="index" :comment="comment" />
       </div>
     </v-card>
-    <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
     <div class="d-flex w-66 pa-5 ml-10 comment-button ">
       <v-btn @click="createComment" block size="x-large">Make a Comment</v-btn>
@@ -59,18 +58,20 @@
 </template>
     
 <script>
-import Tiptap from '../components/Tiptap.vue'
+
 import VoteService from '../services/VoteService';
 import CommentService from '../services/CommentService';
 
 export default {
   props: ["post", "reply"],
   components: {
-    Tiptap
+   
   },
   data() {
+
     const currentDate = new Date();
     return {
+      comments: null,
       comment: {
         userID: this.$store.state.user.id,
         commentContent: '',
@@ -257,6 +258,7 @@ export default {
     },
   },
   created() {
+    this.fetchComments();
     VoteService.GetAllPostVotesbyId(this.$route.params.id)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;

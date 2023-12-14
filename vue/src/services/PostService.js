@@ -5,7 +5,6 @@ export default {
 
     getPosts() {
         const apiResponse = axios.get('https://localhost:44315/posts');
-        console.log("test");
         console.log(apiResponse);
         return apiResponse;
     },

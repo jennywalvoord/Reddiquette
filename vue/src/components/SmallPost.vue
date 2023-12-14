@@ -9,24 +9,24 @@
                 {{ getForumTitle(post.forumId) }}
               </div>
               <v-img :width="280" :height="120" cover v-bind:src="post.imagePath"></v-img>
-              
+
               <div class="text-h6 my-1 post-title">
                 {{ post.postTitle }}
               </div>
               <p class="text-subtitle-2"><span class="font-weight-bold">Date posted: </span>{{ timePassed }}</p>
-                <p class="text-subtitle-2">
-                  <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
-                    <!-- Clout:
+              <p class="text-subtitle-2">
+                <!-- <span class="font-weight-bold" :class="{ 'text-positive': post.clout > 0, 'text-negative': post.clout < 0 }"> -->
+                <!-- Clout:
                   </span> -->
-                  <!-- {{ post.clout }} -->
-                </p>
+                <!-- {{ post.clout }} -->
+              </p>
               <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
                 <v-card-text>
                   {{ truncateText(post.postContent, 150) }}
                 </v-card-text>
               </v-card>
               <v-divider class="ma-4"></v-divider>
-              <v-chip-group v-model="selection" selected-class="text-deep-orange-accent-4">
+              <v-chip-group>
                 <v-chip class="green" label size="x-small" @click="upVote">
                   <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvote
                 </v-chip>
@@ -39,13 +39,13 @@
           </v-card-item>
 
           <v-card-actions>
-            <v-btn  block>
-            <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
-              
-              View Post Details
-            </router-link>
-          </v-btn>
-            
+            <v-btn block>
+              <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
+
+                View Post Details
+              </router-link>
+            </v-btn>
+
           </v-card-actions>
         </v-card>
       </v-col>
@@ -170,34 +170,20 @@ export default {
       return forum ? forum.forumTitle : 'Forum Not Found';
     },
   },
-  created() {
-    VoteService.GetAllPostVotesbyId(this.$route.params.id)
+  mounted() {
+    VoteService.GetAllPostVotesbyId(this.post.postID)
       .then(response => {
         this.storedUpvotes = response.data.upvotes;
-        this.storedDownvotes = response.data.downvotes;
+        this.storedDownvotes = response.data.downvotes
     });
     if (this.$store.state.isAuthenticated) {
-      VoteService.GetPostVoteByID(this.$route.params.id, this.$store.state.user.userId)
+      VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
         .then(response => {
-          if (response.data.increment === 1) { this.isUpvoted = true; }
-          else if (response.data.increment === -1) { this.isDownvoted = true; }
+          if (response.data.Increment === 1) {this.isUpvoted = true;}
+          else if (response.data.Increment === -1) {this.isDownvoted = true;}
         })
     }
-  }, 
-  // created() {
-  //   VoteService.GetAllPostVotesbyId(this.post.postID)
-  //     .then(response => {
-  //       this.storedUpvotes = response.data.upvotes;
-  //       this.storedDownvotes = response.data.downvotes
-  //   });
-  //   if (this.$store.state.isAuthenticated) {
-  //     VoteService.GetPostVoteByID(this.post.postID, this.$store.state.user.userId)
-  //       .then(response => {
-  //         if (response.data.Increment === 1) {this.isUpvoted = true;}
-  //         else if (response.data.Increment === -1) {this.isDownvoted = true;}
-  //       })
-  //   }
-  // },
+  },
   actions: {
     upVotePost () {
       this.upVote();

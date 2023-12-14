@@ -174,6 +174,7 @@ VALUES (1, 1, 'C# Better than Java?', 'C# is the supreme Coding Language! But Ul
 		(35, 3, 'Mindful Living Tips', 'Discuss practical tips for incorporating mindfulness into daily life. Share your experiences, challenges, and success stories on the journey to mindful living.', 'https://static.wixstatic.com/media/62588d_c75715f3ad804cee890d6091c04be772~mv2.png/v1/fit/w_2500,h_1330,al_c/62588d_c75715f3ad804cee890d6091c04be772~mv2.png', '2023-07-28 12:15:00', 12),
 		(36, 3, 'Wellness Retreat Recommendations', 'Explore wellness retreats around the world! Share your recommendations, experiences, and discover rejuvenating destinations for a mindful escape.', 'https://www.foodmatters.com/media/cache/ff/3a/ff3a9dcff640c2e4ebaf2bdb1bbb3fff.jpg', '2023-08-05 14:45:00', 12)
 SET IDENTITY_INSERT posts OFF;
+	SET IDENTITY_INSERT posts OFF;
 
 SET IDENTITY_INSERT posts OFF;
 SET IDENTITY_INSERT posts ON;
@@ -302,6 +303,3 @@ VALUES (3, 1, 'Great post very informative !', CURRENT_TIMESTAMP, 1),
     (6, 4, 'Awesome content, thank you!', CURRENT_TIMESTAMP, 5),
     (5, 2, 'This post deserves more attention.', CURRENT_TIMESTAMP, 6),
     (4, 1, 'I shared this with my colleagues. Great work!', CURRENT_TIMESTAMP, 2);
-
-
--- Inserting
