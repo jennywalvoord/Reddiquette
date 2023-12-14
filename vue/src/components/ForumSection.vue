@@ -1,13 +1,11 @@
 <template>
-  <div style="padding: 12px" class="text-center">
-
-
-    <v-chip class="ma-2" color="primary" label v-on:click="this.areFilteringByDate = true">
+  <div style="padding: 12px" >
+    <v-chip class="ma-2" color="#ff4500" label v-on:click="this.areFilteringByDate = true">
       <i class="fa-solid fa-star pr-2"></i>
       Recent
     </v-chip>
 
-    <v-chip class="ma-2" color="cyan" label v-on:click="this.areFilteringByDate = false">
+    <v-chip class="ma-2" color="purple" label v-on:click="this.areFilteringByDate = false">
       <i class="fa-solid fa-fire pr-2"></i>
       Popular
     </v-chip>

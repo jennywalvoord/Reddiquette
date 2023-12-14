@@ -1,30 +1,30 @@
 <template>
   <v-content class="post-section">
     <v-sheet class="citation">
-      <h3>{{ getForumTitle }}</h3>
-      <v-row class="d-flex ">
-        <v-col>
-          <h6>Posted by: {{ getUserName }}</h6>
+      <v-text class="text-h4">{{ getForumTitle }}</v-text>
+      <v-row dense class="mx-auto">
+        <v-col md="4">
+          <div class="my-4 text-subtitle-2">Posted by: {{ getUserName }}</div>
         </v-col>
-        <v-col>
-          <h6>Posted about {{ timePassed }}</h6>
+        <v-col md="4">
+          <div class="my-4 text-subtitle-2">Posted about {{ timePassed }}</div>
         </v-col>
-        <v-col>
-          <h6>Accumulated Clout: </h6>
+        <v-col md="4">
+          <div class="my-4 text-subtitle-2">Accumulated Clout: </div>
         </v-col>
       </v-row>
     </v-sheet>
     <v-card class="postDetails">
       <v-container>
         <div class="d-flex flex-column">
-          <v-card-title class="d-flex justify-center">{{ post.postTitle }}</v-card-title>
+          <v-card-title flat class="d-flex justify-center">{{ post.postTitle }}</v-card-title>
           <div class="d-flex">
             <v-img class="float-left" :width="300" :height="200" aspect-ratio="16/9" cover :src="post.imagePath"></v-img>
             <v-card-text class="d-flex w-66 ">{{ post.postContent }} </v-card-text>
           </div>
         </div>
         <div class="comments-section">
-          <v-textarea v-model="comment.commentContent" color="#FF4500" label="Post content"></v-textarea>
+          <v-textarea v-model="comment.commentContent" color="#FF4500" label="Post content" class="post-content"></v-textarea>
           <v-chip-group class="ma-2">
             <v-chip class="green" label size="small" @click="upVote">
               <i class="fa-solid fa-up-long pr-2"></i>{{ this.storedUpvotes }} Upvotes
@@ -251,6 +251,10 @@ export default {
 </script>
     
 <style>
+.post-content {
+  width: 80%;
+}
+
 .comments-section {
   display: flex;
   flex-direction: column;
@@ -258,6 +262,7 @@ export default {
   justify-content: center;
   text-align: center;
   margin-top: 20px;
+
   /* Adjust as needed */
 }
 

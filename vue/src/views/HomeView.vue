@@ -7,9 +7,10 @@
             <v-sheet
             min-height="100vh"
             rounded="lg"
-            class="ma-4 pa-4"
+            class="ma-2 pa-4"
             >
-            <v-text class="text-h4">Recent Posts</v-text>
+            <v-text class="text-h4" color>Recent Posts</v-text>
+            <hr style="border-top: 3px solid #ff4500">
             <v-slide-group show-arrows>
                 <v-slide-group-item
                   v-for="post in filteredPosts"

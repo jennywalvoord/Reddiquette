@@ -2,10 +2,15 @@
   <v-container>
     <v-row align="center" justify="center">
       <v-col cols="auto">
-        <v-card class="mx-auto" max-width="280">
+        <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
+          <v-card 
+        class="mx-auto" 
+        max-width="280"
+        link 
+        >
           <v-card-item>
             <div>
-              <div class="text-overline mb-1">
+              <div class="text-overline mb-1" style="color: #ff4500;">
                 {{ getForumTitle(post.forumId) }}
               </div>
               <v-img :width="280" :height="120" cover v-bind:src="post.imagePath"></v-img>
@@ -20,12 +25,13 @@
                   </span> -->
                   <!-- {{ post.clout }} -->
                 </p>
-              <v-card value="rounded" color="grey-lighten-3" flat height="150" class="overflow-hidden">
+              <v-card value="rounded" color="grey-lighten-2" flat height="150" class="overflow-hidden">
                 <v-card-text>
                   {{ truncateText(post.postContent, 150) }}
                 </v-card-text>
               </v-card>
-              <v-divider class="ma-4"></v-divider>
+              <hr style="border-top: 1px solid #ff4500">
+
               <v-chip-group v-model="selection" selected-class="text-deep-orange-accent-4">
                 <v-chip class="green" label size="x-small" @click="upVote">
                   <i class="fa-solid fa-up-long pr-2"></i>Upvote
@@ -42,16 +48,10 @@
             </div>
           </v-card-item>
 
-          <v-card-actions>
-            <v-btn  block>
-            <router-link v-bind:to="{ name: 'post-view', params: { id: post.postID } }">
-              
-              View Post Details
-            </router-link>
-          </v-btn>
-            
-          </v-card-actions>
+         
         </v-card>
+        </router-link>
+        
       </v-col>
     </v-row>
   </v-container>

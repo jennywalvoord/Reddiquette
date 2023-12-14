@@ -2,19 +2,20 @@
   <v-main class="bg-grey-lighten-3">
     <v-container class="bg-grey-lighten-3">
       <v-row>
-
         <v-col>
-          <v-sheet min-height="70vh" rounded="lg">
+          <v-sheet min-height="100vh" rounded="lg">
             <div class="custom-padding">
               <v-content>
-                <div class="pb-6">
+                <div>
                   <v-text class="text-h4">Create a Post</v-text>
+                 
+                  <hr style="border-top: 3px solid #ff4500">
                     <v-window>
                     <v-window-item v-for="n in 3" :key="n" :value="n">
                       <v-container fluid>
                         <v-sheet class="mx-auto">
 
-                  <p class="font-weight-bold py-4">Choose a forum to post to:</p>
+                  <p class="font-weight-bold pb-4">Choose a forum to post to:</p>
                           
                           <v-form @submit.prevent="createPost">
                             <v-select 
@@ -26,7 +27,7 @@
                               v-model="selectedForum"
                               return-object
                               ></v-select>
-                            <p class="font-weight-bold py-4">Add a title, post content and an image: </p>
+                            <p class="font-weight-bold py-2">Add a title, post content and an image: </p>
 
                                 <v-text-field 
                                   v-model="post.PostTitle" 
@@ -67,11 +68,29 @@
           </v-sheet>
         </v-col>
 
-        <v-col cols="2">
+        <v-col cols="4">
           <v-sheet rounded="lg">
             <v-list rounded="lg">
-              <v-list-item color="grey-lighten-4" link title="Reddiquette Rules"></v-list-item>
-              <v-divider class="my-2"></v-divider>
+              <div 
+              style="
+              display: flex;
+              flex-direction: row;
+              /* float: left; */
+              /* justify-items: start; */
+              padding-left: 12px;"
+              >
+                <v-img
+                max-width="60"
+                src="https://i.imgur.com/bek3ix4.png"
+                ></v-img>
+                <v-list-item color="grey-lighten-4" link title="Reddiquette Rules"></v-list-item>
+
+              </div>
+              <div style="padding: 0 12px 0 12px">
+                <hr style="border-top: 1px solid #ff4500">
+
+              </div>
+              
               <v-list-item class="text-caption" v-for="(rule, index) in rules" :key="index">
               {{ rule }}
               </v-list-item>
@@ -186,7 +205,7 @@ code {
     color: #616161;
   }
 .custom-padding {
-  padding: 80px 60px;
+  padding: 60px 60px;
 }
 
 .content {
@@ -208,4 +227,5 @@ code {
   color: #333;
   font-weight: bold;
 }
+
 </style>

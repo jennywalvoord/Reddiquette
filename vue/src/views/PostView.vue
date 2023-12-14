@@ -7,7 +7,7 @@
                     <v-sheet 
                     min-height="90vh"
                     rounded="lg"
-                    class="ma-4 pa-4"
+                    class="ma-2 pa-6"
                     >
                     <post-section v-bind:post="findPost"/>
 
