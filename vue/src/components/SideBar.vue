@@ -1,18 +1,24 @@
 <template>
   <v-content>
-    <v-navigation-drawer app permanent location="right">
+    <v-navigation-drawer app permanent location="right" class="pa-4" >
 
-      <v-list-item>
-        <h3>Browse Forums</h3>
+      
+
+      <v-list-item class="pt-6">
+          <h3>Active Forums</h3>
       </v-list-item>
-      <v-list>
-        <v-list-item v-for="forum in activeForums" :key="forum.forumId" v-bind:forums="forum" link><router-link
-            :to="{ name: 'forum-view', params: { id: forum.forumId } }">
-            <v-list-item-content>
-              <v-list-item-title>{{ forum.forumTitle }}</v-list-item-title>
-            </v-list-item-content>
-          </router-link></v-list-item>
-
+      <hr style="border-top: 1px solid #ff4500">      <v-list>
+        <v-list-item
+          v-for="forum in activeForums"
+          :key="forum.forumId"
+          v-bind:forums="forum"
+          link
+        ><router-link :to="{ name: 'forum-view', params: { id: forum.forumId } }">
+          <v-list-item-content>
+            <v-list-item-title class="text-decoration-none">{{ forum.forumTitle }}</v-list-item-title>
+          </v-list-item-content>
+        </router-link></v-list-item>
+        
       </v-list>
 
     </v-navigation-drawer>

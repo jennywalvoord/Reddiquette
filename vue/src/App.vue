@@ -1,27 +1,24 @@
 <template>
-  <v-app class="grey lighten-4">
+  <v-app class="grey lighten-2">
+    
     <v-app-bar app class="px-3 elevation-4" color="grey-lighten-4" height="72">
+      
       <v-app-bar-nav-icon>
         <router-link to="/">
           <v-avatar size="48">
-            <v-img src="./src/assets/Logo_Orange.png" width="100" height="100" />
+            <v-img src="https://i.imgur.com/bek3ix4.png" width="100" height="100" />
           </v-avatar>
         </router-link>
       </v-app-bar-nav-icon>
+
       <v-app-bar-title class="font-weight-bold" :style="{ color: '#ff4500' }">ReddiQuette</v-app-bar-title>
       
-      <!-- Centered search bar -->
-      <!-- <v-row align="center" class="mx-auto">
-        <v-col cols="12">
-          <v-text-field
-            v-model="search"
-            placeholder="Search ReddiQuette"
-            append-icon="mdi-magnify"
-            single-line
-            hide-details
-          ></v-text-field>
-        </v-col>
-      </v-row> -->
+      <create-post-input />
+      <v-spacer></v-spacer>
+      <v-btn href="/">
+        Home
+      </v-btn>
+     
       
       <router-link v-bind:to="{ name: 'home' }">Home</router-link>
       <v-list-item :prepend-avatar="displayAvatar">
@@ -43,6 +40,7 @@
 import ForumService from '../src/services/ForumService';
 import PostService from '../src/services/PostService';
 import CommentService from '../src/services/CommentService';
+import CreatePostInput from '../src/components/CreatePostInput.vue'
 
 export default {
   created() {
@@ -58,10 +56,13 @@ export default {
     this.$store.commit("SET_COMMENTS", response.data);
     }  
     );
+    // const script = document.createElement('script');
+    // script.src = 'https://s3-us-west-2.amazonaws.com/kaboodle/kaboodle.js';
+    // script.type = 'text/javascript';
+    // document.body.appendChild(script);
   }, 
   name: 'App',
-  components: {
-  },
+  components: {CreatePostInput},
   data() {
     return {
 
@@ -98,7 +99,6 @@ export default {
 
 <style>
 
-
 div.nav{
   flex-flow: row;
 }
@@ -109,5 +109,9 @@ input{
 /* .global-padding {
   padding: 80px;
 } */
+#divider-color {
+  color: #ff4500;
+}
+
 </style>
 
