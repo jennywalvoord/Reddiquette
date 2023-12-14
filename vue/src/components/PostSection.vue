@@ -46,6 +46,9 @@
           </template>
         </v-snackbar>
       </v-container>
+      <div class="comments">
+        <Comment v-for="(comment, index) in comments" :key="index" :comment="comment" />
+      </div>
     </v-card>
     <tiptap v-model="commentText" :enableEditing="true" />
     <!-- <v-divider :thickness="4" color="info"></v-divider> -->
@@ -73,6 +76,7 @@ export default {
         commentContent: '',
         dateCreated: currentDate.toISOString(),
         // forumID: this.post.forumId,
+        // forumID: this.post.forumId,
         postID: this.post.postID,
       },
       voteSnackbar: false,
@@ -96,7 +100,11 @@ export default {
         const response = await CommentService.createComment(this.comment);
         if (response.status >= 200 && response.status < 300) {
           this.$router.push({
+<<<<<<< HEAD
             path: `/posts/ ${this.comment.postID}`,
+=======
+            path: `/`,
+>>>>>>> 5285968c165c745562e333d2124135f00dc768f4
             query: { posted: 'success' },
           });
         } else {
@@ -117,6 +125,17 @@ export default {
     updateCommentContent(content) {
       this.comment.commentContent = content;
     },
+<<<<<<< HEAD
+=======
+    async fetchComments(postID) {
+      try {
+        const response = await CommentService.getComments(postID);
+        this.comments = response.data.filter(comment => comment.postID === postID);
+      } catch (error) {
+        console.error('Error fetching comments:', error);
+      }
+    },
+>>>>>>> 5285968c165c745562e333d2124135f00dc768f4
     // getReply(postId){
     //   const reply = this.$store.state.Reply.find((reply) => reply.postId === postId);
     //   return reply ? reply.body : 'No Comments Yet!';
